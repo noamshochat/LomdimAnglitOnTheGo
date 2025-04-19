@@ -292,6 +292,7 @@ const ModalOverlay = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1001;
 `;
 
 const ModalContent = styled.div`
@@ -301,6 +302,7 @@ const ModalContent = styled.div`
   max-width: 80%;
   max-height: 80%;
   overflow: auto;
+  margin-top: 2rem;
 `;
 
 const ModalTitle = styled.h2`

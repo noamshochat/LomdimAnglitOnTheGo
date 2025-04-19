@@ -43,6 +43,23 @@ const StoryTitle = styled.h2`
   }
 `;
 
+const CharacterName = styled.span`
+  display: block;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+  @media (max-width: 768px) {
+    margin-bottom: 0.4rem;
+  }
+  
+  @media (max-width: 480px) {
+    margin-bottom: 0.3rem;
+  }
+`;
+
 const StoryText = styled.p`
   font-size: 1.2rem;
   line-height: 1.6;
@@ -50,6 +67,7 @@ const StoryText = styled.p`
   margin-bottom: 1.5rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  white-space: pre-line;
   
   @media (max-width: 768px) {
     font-size: 1.1rem;
@@ -432,6 +450,27 @@ const StoryTab: React.FC = () => {
     setShowSuggestion(false);
   };
 
+  const formatStoryText = (text: string) => {
+    return text.split('\n').map((line, index) => {
+      if (line.startsWith('Ori:')) {
+        return (
+          <React.Fragment key={index}>
+            <CharacterName>Ori:</CharacterName>
+            <span>{line.substring(4).trim()}</span>
+          </React.Fragment>
+        );
+      } else if (line.startsWith('Ariel:')) {
+        return (
+          <React.Fragment key={index}>
+            <CharacterName>Ariel:</CharacterName>
+            <span>{line.substring(6).trim()}</span>
+          </React.Fragment>
+        );
+      }
+      return <span key={index}>{line}</span>;
+    });
+  };
+
   if (isQuizComplete) {
     const percentage = Math.round((score / currentStory.questions.length) * 100);
     const isHighScore = percentage >= 90;
@@ -494,7 +533,9 @@ const StoryTab: React.FC = () => {
   return (
     <StoryContainer>
       <StoryTitle>{currentStory.title}</StoryTitle>
-      <StoryText>{storyText}</StoryText>
+      <StoryText>
+        {storyText && formatStoryText(storyText)}
+      </StoryText>
       <QuestionContainer ref={questionContainerRef}>
         <QuestionText>{currentQuestion.question}</QuestionText>
         {currentQuestion.options.map((option, index) => (
