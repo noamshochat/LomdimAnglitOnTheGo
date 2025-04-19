@@ -206,6 +206,8 @@ const ScoreContainer = styled.div`
   text-align: center;
   max-width: 500px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1000;
   
   @media (max-width: 768px) {
     padding: 1rem;
@@ -322,6 +324,7 @@ const CelebrationContainer = styled.div`
   height: 100%;
   pointer-events: none;
   z-index: 999;
+  overflow: hidden;
 `;
 
 interface Story {
@@ -345,6 +348,7 @@ const StoryTab: React.FC = () => {
   const [showSuggestion, setShowSuggestion] = useState(false);
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const questionContainerRef = useRef<HTMLDivElement>(null);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   const currentStory = storiesData.stories[currentStoryIndex];
   const currentQuestion = currentStory.questions[currentQuestionIndex];
@@ -402,7 +406,10 @@ const StoryTab: React.FC = () => {
     if (currentQuestionIndex === currentStory.questions.length - 1) {
       setIsQuizComplete(true);
       const percentage = Math.round((score / currentStory.questions.length) * 100);
-      if (percentage < 90) {
+      if (percentage >= 90) {
+        setShowConfetti(true);
+        setTimeout(() => setShowConfetti(false), 5000);
+      } else {
         setShowSuggestion(true);
       }
     } else {
@@ -417,6 +424,8 @@ const StoryTab: React.FC = () => {
     setShowAnswer(false);
     setScore(0);
     setIsQuizComplete(false);
+    setShowConfetti(false);
+    setShowSuggestion(false);
   };
 
   const handleCloseSuggestion = () => {
@@ -429,7 +438,7 @@ const StoryTab: React.FC = () => {
 
     return (
       <StoryContainer>
-        {isHighScore && (
+        {showConfetti && (
           <CelebrationContainer>
             <ReactConfetti
               width={windowSize.width}
@@ -437,6 +446,13 @@ const StoryTab: React.FC = () => {
               recycle={false}
               numberOfPieces={500}
               gravity={0.3}
+              colors={['#FFD700', '#FFA500', '#FF69B4', '#00CED1', '#9370DB']}
+              confettiSource={{
+                x: windowSize.width / 2,
+                y: windowSize.height / 2,
+                w: 0,
+                h: 0
+              }}
             />
           </CelebrationContainer>
         )}
@@ -448,6 +464,11 @@ const StoryTab: React.FC = () => {
           <ScorePercentage>
             {percentage}%
           </ScorePercentage>
+          {isHighScore && (
+            <ScoreText style={{ color: '#27ae60', fontWeight: 'bold' }}>
+              Excellent! 🎉
+            </ScoreText>
+          )}
           <RestartButton onClick={handleRestartQuiz}>
             Take Quiz Again
           </RestartButton>
