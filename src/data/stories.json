@@ -1,0 +1,40 @@
+{
+  "stories": [
+    {
+      "title": "My birthday party",
+      "textFile": "./story.txt",
+      "questions": [
+        {
+          "question": "Who is speaking first in the conversation?",
+          "options": ["Ariel", "Ori", "Sarah", "The teacher"],
+          "correctAnswer": "Ori"
+        },
+        {
+          "question": "How does Ariel respond when asked how is he?",
+          "options": ["I'm great!", "I'm fine, thanks", "I'm not good", "I'm okay"],
+          "correctAnswer": "I'm fine, thanks"
+        },
+        {
+          "question": "What is the relationship between Ori and Ariel?",
+          "options": ["Teacher and student", "Friends", "Siblings", "Strangers"],
+          "correctAnswer": "Friends"
+        },
+        {
+          "question": "How many people are in this conversation?",
+          "options": ["One", "Two", "Three", "Four"],
+          "correctAnswer": "Two"
+        },
+        {
+          "question": "When is the party?",
+          "options": ["Friday", "Saturday", "Sunday", "Monday"],
+          "correctAnswer": "Friday"
+        },
+        {
+          "question": "Where is the party?",
+          "options": ["At the beach", "At the park", "At the school", "At the house"],
+          "correctAnswer": "At the beach"
+        }
+      ]
+    }
+  ]
+} 

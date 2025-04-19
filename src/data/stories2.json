@@ -1,0 +1,15 @@
+{
+  "stories": [
+    {
+      "title": "My birthday party",
+      "textFile": "./story2.txt",
+      "questions": [
+        {
+          "question": "Coming soon....",
+          "options": ["today", "tomorrow", "Some day"],
+          "correctAnswer": "Some day"
+        }
+      ]
+    }
+  ]
+} 

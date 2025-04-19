@@ -1,0 +1,141 @@
+{
+  "categories": [
+    {
+      "name": "Greetings and Common Phrases",
+      "wordPairs": [
+        { "english": "Hello", "hebrew": "שלום" },
+        { "english": "Goodbye", "hebrew": "להתראות" },
+        { "english": "Thank you", "hebrew": "תודה" },
+        { "english": "Please", "hebrew": "בבקשה" },
+        { "english": "Welcome", "hebrew": "ברוך הבא" },
+        { "english": "Good morning", "hebrew": "בוקר טוב" },
+        { "english": "Good night", "hebrew": "לילה טוב" },
+        { "english": "How are you?", "hebrew": "מה שלומך?" },
+        { "english": "I love you", "hebrew": "אני אוהב אותך" },
+        { "english": "Sorry", "hebrew": "סליחה" }
+      ]
+    },
+    {
+      "name": "Days of the Week",
+      "wordPairs": [
+        { "english": "Sunday", "hebrew": "יום ראשון" },
+        { "english": "Monday", "hebrew": "יום שני" },
+        { "english": "Tuesday", "hebrew": "יום שלישי" },
+        { "english": "Wednesday", "hebrew": "יום רביעי" },
+        { "english": "Thursday", "hebrew": "יום חמישי" },
+        { "english": "Friday", "hebrew": "יום שישי" },
+        { "english": "Saturday", "hebrew": "שבת" }
+      ]
+    },
+    {
+      "name": "Time and Dates",
+      "wordPairs": [
+        { "english": "Tomorrow", "hebrew": "מחר" },
+        { "english": "Yesterday", "hebrew": "אתמול" },
+        { "english": "Maybe", "hebrew": "אולי" }
+      ]
+    },
+    {
+      "name": "Places and Institutions",
+      "wordPairs": [
+        { "english": "Town", "hebrew": "עיר" },
+        { "english": "School", "hebrew": "בית ספר" },
+        { "english": "Hospital", "hebrew": "בית חולים" },
+        { "english": "Farm", "hebrew": "חווה" },
+        { "english": "House", "hebrew": "בית" }
+      ]
+    },
+    {
+      "name": "People and Relationships",
+      "wordPairs": [
+        { "english": "Friend", "hebrew": "חבר" },
+        { "english": "Help", "hebrew": "עזרה" },
+        { "english": "People", "hebrew": "אנשים" },
+        { "english": "Doctor", "hebrew": "רופא" }
+      ]
+    },
+    {
+      "name": "Food and Drink",
+      "wordPairs": [
+        { "english": "Water", "hebrew": "מים" },
+        { "english": "Food", "hebrew": "אוכל" },
+        { "english": "Dinner", "hebrew": "ארוחת ערב" }        
+      ]
+    },
+    {
+      "name": "Animals",
+      "wordPairs": [
+        { "english": "Elephant", "hebrew": "פיל" },
+        { "english": "Kitten", "hebrew": "חתלתול" },
+        { "english": "Animal", "hebrew": "חיה" }
+      ]
+    },
+    {
+      "name": "Transportation",
+      "wordPairs": [
+        { "english": "Car", "hebrew": "מכונית" },
+        { "english": "Bike", "hebrew": "אופניים" }
+      ]
+    },
+    {
+      "name": "School and Office",
+      "wordPairs": [
+        { "english": "Book", "hebrew": "ספר" },
+        { "english": "Pen", "hebrew": "עט" }
+      ]
+    },
+    {
+      "name": "Colors",
+      "wordPairs": [
+        { "english": "Red", "hebrew": "אדום" },
+        { "english": "Blue", "hebrew": "כחול" },
+        { "english": "Green", "hebrew": "ירוק" },
+        { "english": "Yellow", "hebrew": "צהוב" },
+        { "english": "Orange", "hebrew": "כתום" },
+        { "english": "Purple", "hebrew": "סגול" },
+        { "english": "Pink", "hebrew": "ורוד" },
+        { "english": "Brown", "hebrew": "חום" },
+        { "english": "Black", "hebrew": "שחור" },
+        { "english": "White", "hebrew": "לבן" },
+        { "english": "Gray", "hebrew": "אפור" },
+        { "english": "Gold", "hebrew": "זהב" },
+        { "english": "Silver", "hebrew": "כסף" }
+      ]
+    },
+    {
+      "name": "Languages",
+      "wordPairs": [
+        { "english": "Arabic", "hebrew": "ערבית" }
+      ]
+    },
+    {
+      "name": "Emotions and States",
+      "wordPairs": [
+        { "english": "Scared", "hebrew": "מפחד" },
+        { "english": "Clean", "hebrew": "נקי" },
+        { "english": "Dirty", "hebrew": "מלוכלך" },
+        { "english": "Smile", "hebrew": "חיוך" },
+        { "english": "Cool", "hebrew": "קר , מגניב (סלנג)" },
+        { "english": "Tired", "hebrew": "עייף" }
+      ]
+    },
+    {
+      "name": "Activities",
+      "wordPairs": [
+        { "english": "Party", "hebrew": "מסיבה" },
+        { "english": "Tricks", "hebrew": "טריקים" }
+      ]
+    },
+    {
+      "name": "Verbs",
+      "wordPairs": [
+        { "english": "Watch", "hebrew": "צופה" },
+        { "english": "Listen", "hebrew": "להקשיב" },
+        { "english": "Wakes up", "hebrew": "מתעורר" },
+        { "english": "With", "hebrew": "עם" },
+        { "english": "Thirsty", "hebrew": "צמא" },
+        { "english": "Hungry", "hebrew": "רעב" }
+      ]
+    }
+  ]
+}
