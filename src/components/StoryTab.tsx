@@ -3,141 +3,197 @@ import styled from 'styled-components';
 import storiesData from '../data/stories.json';
 
 const StoryContainer = styled.div`
+  background-color: white;
+  border-radius: 15px;
   padding: 1.5rem;
-  max-width: 800px;
-  margin: 0 auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 1rem;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
   
   @media (max-width: 768px) {
     padding: 1rem;
+    margin: 0.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.8rem;
+    margin: 0.3rem;
   }
 `;
 
 const StoryTitle = styled.h2`
-  color: #2c3e50;
-  text-align: center;
-  margin-bottom: 1.5rem;
   font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   
   @media (max-width: 768px) {
     font-size: 1.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.3rem;
+    margin-bottom: 0.6rem;
   }
 `;
 
-const StoryText = styled.div`
-  background: white;
-  padding: 1.5rem;
-  border-radius: 15px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 1.5rem;
+const StoryText = styled.p`
+  font-size: 1.2rem;
   line-height: 1.6;
-  font-size: 1.1rem;
-  color: #2c3e50;
-  white-space: pre-line;
+  color: #34495e;
+  margin-bottom: 1.5rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   
   @media (max-width: 768px) {
-    padding: 1rem;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin-bottom: 1.2rem;
+  }
+  
+  @media (max-width: 480px) {
     font-size: 1rem;
+    line-height: 1.4;
     margin-bottom: 1rem;
   }
 `;
 
 const QuestionContainer = styled.div`
-  background: white;
-  padding: 1.5rem;
-  border-radius: 15px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  -webkit-tap-highlight-color: transparent;
   
   @media (max-width: 768px) {
-    padding: 1rem;
-    margin-bottom: 1rem;
+    margin-top: 1.2rem;
+    padding: 0.8rem;
+  }
+  
+  @media (max-width: 480px) {
+    margin-top: 1rem;
+    padding: 0.6rem;
   }
 `;
 
 const QuestionText = styled.h3`
-  color: #2c3e50;
-  margin-bottom: 1.5rem;
   font-size: 1.3rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   
   @media (max-width: 768px) {
     font-size: 1.1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1rem;
+    margin-bottom: 0.6rem;
   }
 `;
 
-const OptionButton = styled.button<{ isSelected: boolean; isCorrect?: boolean; showAnswer: boolean }>`
+const OptionButton = styled.button<{ isSelected?: boolean }>`
   display: block;
   width: 100%;
   padding: 0.8rem;
   margin-bottom: 0.8rem;
-  border: 2px solid ${props => {
-    if (!props.showAnswer) return '#e0e0e0';
-    if (props.isCorrect) return '#4CAF50';
-    if (props.isSelected && !props.isCorrect) return '#f44336';
-    return '#e0e0e0';
-  }};
+  background-color: ${props => props.isSelected ? '#3498db' : '#ecf0f1'};
+  color: ${props => props.isSelected ? 'white' : '#2c3e50'};
+  border: none;
   border-radius: 8px;
-  background-color: ${props => {
-    if (!props.showAnswer) return 'white';
-    if (props.isCorrect) return '#E8F5E9';
-    if (props.isSelected && !props.isCorrect) return '#FFEBEE';
-    return 'white';
-  }};
-  color: #2c3e50;
-  font-size: 1rem;
+  font-size: 1.1rem;
   cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: left;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+  
+  &:hover {
+    background-color: ${props => props.isSelected ? '#2980b9' : '#d6dbdf'};
+  }
+  
+  &:active {
+    transform: scale(0.98);
+  }
   
   @media (max-width: 768px) {
     padding: 0.7rem;
-    margin-bottom: 0.7rem;
-    font-size: 0.9rem;
+    font-size: 1rem;
+    margin-bottom: 0.6rem;
   }
-
-  &:hover {
-    background-color: ${props => !props.showAnswer ? '#f5f5f5' : 'inherit'};
+  
+  @media (max-width: 480px) {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
   }
 `;
 
-const Feedback = styled.div<{ isCorrect: boolean }>`
-  margin-top: 0.8rem;
+const Feedback = styled.div<{ isCorrect?: boolean }>`
+  margin-top: 1rem;
   padding: 0.8rem;
+  background-color: ${props => props.isCorrect ? '#d4edda' : '#f8d7da'};
+  color: ${props => props.isCorrect ? '#155724' : '#721c24'};
   border-radius: 8px;
-  background-color: ${props => props.isCorrect ? '#E8F5E9' : '#FFEBEE'};
-  color: ${props => props.isCorrect ? '#2E7D32' : '#C62828'};
-  font-weight: 500;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   
   @media (max-width: 768px) {
-    margin-top: 0.7rem;
+    margin-top: 0.8rem;
     padding: 0.7rem;
-    font-size: 0.8rem;
+    font-size: 1rem;
+  }
+  
+  @media (max-width: 480px) {
+    margin-top: 0.6rem;
+    padding: 0.6rem;
+    font-size: 0.9rem;
   }
 `;
 
 const NextButton = styled.button`
   display: block;
-  margin: 1.5rem auto;
-  padding: 0.8rem 1.5rem;
-  background-color: #2c3e50;
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: 1rem;
+  background-color: #2ecc71;
   color: white;
   border: none;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 1.1rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+  
+  &:hover {
+    background-color: #27ae60;
+  }
+  
+  &:active {
+    transform: scale(0.98);
+  }
   
   @media (max-width: 768px) {
-    margin: 1rem auto;
-    padding: 0.7rem 1.2rem;
-    font-size: 0.9rem;
+    padding: 0.7rem;
+    font-size: 1rem;
+    margin-top: 0.8rem;
   }
-
-  &:hover {
-    background-color: #1a252f;
-    transform: translateY(-2px);
+  
+  @media (max-width: 480px) {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+    margin-top: 0.6rem;
   }
 `;
 
@@ -301,8 +357,6 @@ const StoryTab: React.FC = () => {
           <OptionButton
             key={index}
             isSelected={selectedAnswer === option}
-            isCorrect={option === currentQuestion.correctAnswer}
-            showAnswer={showAnswer}
             onClick={() => handleAnswerSelect(option)}
           >
             {option}
