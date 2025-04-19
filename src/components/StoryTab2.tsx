@@ -79,19 +79,38 @@ const Feedback = styled.div<{ isCorrect: boolean }>`
 
 const NextButton = styled.button`
   display: block;
-  margin: 2rem auto;
-  padding: 1rem 2rem;
-  background-color: #2c3e50;
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: 1rem;
+  background-color: #2ecc71;
   color: white;
   border: none;
   border-radius: 8px;
   font-size: 1.1rem;
   cursor: pointer;
-  transition: all 0.3s ease;
-
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+  
   &:hover {
-    background-color: #1a252f;
-    transform: translateY(-2px);
+    background-color: #27ae60;
+  }
+  
+  &:active {
+    transform: scale(0.98);
+  }
+  
+  @media (max-width: 768px) {
+    padding: 0.7rem;
+    font-size: 1rem;
+    margin-top: 0.8rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+    margin-top: 0.6rem;
   }
 `;
 

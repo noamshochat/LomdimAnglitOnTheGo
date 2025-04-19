@@ -130,25 +130,38 @@ const Feedback = styled.div<{ $isCorrect: boolean }>`
 
 const NextButton = styled.button`
   display: block;
-  margin: 1.5rem auto;
-  padding: 0.8rem 1.5rem;
-  background-color: #2c3e50;
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: 1rem;
+  background-color: #2ecc71;
   color: white;
   border: none;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 1.1rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+  
+  &:hover {
+    background-color: #27ae60;
+  }
+  
+  &:active {
+    transform: scale(0.98);
+  }
   
   @media (max-width: 768px) {
-    margin: 1rem auto;
-    padding: 0.7rem 1.2rem;
-    font-size: 0.9rem;
+    padding: 0.7rem;
+    font-size: 1rem;
+    margin-top: 0.8rem;
   }
-
-  &:hover {
-    background-color: #1a252f;
-    transform: translateY(-2px);
+  
+  @media (max-width: 480px) {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+    margin-top: 0.6rem;
   }
 `;
 
@@ -407,6 +420,45 @@ const ExamTab: React.FC = () => {
     }
   ];
 
+  const perfectScorePatterns = [
+    // Golden Fireworks
+    {
+      particleCount: 300,
+      spread: 70,
+      origin: { y: 0.6 },
+      startVelocity: 65,
+      decay: 0.92,
+      gravity: 1.1,
+      drift: 0.1,
+      ticks: 200,
+      colors: ['#FFD700', '#FFA500', '#FFE5B4']
+    },
+    // Rainbow Burst
+    {
+      particleCount: 400,
+      spread: 90,
+      origin: { y: 0.6 },
+      startVelocity: 70,
+      decay: 0.91,
+      gravity: 1.2,
+      drift: 0.2,
+      ticks: 200,
+      colors: ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF']
+    },
+    // Star Burst
+    {
+      particleCount: 350,
+      spread: 80,
+      origin: { y: 0.6 },
+      startVelocity: 60,
+      decay: 0.93,
+      gravity: 1.05,
+      drift: 0.15,
+      ticks: 200,
+      colors: ['#FFFFFF', '#FFD700', '#FFA500']
+    }
+  ];
+
   useEffect(() => {
     const handleResize = () => {
       setWindowSize({
@@ -486,25 +538,31 @@ const ExamTab: React.FC = () => {
 
   const triggerConfetti = () => {
     if (confettiRef.current) {
-      // Trigger multiple fireworks in sequence
-      const randomPatterns = [
-        celebrationPatterns[Math.floor(Math.random() * celebrationPatterns.length)],
-        celebrationPatterns[Math.floor(Math.random() * celebrationPatterns.length)],
-        celebrationPatterns[Math.floor(Math.random() * celebrationPatterns.length)]
-      ];
+      const percentage = Math.round((score / allQuestions.length) * 100);
+      
+      if (percentage === 100) {
+        // Special celebration for perfect score
+        perfectScorePatterns.forEach((pattern, index) => {
+          setTimeout(() => {
+            confettiRef.current?.(pattern);
+          }, index * 500); // Fire each pattern with a 500ms delay
+        });
+      } else if (percentage >= 90) {
+        // Regular celebration for scores >= 90%
+        const randomPatterns = [
+          celebrationPatterns[Math.floor(Math.random() * celebrationPatterns.length)],
+          celebrationPatterns[Math.floor(Math.random() * celebrationPatterns.length)],
+          celebrationPatterns[Math.floor(Math.random() * celebrationPatterns.length)]
+        ];
 
-      // Fire the first firework
-      confettiRef.current(randomPatterns[0]);
-
-      // Fire the second firework after a short delay
-      setTimeout(() => {
-        confettiRef.current?.(randomPatterns[1]);
-      }, 300);
-
-      // Fire the third firework after another delay
-      setTimeout(() => {
-        confettiRef.current?.(randomPatterns[2]);
-      }, 600);
+        confettiRef.current(randomPatterns[0]);
+        setTimeout(() => {
+          confettiRef.current?.(randomPatterns[1]);
+        }, 300);
+        setTimeout(() => {
+          confettiRef.current?.(randomPatterns[2]);
+        }, 600);
+      }
     }
   };
 
@@ -513,12 +571,7 @@ const ExamTab: React.FC = () => {
     setShowAnswer(false);
     if (currentQuestionIndex === allQuestions.length - 1) {
       setIsQuizComplete(true);
-      const percentage = Math.round((score / allQuestions.length) * 100);
-      if (percentage >= 90) {
-        triggerConfetti();
-      } else {
-        setShowSuggestion(true);
-      }
+      triggerConfetti();
     } else {
       setCurrentQuestionIndex(prev => prev + 1);
     }
@@ -549,6 +602,7 @@ const ExamTab: React.FC = () => {
   if (isQuizComplete) {
     const percentage = Math.round((score / allQuestions.length) * 100);
     const isHighScore = percentage >= 90;
+    const isPerfectScore = percentage === 100;
 
     return (
       <ExamContainer>
@@ -561,7 +615,12 @@ const ExamTab: React.FC = () => {
           <ScorePercentage>
             {percentage}%
           </ScorePercentage>
-          {isHighScore && (
+          {isPerfectScore && (
+            <ScoreText style={{ color: '#FFD700', fontWeight: 'bold', fontSize: '1.4rem' }}>
+              Perfect Score! 🌟
+            </ScoreText>
+          )}
+          {isHighScore && !isPerfectScore && (
             <ScoreText style={{ color: '#27ae60', fontWeight: 'bold' }}>
               Excellent! 🎉
             </ScoreText>
