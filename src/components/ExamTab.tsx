@@ -3,23 +3,38 @@ import styled from 'styled-components';
 import words from '../data/words.json';
 
 const ExamContainer = styled.div`
-  padding: 2rem;
+  padding: 1.5rem;
   max-width: 800px;
   margin: 0 auto;
+  
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 `;
 
 const ExamTitle = styled.h2`
   color: #2c3e50;
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
 `;
 
 const QuestionContainer = styled.div`
   background: white;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  
+  @media (max-width: 768px) {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
 `;
 
 const QuestionText = styled.h3`
@@ -28,6 +43,15 @@ const QuestionText = styled.h3`
   display: flex;
   align-items: center;
   gap: 1rem;
+  font-size: 1.3rem;
+  
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
 `;
 
 const VoiceButton = styled.button`
@@ -35,12 +59,16 @@ const VoiceButton = styled.button`
   border: none;
   cursor: pointer;
   color: #2c3e50;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: transform 0.2s ease;
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
 
   &:hover {
     transform: scale(1.1);
@@ -50,8 +78,8 @@ const VoiceButton = styled.button`
 const OptionButton = styled.button<{ $isSelected: boolean; $isCorrect?: boolean; $showAnswer: boolean }>`
   display: block;
   width: 100%;
-  padding: 1rem;
-  margin-bottom: 1rem;
+  padding: 0.8rem;
+  margin-bottom: 0.8rem;
   border: 2px solid ${props => {
     if (!props.$showAnswer) return '#e0e0e0';
     if (props.$isCorrect) return '#4CAF50';
@@ -66,10 +94,16 @@ const OptionButton = styled.button<{ $isSelected: boolean; $isCorrect?: boolean;
     return 'white';
   }};
   color: #2c3e50;
-  font-size: 1.1rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: left;
+  
+  @media (max-width: 768px) {
+    padding: 0.7rem;
+    margin-bottom: 0.7rem;
+    font-size: 0.9rem;
+  }
 
   &:hover {
     background-color: ${props => !props.$showAnswer ? '#f5f5f5' : 'inherit'};
@@ -77,25 +111,38 @@ const OptionButton = styled.button<{ $isSelected: boolean; $isCorrect?: boolean;
 `;
 
 const Feedback = styled.div<{ $isCorrect: boolean }>`
-  margin-top: 1rem;
-  padding: 1rem;
+  margin-top: 0.8rem;
+  padding: 0.8rem;
   border-radius: 8px;
   background-color: ${props => props.$isCorrect ? '#E8F5E9' : '#FFEBEE'};
   color: ${props => props.$isCorrect ? '#2E7D32' : '#C62828'};
   font-weight: 500;
+  font-size: 0.9rem;
+  
+  @media (max-width: 768px) {
+    margin-top: 0.7rem;
+    padding: 0.7rem;
+    font-size: 0.8rem;
+  }
 `;
 
 const NextButton = styled.button`
   display: block;
-  margin: 2rem auto;
-  padding: 1rem 2rem;
+  margin: 1.5rem auto;
+  padding: 0.8rem 1.5rem;
   background-color: #2c3e50;
   color: white;
   border: none;
   border-radius: 8px;
-  font-size: 1.1rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  
+  @media (max-width: 768px) {
+    margin: 1rem auto;
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
+  }
 
   &:hover {
     background-color: #1a252f;
@@ -105,41 +152,63 @@ const NextButton = styled.button`
 
 const ScoreContainer = styled.div`
   background: white;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
   max-width: 500px;
   margin: 0 auto;
+  
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 `;
 
 const ScoreTitle = styled.h2`
   color: #2c3e50;
   margin-bottom: 1rem;
+  font-size: 1.5rem;
+  
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+  }
 `;
 
 const ScoreText = styled.p`
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: #2c3e50;
   margin-bottom: 1rem;
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
 `;
 
 const ScorePercentage = styled.p`
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: bold;
   color: #2c3e50;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+  }
 `;
 
 const RestartButton = styled.button`
-  padding: 1rem 2rem;
+  padding: 0.8rem 1.5rem;
   background-color: #2c3e50;
   color: white;
   border: none;
   border-radius: 8px;
-  font-size: 1.1rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  
+  @media (max-width: 768px) {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
+  }
 
   &:hover {
     background-color: #1a252f;
@@ -150,21 +219,35 @@ const RestartButton = styled.button`
 const Title = styled.h1`
   color: #2c3e50;
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  
+  @media (max-width: 768px) {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
 `;
 
 const ProgressContainer = styled.div`
-  margin: 1rem 0 2rem;
+  margin: 1rem 0 1.5rem;
   width: 100%;
+  
+  @media (max-width: 768px) {
+    margin: 0.8rem 0 1.2rem;
+  }
 `;
 
 const ProgressBar = styled.div<{ $progress: number }>`
   width: 100%;
-  height: 10px;
+  height: 8px;
   background-color: #e0e0e0;
-  border-radius: 5px;
+  border-radius: 4px;
   overflow: hidden;
   margin-bottom: 0.5rem;
+  
+  @media (max-width: 768px) {
+    height: 6px;
+  }
 `;
 
 const ProgressFill = styled.div<{ $progress: number }>`
@@ -178,6 +261,10 @@ const ProgressText = styled.div`
   text-align: right;
   color: #666;
   font-size: 0.9rem;
+  
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+  }
 `;
 
 const ExamTab: React.FC = () => {

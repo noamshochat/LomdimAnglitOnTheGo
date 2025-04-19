@@ -3,47 +3,74 @@ import styled from 'styled-components';
 import storiesData from '../data/stories.json';
 
 const StoryContainer = styled.div`
-  padding: 2rem;
+  padding: 1.5rem;
   max-width: 800px;
   margin: 0 auto;
+  
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 `;
 
 const StoryTitle = styled.h2`
   color: #2c3e50;
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
 `;
 
 const StoryText = styled.div`
   background: white;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   line-height: 1.6;
   font-size: 1.1rem;
   color: #2c3e50;
   white-space: pre-line;
+  
+  @media (max-width: 768px) {
+    padding: 1rem;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
 `;
 
 const QuestionContainer = styled.div`
   background: white;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  
+  @media (max-width: 768px) {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
 `;
 
 const QuestionText = styled.h3`
   color: #2c3e50;
   margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+  
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
 `;
 
 const OptionButton = styled.button<{ isSelected: boolean; isCorrect?: boolean; showAnswer: boolean }>`
   display: block;
   width: 100%;
-  padding: 1rem;
-  margin-bottom: 1rem;
+  padding: 0.8rem;
+  margin-bottom: 0.8rem;
   border: 2px solid ${props => {
     if (!props.showAnswer) return '#e0e0e0';
     if (props.isCorrect) return '#4CAF50';
@@ -58,10 +85,16 @@ const OptionButton = styled.button<{ isSelected: boolean; isCorrect?: boolean; s
     return 'white';
   }};
   color: #2c3e50;
-  font-size: 1.1rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: left;
+  
+  @media (max-width: 768px) {
+    padding: 0.7rem;
+    margin-bottom: 0.7rem;
+    font-size: 0.9rem;
+  }
 
   &:hover {
     background-color: ${props => !props.showAnswer ? '#f5f5f5' : 'inherit'};
@@ -69,25 +102,38 @@ const OptionButton = styled.button<{ isSelected: boolean; isCorrect?: boolean; s
 `;
 
 const Feedback = styled.div<{ isCorrect: boolean }>`
-  margin-top: 1rem;
-  padding: 1rem;
+  margin-top: 0.8rem;
+  padding: 0.8rem;
   border-radius: 8px;
   background-color: ${props => props.isCorrect ? '#E8F5E9' : '#FFEBEE'};
   color: ${props => props.isCorrect ? '#2E7D32' : '#C62828'};
   font-weight: 500;
+  font-size: 0.9rem;
+  
+  @media (max-width: 768px) {
+    margin-top: 0.7rem;
+    padding: 0.7rem;
+    font-size: 0.8rem;
+  }
 `;
 
 const NextButton = styled.button`
   display: block;
-  margin: 2rem auto;
-  padding: 1rem 2rem;
+  margin: 1.5rem auto;
+  padding: 0.8rem 1.5rem;
   background-color: #2c3e50;
   color: white;
   border: none;
   border-radius: 8px;
-  font-size: 1.1rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  
+  @media (max-width: 768px) {
+    margin: 1rem auto;
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
+  }
 
   &:hover {
     background-color: #1a252f;
@@ -97,41 +143,63 @@ const NextButton = styled.button`
 
 const ScoreContainer = styled.div`
   background: white;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
   max-width: 500px;
   margin: 0 auto;
+  
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 `;
 
 const ScoreTitle = styled.h2`
   color: #2c3e50;
   margin-bottom: 1rem;
+  font-size: 1.5rem;
+  
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+  }
 `;
 
 const ScoreText = styled.p`
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: #2c3e50;
   margin-bottom: 1rem;
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
 `;
 
 const ScorePercentage = styled.p`
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: bold;
   color: #2c3e50;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+  }
 `;
 
 const RestartButton = styled.button`
-  padding: 1rem 2rem;
+  padding: 0.8rem 1.5rem;
   background-color: #2c3e50;
   color: white;
   border: none;
   border-radius: 8px;
-  font-size: 1.1rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  
+  @media (max-width: 768px) {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
+  }
 
   &:hover {
     background-color: #1a252f;

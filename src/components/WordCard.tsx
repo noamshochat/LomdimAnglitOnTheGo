@@ -9,17 +9,23 @@ interface WordCardProps {
 const Card = styled.div`
   background-color: white;
   border-radius: 15px;
-  padding: 2rem;
+  padding: 1.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  min-height: 150px;
+  min-height: 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   position: relative;
+  margin: 0.5rem;
+  
+  @media (max-width: 768px) {
+    padding: 1rem;
+    min-height: 100px;
+  }
   
   &:hover {
     transform: translateY(-5px);
@@ -28,11 +34,15 @@ const Card = styled.div`
 `;
 
 const Text = styled.div<{ isHebrew?: boolean }>`
-  font-size: ${props => props.isHebrew ? '2rem' : '1.8rem'};
+  font-size: ${props => props.isHebrew ? '1.8rem' : '1.6rem'};
   color: #2c3e50;
   font-weight: 500;
   direction: ${props => props.isHebrew ? 'rtl' : 'ltr'};
   margin-bottom: 1rem;
+  
+  @media (max-width: 768px) {
+    font-size: ${props => props.isHebrew ? '1.5rem' : '1.3rem'};
+  }
 `;
 
 const SpeakerButton = styled.button`
@@ -43,7 +53,7 @@ const SpeakerButton = styled.button`
   color: #2c3e50;
   opacity: 0.7;
   transition: opacity 0.2s ease;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   display: ${props => props.hidden ? 'none' : 'flex'};
   align-items: center;
   justify-content: center;
@@ -54,6 +64,11 @@ const SpeakerButton = styled.button`
 
   &:focus {
     outline: none;
+  }
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    padding: 6px;
   }
 `;
 
