@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import storiesData from '../data/stories.json';
 
@@ -281,6 +281,7 @@ const StoryTab: React.FC = () => {
   const [score, setScore] = useState(0);
   const [isQuizComplete, setIsQuizComplete] = useState(false);
   const [storyText, setStoryText] = useState<string>('');
+  const questionContainerRef = useRef<HTMLDivElement>(null);
 
   const currentStory = storiesData.stories[currentStoryIndex];
   const currentQuestion = currentStory.questions[currentQuestionIndex];
@@ -299,6 +300,15 @@ const StoryTab: React.FC = () => {
     loadStoryText();
   }, [currentStoryIndex]);
 
+  const scrollToQuestion = () => {
+    if (questionContainerRef.current) {
+      questionContainerRef.current.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   const handleAnswerSelect = (answer: string) => {
     if (!showAnswer) {
       setSelectedAnswer(answer);
@@ -306,6 +316,7 @@ const StoryTab: React.FC = () => {
       if (answer === currentQuestion.correctAnswer) {
         setScore(prevScore => prevScore + 1);
       }
+      setTimeout(scrollToQuestion, 300);
     }
   };
 
@@ -316,6 +327,7 @@ const StoryTab: React.FC = () => {
       setIsQuizComplete(true);
     } else {
       setCurrentQuestionIndex(prev => prev + 1);
+      setTimeout(scrollToQuestion, 100);
     }
   };
 
@@ -351,7 +363,7 @@ const StoryTab: React.FC = () => {
     <StoryContainer>
       <StoryTitle>{currentStory.title}</StoryTitle>
       <StoryText>{storyText}</StoryText>
-      <QuestionContainer>
+      <QuestionContainer ref={questionContainerRef}>
         <QuestionText>{currentQuestion.question}</QuestionText>
         {currentQuestion.options.map((option, index) => (
           <OptionButton
