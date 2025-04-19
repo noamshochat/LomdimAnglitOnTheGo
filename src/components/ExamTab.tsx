@@ -343,49 +343,65 @@ const ExamTab: React.FC = () => {
   const confettiRef = useRef<CreateTypes>();
 
   const celebrationPatterns = [
-    {
-      particleCount: 100,
-      spread: 70,
-      origin: { y: 0.6 }
-    },
-    {
-      particleCount: 150,
-      spread: 90,
-      origin: { y: 0.6 },
-      colors: ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff']
-    },
+    // Firework 1 - Classic Red and Gold
     {
       particleCount: 200,
-      spread: 50,
+      spread: 70,
       origin: { y: 0.6 },
       startVelocity: 55,
       decay: 0.9,
       gravity: 1,
       drift: 0,
       ticks: 200,
-      colors: ['#ffffff', '#ff0000']
+      colors: ['#ff0000', '#ffd700', '#ff4500']
     },
-    {
-      particleCount: 300,
-      spread: 100,
-      origin: { y: 0.6 },
-      startVelocity: 30,
-      decay: 0.92,
-      gravity: 1.2,
-      drift: 0.3,
-      ticks: 200,
-      colors: ['#ff0000', '#00ff00', '#0000ff']
-    },
+    // Firework 2 - Blue and Silver
     {
       particleCount: 250,
       spread: 60,
       origin: { y: 0.6 },
-      startVelocity: 45,
-      decay: 0.9,
-      gravity: 1,
-      drift: 0,
+      startVelocity: 60,
+      decay: 0.92,
+      gravity: 1.1,
+      drift: 0.1,
+      ticks: 200,
+      colors: ['#0000ff', '#87ceeb', '#ffffff']
+    },
+    // Firework 3 - Rainbow Burst
+    {
+      particleCount: 300,
+      spread: 90,
+      origin: { y: 0.6 },
+      startVelocity: 65,
+      decay: 0.91,
+      gravity: 1.2,
+      drift: 0.2,
       ticks: 200,
       colors: ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff']
+    },
+    // Firework 4 - Purple and Pink
+    {
+      particleCount: 180,
+      spread: 80,
+      origin: { y: 0.6 },
+      startVelocity: 50,
+      decay: 0.93,
+      gravity: 0.9,
+      drift: 0.15,
+      ticks: 200,
+      colors: ['#800080', '#ff69b4', '#ff1493']
+    },
+    // Firework 5 - Green and Gold
+    {
+      particleCount: 220,
+      spread: 75,
+      origin: { y: 0.6 },
+      startVelocity: 58,
+      decay: 0.89,
+      gravity: 1.05,
+      drift: 0.1,
+      ticks: 200,
+      colors: ['#008000', '#ffd700', '#90ee90']
     }
   ];
 
@@ -468,8 +484,25 @@ const ExamTab: React.FC = () => {
 
   const triggerConfetti = () => {
     if (confettiRef.current) {
-      const randomPattern = celebrationPatterns[Math.floor(Math.random() * celebrationPatterns.length)];
-      confettiRef.current(randomPattern);
+      // Trigger multiple fireworks in sequence
+      const randomPatterns = [
+        celebrationPatterns[Math.floor(Math.random() * celebrationPatterns.length)],
+        celebrationPatterns[Math.floor(Math.random() * celebrationPatterns.length)],
+        celebrationPatterns[Math.floor(Math.random() * celebrationPatterns.length)]
+      ];
+
+      // Fire the first firework
+      confettiRef.current(randomPatterns[0]);
+
+      // Fire the second firework after a short delay
+      setTimeout(() => {
+        confettiRef.current?.(randomPatterns[1]);
+      }, 300);
+
+      // Fire the third firework after another delay
+      setTimeout(() => {
+        confettiRef.current?.(randomPatterns[2]);
+      }, 600);
     }
   };
 
