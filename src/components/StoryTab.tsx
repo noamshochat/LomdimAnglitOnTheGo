@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import ReactConfetti from 'react-confetti';
 import storiesData from '../data/stories.json';
 
 const StoryContainer = styled.div`
@@ -263,6 +264,66 @@ const RestartButton = styled.button`
   }
 `;
 
+const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+`;
+
+const ModalContent = styled.div`
+  background-color: white;
+  padding: 2rem;
+  border-radius: 15px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+`;
+
+const ModalTitle = styled.h3`
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+`;
+
+const ModalText = styled.p`
+  color: #34495e;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+`;
+
+const ModalButton = styled.button`
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  
+  &:hover {
+    background-color: #2980b9;
+  }
+`;
+
+const CelebrationContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 999;
+`;
+
 interface Story {
   title: string;
   textFile: string;
@@ -281,6 +342,8 @@ const StoryTab: React.FC = () => {
   const [score, setScore] = useState(0);
   const [isQuizComplete, setIsQuizComplete] = useState(false);
   const [storyText, setStoryText] = useState<string>('');
+  const [showSuggestion, setShowSuggestion] = useState(false);
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const questionContainerRef = useRef<HTMLDivElement>(null);
 
   const currentStory = storiesData.stories[currentStoryIndex];
@@ -299,6 +362,19 @@ const StoryTab: React.FC = () => {
 
     loadStoryText();
   }, [currentStoryIndex]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const scrollToQuestion = () => {
     if (questionContainerRef.current) {
@@ -325,6 +401,10 @@ const StoryTab: React.FC = () => {
     setShowAnswer(false);
     if (currentQuestionIndex === currentStory.questions.length - 1) {
       setIsQuizComplete(true);
+      const percentage = Math.round((score / currentStory.questions.length) * 100);
+      if (percentage < 90) {
+        setShowSuggestion(true);
+      }
     } else {
       setCurrentQuestionIndex(prev => prev + 1);
       setTimeout(scrollToQuestion, 100);
@@ -339,10 +419,27 @@ const StoryTab: React.FC = () => {
     setIsQuizComplete(false);
   };
 
+  const handleCloseSuggestion = () => {
+    setShowSuggestion(false);
+  };
+
   if (isQuizComplete) {
     const percentage = Math.round((score / currentStory.questions.length) * 100);
+    const isHighScore = percentage >= 90;
+
     return (
       <StoryContainer>
+        {isHighScore && (
+          <CelebrationContainer>
+            <ReactConfetti
+              width={windowSize.width}
+              height={windowSize.height}
+              recycle={false}
+              numberOfPieces={500}
+              gravity={0.3}
+            />
+          </CelebrationContainer>
+        )}
         <ScoreContainer>
           <ScoreTitle>Quiz Complete!</ScoreTitle>
           <ScoreText>
@@ -355,6 +452,20 @@ const StoryTab: React.FC = () => {
             Take Quiz Again
           </RestartButton>
         </ScoreContainer>
+
+        {showSuggestion && (
+          <ModalOverlay>
+            <ModalContent>
+              <ModalTitle>Keep Practicing!</ModalTitle>
+              <ModalText>
+                Your score is below 90%. Consider reviewing the words in the Words tab before trying the quiz again.
+              </ModalText>
+              <ModalButton onClick={handleCloseSuggestion}>
+                Close
+              </ModalButton>
+            </ModalContent>
+          </ModalOverlay>
+        )}
       </StoryContainer>
     );
   }
