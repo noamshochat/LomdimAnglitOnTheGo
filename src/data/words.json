@@ -59,7 +59,7 @@
       "wordPairs": [
         { "english": "Water", "hebrew": "מים" },
         { "english": "Food", "hebrew": "אוכל" },
-        { "english": "Dinner", "hebrew": "ארוחת ערב" }        
+        { "english": "Dinner", "hebrew": "ארוחת ערב" }
       ]
     },
     {
@@ -67,21 +67,27 @@
       "wordPairs": [
         { "english": "Elephant", "hebrew": "פיל" },
         { "english": "Kitten", "hebrew": "חתלתול" },
-        { "english": "Animal", "hebrew": "חיה" }
+        { "english": "Animal", "hebrew": "חיה" },
+        { "english": "Bear", "hebrew": "דוב" },
+        { "english": "Tiger", "hebrew": "טיגריס" }
       ]
     },
     {
       "name": "Transportation",
       "wordPairs": [
         { "english": "Car", "hebrew": "מכונית" },
-        { "english": "Bike", "hebrew": "אופניים" }
+        { "english": "Bike", "hebrew": "אופניים" },
+        { "english": "Trolley", "hebrew": "עגלה" },
+        { "english": "Motor", "hebrew": "מנוע" },
+        { "english": "Driver", "hebrew": "נהג" }
       ]
     },
     {
       "name": "School and Office",
       "wordPairs": [
         { "english": "Book", "hebrew": "ספר" },
-        { "english": "Pen", "hebrew": "עט" }
+        { "english": "Pen", "hebrew": "עט" },
+        { "english": "Paper", "hebrew": "נייר" }
       ]
     },
     {
@@ -116,7 +122,8 @@
         { "english": "Dirty", "hebrew": "מלוכלך" },
         { "english": "Smile", "hebrew": "חיוך" },
         { "english": "Cool", "hebrew": "קר , מגניב (סלנג)" },
-        { "english": "Tired", "hebrew": "עייף" }
+        { "english": "Tired", "hebrew": "עייף" },
+        { "english": "Tear", "hebrew": "דמעה" }
       ]
     },
     {
@@ -146,12 +153,12 @@
         { "english": "What time is it?", "hebrew": "מה השעה?" },
         { "english": "Its three o`clock", "hebrew": "השעה שלוש" },
         { "english": "Its half past two", "hebrew": "השעה שתיים וחצי" },
-        { "english": "I wake up at seven o`clock", "hebrew": "אני מתעורר בשעה שבע"},
+        { "english": "I wake up at seven o`clock", "hebrew": "אני מתעורר בשעה שבע" },
         { "english": "I eat dinner at half past six", "hebrew": "אני אוכל ארוחת ערב בשעה שש וחצי" },
         { "english": "What are you good at?", "hebrew": "במה אתה טוב ?" },
         { "english": "I am good at Arabic", "hebrew": "אני טוב בערבית" },
         { "english": "I have a test in Hebrew", "hebrew": "יש לי מבחן בעברית" },
-        { "english": "Look at my new tricks", "hebrew": "ראה את הטריקים החדשים שלי"},
+        { "english": "Look at my new tricks", "hebrew": "ראה את הטריקים החדשים שלי" },
         { "english": "Please tell me your name", "hebrew": "בבקשה אמור לי את שמך" },
         { "english": "Come to my birthday party", "hebrew": "בוא למסיבת יום ההולדת שלי" },
         { "english": "What can I bring?", "hebrew": "מה אני יכול להביא?" },
@@ -159,7 +166,61 @@
         { "english": "I don't know", "hebrew": "אני לא יודע" },
         { "english": "Let's play with the kitten", "hebrew": "בוא נשחק עם החתלתול" },
         { "english": "Good idea", "hebrew": "רעיון טוב" }
-
+      ]
+    },
+    {
+      "name": "Objects",
+      "wordPairs": [
+        { "english": "Apple", "hebrew": "תפוח" },
+        { "english": "Table", "hebrew": "שולחן" },
+        { "english": "Bottle", "hebrew": "בקבוק" },
+        { "english": "Chair", "hebrew": "כיסא" },
+        { "english": "Mirror", "hebrew": "מראה" }
+      ]
+    },
+    {
+      "name": "Shapes and Sizes",
+      "wordPairs": [
+        { "english": "Circle", "hebrew": "מעגל" },
+        { "english": "Far", "hebrew": "רחוק" },
+        { "english": "Bigger", "hebrew": "גדול יותר" }
+      ]
+    },
+    {
+      "name": "Technology",
+      "wordPairs": [
+        { "english": "Laser", "hebrew": "לייזר" }
+      ]
+    },
+    {
+      "name": "Roles and People",
+      "wordPairs": [
+        { "english": "Leader", "hebrew": "מוביל" },
+        { "english": "Player", "hebrew": "שחקן" },
+        { "english": "Singer", "hebrew": "זמר" }
+      ]
+    },
+    {
+      "name": "Nature and Environment",
+      "wordPairs": [
+        { "english": "Air", "hebrew": "אוויר" }
+      ]
+    },
+    {
+      "name": "Animals",
+      "wordPairs": [
+        { "english": "Bear", "hebrew": "דוב" },
+        { "english": "Tiger", "hebrew": "טיגריס" },
+        { "english": "Elephant", "hebrew": "פיל" },
+        { "english": "Lion", "hebrew": "ליאון" },
+        { "english": "Giraffe", "hebrew": "ג'ירפה" }
+      ]
+    },
+    {
+      "name": "Money",
+      "wordPairs": [
+        { "english": "Penny", "hebrew": "פני" },
+        { "english": "Dollar", "hebrew": "דולר" }
       ]
     }
   ]

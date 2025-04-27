@@ -656,7 +656,7 @@ const ExamTab: React.FC = () => {
 
   return (
     <ExamContainer>
-      <Title>Words Exam</Title>
+      <Title>Words Practice</Title>
       <ProgressContainer>
         <ProgressBar $progress={progress}>
           <ProgressFill $progress={progress} />
