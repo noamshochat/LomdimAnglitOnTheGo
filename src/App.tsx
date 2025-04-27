@@ -59,6 +59,12 @@ const TabButton = styled.button<{ isActive: boolean }>`
   }
 `;
 
+const DisabledTabButton = styled(TabButton)`
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+`;
+
 const CategoryContainer = styled.div`
   margin-bottom: 3rem;
 `;
@@ -140,7 +146,6 @@ const App: React.FC = () => {
 
   // Sort categories alphabetically by name
   const sortedCategories = [...words.categories].sort((a, b) => a.name.localeCompare(b.name));
-  const selectedCategory = sortedCategories[selectedCategoryIdx];
 
   // For le, ar, ir, er Words tab
   const leArIrErWords = words.categories.flatMap(category =>
@@ -151,23 +156,26 @@ const App: React.FC = () => {
 
   // For le, ar, ir, er Words Exam tab
   const leArIrErEndings = ['le', 'ar', 'ir', 'er'];
-  const leArIrErExamQuestions = leArIrErWords.map(pair => {
-    const ending = leArIrErEndings.find(e => pair.english.toLowerCase().endsWith(e));
-    const base = ending ? pair.english.slice(0, -ending.length) : pair.english;
-    return {
-      base,
-      correctEnding: ending,
-      fullWord: pair.english,
-      hebrew: pair.hebrew
-    };
-  });
+  const leArIrErExamQuestions = React.useMemo(() => {
+    const all = leArIrErWords.map(pair => {
+      const ending = leArIrErEndings.find(e => pair.english.toLowerCase().endsWith(e));
+      const base = ending ? pair.english.slice(0, -ending.length) : pair.english;
+      return {
+        base,
+        correctEnding: ending,
+        fullWord: pair.english,
+        hebrew: pair.hebrew
+      };
+    });
+    return all.sort(() => Math.random() - 0.5).slice(0, 20);
+  }, [leArIrErWords.length]);
 
   // Quiz state for le, ar, ir, er Words Exam
-  const [leExamIdx, setLeExamIdx] = useState(0);
-  const [leExamSelected, setLeExamSelected] = useState<string | null>(null);
-  const [leExamShowAnswer, setLeExamShowAnswer] = useState(false);
-  const [leExamScore, setLeExamScore] = useState(0);
-  const [leExamComplete, setLeExamComplete] = useState(false);
+  const [leExamIdx, setLeExamIdx] = React.useState(0);
+  const [leExamSelected, setLeExamSelected] = React.useState<string | null>(null);
+  const [leExamShowAnswer, setLeExamShowAnswer] = React.useState(false);
+  const [leExamScore, setLeExamScore] = React.useState(0);
+  const [leExamComplete, setLeExamComplete] = React.useState(false);
 
   const handleLeExamSelect = (ending: string) => {
     if (!leExamShowAnswer) {
@@ -197,6 +205,10 @@ const App: React.FC = () => {
     setLeExamComplete(false);
   };
 
+  // For menu: -1 means 'All Words', 0+ means specific category
+  const isAllWords = selectedCategoryIdx === -1;
+  const selectedCategory = sortedCategories[selectedCategoryIdx];
+
   return (
     <AppContainer>
       <Header>
@@ -214,18 +226,8 @@ const App: React.FC = () => {
           >
             Words Practice
           </TabButton>
-          <TabButton 
-            isActive={activeTab === 'story1'} 
-            onClick={() => setActiveTab('story1')}
-          >
-            Story-1
-          </TabButton>
-          <TabButton 
-            isActive={activeTab === 'story2'} 
-            onClick={() => setActiveTab('story2')}
-          >
-            Story-2
-          </TabButton>
+          <DisabledTabButton isActive={false}>Story-1</DisabledTabButton>
+          <DisabledTabButton isActive={false}>Story-2</DisabledTabButton>
           <TabButton 
             isActive={activeTab === 'leArIrEr'} 
             onClick={() => setActiveTab('leArIrEr')}
@@ -244,6 +246,12 @@ const App: React.FC = () => {
         {activeTab === 'words' && (
           <WordsLayout>
             <SideMenu>
+              <MenuButton
+                isActive={isAllWords}
+                onClick={() => setSelectedCategoryIdx(-1)}
+              >
+                All Words
+              </MenuButton>
               {sortedCategories.map((cat, idx) => (
                 <MenuButton
                   key={cat.name}
@@ -259,22 +267,39 @@ const App: React.FC = () => {
                 Click on a card to reveal its Hebrew translation.<br />
                 Click the speaker icon 🔊 to hear the English pronunciation.
               </Instructions>
-              <CategoryTitle>{selectedCategory.name}</CategoryTitle>
-              <CardGrid>
-                {selectedCategory.wordPairs.map((pair, index) => (
-                  <WordCard
-                    key={index}
-                    english={pair.english}
-                    hebrew={pair.hebrew}
-                  />
-                ))}
-              </CardGrid>
+              {isAllWords ? (
+                sortedCategories.map((category, categoryIndex) => (
+                  <CategoryContainer key={categoryIndex}>
+                    <CategoryTitle>{category.name}</CategoryTitle>
+                    <CardGrid>
+                      {category.wordPairs.map((pair, index) => (
+                        <WordCard
+                          key={index}
+                          english={pair.english}
+                          hebrew={pair.hebrew}
+                        />
+                      ))}
+                    </CardGrid>
+                  </CategoryContainer>
+                ))
+              ) : (
+                <>
+                  <CategoryTitle>{selectedCategory.name}</CategoryTitle>
+                  <CardGrid>
+                    {selectedCategory.wordPairs.map((pair, index) => (
+                      <WordCard
+                        key={index}
+                        english={pair.english}
+                        hebrew={pair.hebrew}
+                      />
+                    ))}
+                  </CardGrid>
+                </>
+              )}
             </div>
           </WordsLayout>
         )}
         {activeTab === 'exam' && <ExamTab />}
-        {activeTab === 'story1' && <StoryTab />}
-        {activeTab === 'story2' && <StoryTab2 />}
         {activeTab === 'leArIrEr' && (
           <div style={{ width: '100%' }}>
             <Instructions>

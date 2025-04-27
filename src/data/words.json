@@ -69,8 +69,13 @@
         { "english": "Kitten", "hebrew": "חתלתול" },
         { "english": "Animal", "hebrew": "חיה" },
         { "english": "Bear", "hebrew": "דוב" },
-        { "english": "Tiger", "hebrew": "טיגריס" }
-      ]
+        { "english": "Tiger", "hebrew": "טיגריס" },
+        { "english": "Bear", "hebrew": "דוב" },
+        { "english": "Tiger", "hebrew": "טיגריס" },
+        { "english": "Elephant", "hebrew": "פיל" },
+        { "english": "Lion", "hebrew": "ליאון" },
+        { "english": "Giraffe", "hebrew": "ג'ירפה" }
+      ]  
     },
     {
       "name": "Transportation",
@@ -204,16 +209,6 @@
       "name": "Nature and Environment",
       "wordPairs": [
         { "english": "Air", "hebrew": "אוויר" }
-      ]
-    },
-    {
-      "name": "Animals",
-      "wordPairs": [
-        { "english": "Bear", "hebrew": "דוב" },
-        { "english": "Tiger", "hebrew": "טיגריס" },
-        { "english": "Elephant", "hebrew": "פיל" },
-        { "english": "Lion", "hebrew": "ליאון" },
-        { "english": "Giraffe", "hebrew": "ג'ירפה" }
       ]
     },
     {
