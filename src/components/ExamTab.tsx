@@ -483,10 +483,10 @@ const ExamTab: React.FC = () => {
       }))
     );
 
-    // Shuffle the questions and take only 20
+    // Shuffle the questions and take only 30
     const shuffledQuestions = [...questions]
       .sort(() => Math.random() - 0.5)
-      .slice(0, 20);
+      .slice(0, 30);
 
     // Add options to each question
     return shuffledQuestions.map(q => {
