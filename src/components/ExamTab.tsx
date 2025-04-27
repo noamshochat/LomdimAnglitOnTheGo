@@ -525,9 +525,16 @@ const ExamTab: React.FC = () => {
     if (!showAnswer) {
       setSelectedAnswer(answer);
       setShowAnswer(true);
-      
       if (answer === currentQuestion.correctAnswer) {
         setScore(prevScore => prevScore + 1);
+        // Auto-advance after 2 seconds if not last question
+        if (currentQuestionIndex < allQuestions.length - 1) {
+          setTimeout(() => {
+            setSelectedAnswer(null);
+            setShowAnswer(false);
+            setCurrentQuestionIndex(prev => prev + 1);
+          }, 2000);
+        }
       }
     }
   };
@@ -690,9 +697,11 @@ const ExamTab: React.FC = () => {
         )}
       </QuestionContainer>
       {showAnswer && (
-        <NextButton onClick={handleNextQuestion}>
-          {currentQuestionIndex === allQuestions.length - 1 ? "Finish Quiz" : "Next Question"}
-        </NextButton>
+        (selectedAnswer !== currentQuestion.correctAnswer || currentQuestionIndex === allQuestions.length - 1) && (
+          <NextButton onClick={handleNextQuestion}>
+            {currentQuestionIndex === allQuestions.length - 1 ? "Finish Quiz" : "Next Question"}
+          </NextButton>
+        )
       )}
     </ExamContainer>
   );

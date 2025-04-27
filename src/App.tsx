@@ -87,8 +87,60 @@ const Content = styled.div`
   margin: 0 auto;
 `;
 
+const SideMenu = styled.div`
+  width: 220px;
+  background: #f7f9fa;
+  border-radius: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  padding: 1rem 0.5rem;
+  margin-right: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: fit-content;
+  @media (max-width: 900px) {
+    width: 100px;
+    margin-right: 1rem;
+    padding: 0.5rem 0.2rem;
+  }
+`;
+
+const MenuButton = styled.button<{ isActive: boolean }>`
+  background: ${props => props.isActive ? '#2c3e50' : 'white'};
+  color: ${props => props.isActive ? 'white' : '#2c3e50'};
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 0.3rem;
+  text-align: left;
+  transition: all 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  &:hover {
+    background: #e0e0e0;
+    color: #2c3e50;
+  }
+  @media (max-width: 900px) {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.5rem;
+  }
+`;
+
+const WordsLayout = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: 100%;
+`;
+
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'words' | 'exam' | 'story1' | 'story2'>('words');
+  const [selectedCategoryIdx, setSelectedCategoryIdx] = useState(0);
+
+  // Sort categories alphabetically by name
+  const sortedCategories = [...words.categories].sort((a, b) => a.name.localeCompare(b.name));
+  const selectedCategory = sortedCategories[selectedCategoryIdx];
 
   return (
     <AppContainer>
@@ -123,27 +175,35 @@ const App: React.FC = () => {
       </Header>
       <Content>
         {activeTab === 'words' && (
-          <>
-            <Instructions>
-              Click on a card to reveal its Hebrew translation.
-              <br />
-              Click the speaker icon 🔊 to hear the English pronunciation.
-            </Instructions>
-            {words.categories.map((category, categoryIndex) => (
-              <CategoryContainer key={categoryIndex}>
-                <CategoryTitle>{category.name}</CategoryTitle>
-                <CardGrid>
-                  {category.wordPairs.map((pair, index) => (
-                    <WordCard
-                      key={index}
-                      english={pair.english}
-                      hebrew={pair.hebrew}
-                    />
-                  ))}
-                </CardGrid>
-              </CategoryContainer>
-            ))}
-          </>
+          <WordsLayout>
+            <SideMenu>
+              {sortedCategories.map((cat, idx) => (
+                <MenuButton
+                  key={cat.name}
+                  isActive={selectedCategoryIdx === idx}
+                  onClick={() => setSelectedCategoryIdx(idx)}
+                >
+                  {cat.name}
+                </MenuButton>
+              ))}
+            </SideMenu>
+            <div style={{ flex: 1 }}>
+              <Instructions>
+                Click on a card to reveal its Hebrew translation.<br />
+                Click the speaker icon 🔊 to hear the English pronunciation.
+              </Instructions>
+              <CategoryTitle>{selectedCategory.name}</CategoryTitle>
+              <CardGrid>
+                {selectedCategory.wordPairs.map((pair, index) => (
+                  <WordCard
+                    key={index}
+                    english={pair.english}
+                    hebrew={pair.hebrew}
+                  />
+                ))}
+              </CardGrid>
+            </div>
+          </WordsLayout>
         )}
         {activeTab === 'exam' && <ExamTab />}
         {activeTab === 'story1' && <StoryTab />}

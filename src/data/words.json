@@ -136,6 +136,31 @@
         { "english": "Thirsty", "hebrew": "צמא" },
         { "english": "Hungry", "hebrew": "רעב" }
       ]
+    },
+    {
+      "name": "Sentences",
+      "wordPairs": [
+        { "english": "How many lions do you have?", "hebrew": "כמה אריות יש לך" },
+        { "english": "We have five lions", "hebrew": "יש לנו חמישה אריות" },
+        { "english": "There are two elephants", "hebrew": "יש שני פילים" },
+        { "english": "What time is it?", "hebrew": "מה השעה?" },
+        { "english": "Its three o`clock", "hebrew": "השעה שלוש" },
+        { "english": "Its half past two", "hebrew": "השעה שתיים וחצי" },
+        { "english": "I wake up at seven o`clock", "hebrew": "אני מתעורר בשעה שבע"},
+        { "english": "I eat dinner at half past six", "hebrew": "אני אוכל ארוחת ערב בשעה שש וחצי" },
+        { "english": "What are you good at?", "hebrew": "במה אתה טוב ?" },
+        { "english": "I am good at Arabic", "hebrew": "אני טוב בערבית" },
+        { "english": "I have a test in Hebrew", "hebrew": "יש לי מבחן בעברית" },
+        { "english": "Look at my new tricks", "hebrew": "ראה את הטריקים החדשים שלי"},
+        { "english": "Please tell me your name", "hebrew": "בבקשה אמור לי את שמך" },
+        { "english": "Come to my birthday party", "hebrew": "בוא למסיבת יום ההולדת שלי" },
+        { "english": "What can I bring?", "hebrew": "מה אני יכול להביא?" },
+        { "english": "I know", "hebrew": "אני יודע" },
+        { "english": "I don't know", "hebrew": "אני לא יודע" },
+        { "english": "Let's play with the kitten", "hebrew": "בוא נשחק עם החתלתול" },
+        { "english": "Good idea", "hebrew": "רעיון טוב" }
+
+      ]
     }
   ]
 }
