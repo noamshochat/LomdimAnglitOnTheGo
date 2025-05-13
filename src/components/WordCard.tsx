@@ -118,7 +118,7 @@ const WordCard: React.FC<WordCardProps> = ({ english, hebrew, forceFlipped }) =>
   };
 
   return (
-    <Card onClick={() => forceFlipped === undefined && setIsFlipped(!isFlipped)}>
+    <Card onClick={() => setIsFlipped(!isFlipped)}>
       <Text isHebrew={isFlipped}>
         {isFlipped ? hebrew : english}
       </Text>
