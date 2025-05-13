@@ -4,6 +4,7 @@ import WordCard from './components/WordCard';
 import ExamTab from './components/ExamTab';
 import StoryTab from './components/StoryTab';
 import StoryTab2 from './components/StoryTab2';
+import PicturePracticeTab from './components/PicturePracticeTab';
 import words from './data/words.json';
 
 const AppContainer = styled.div`
@@ -140,9 +141,28 @@ const WordsLayout = styled.div`
   width: 100%;
 `;
 
+const FlipAllButton = styled.button`
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #2c3e50;
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+`;
+
 const App: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'words' | 'exam' | 'story1' | 'story2' | 'leArIrEr' | 'leArIrErExam'>('words');
+  const [activeTab, setActiveTab] = useState<'words' | 'exam' | 'story1' | 'story2' | 'leArIrEr' | 'leArIrErExam' | 'picturePractice'>('words');
   const [selectedCategoryIdx, setSelectedCategoryIdx] = useState(0);
+  const [allCardsFlipped, setAllCardsFlipped] = useState(false);
 
   // Sort categories alphabetically by name
   const sortedCategories = [...words.categories].sort((a, b) => a.name.localeCompare(b.name));
@@ -226,6 +246,12 @@ const App: React.FC = () => {
           >
             Words Practice
           </TabButton>
+          <TabButton 
+            isActive={activeTab === 'picturePractice'} 
+            onClick={() => setActiveTab('picturePractice')}
+          >
+            Word Practice in Pictures
+          </TabButton>
           <DisabledTabButton isActive={false}>Story-1</DisabledTabButton>
           <DisabledTabButton isActive={false}>Story-2</DisabledTabButton>
           <TabButton 
@@ -267,6 +293,11 @@ const App: React.FC = () => {
                 Click on a card to reveal its Hebrew translation.<br />
                 Click the speaker icon 🔊 to hear the English pronunciation.
               </Instructions>
+              <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
+                <FlipAllButton onClick={() => setAllCardsFlipped(!allCardsFlipped)}>
+                  {allCardsFlipped ? 'Show English' : 'Show Hebrew'}
+                </FlipAllButton>
+              </div>
               {isAllWords ? (
                 sortedCategories.map((category, categoryIndex) => (
                   <CategoryContainer key={categoryIndex}>
@@ -277,6 +308,7 @@ const App: React.FC = () => {
                           key={index}
                           english={pair.english}
                           hebrew={pair.hebrew}
+                          forceFlipped={allCardsFlipped}
                         />
                       ))}
                     </CardGrid>
@@ -291,6 +323,7 @@ const App: React.FC = () => {
                         key={index}
                         english={pair.english}
                         hebrew={pair.hebrew}
+                        forceFlipped={allCardsFlipped}
                       />
                     ))}
                   </CardGrid>
@@ -300,6 +333,7 @@ const App: React.FC = () => {
           </WordsLayout>
         )}
         {activeTab === 'exam' && <ExamTab />}
+        {activeTab === 'picturePractice' && <PicturePracticeTab />}
         {activeTab === 'leArIrEr' && (
           <div style={{ width: '100%' }}>
             <Instructions>
@@ -307,6 +341,11 @@ const App: React.FC = () => {
               Click on a card to reveal its Hebrew translation.<br />
               Click the speaker icon 🔊 to hear the English pronunciation.
             </Instructions>
+            <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
+              <FlipAllButton onClick={() => setAllCardsFlipped(!allCardsFlipped)}>
+                {allCardsFlipped ? 'Show English' : 'Show Hebrew'}
+              </FlipAllButton>
+            </div>
             <CategoryTitle>le, ar, ir, er Words</CategoryTitle>
             <CardGrid>
               {leArIrErWords.length === 0 ? (
@@ -317,6 +356,7 @@ const App: React.FC = () => {
                     key={index}
                     english={pair.english}
                     hebrew={pair.hebrew}
+                    forceFlipped={allCardsFlipped}
                   />
                 ))
               )}

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 interface WordCardProps {
   english: string;
   hebrew: string;
+  forceFlipped?: boolean;
 }
 
 const Card = styled.div`
@@ -100,8 +101,14 @@ const SpeakerButton = styled.button`
   }
 `;
 
-const WordCard: React.FC<WordCardProps> = ({ english, hebrew }) => {
+const WordCard: React.FC<WordCardProps> = ({ english, hebrew, forceFlipped }) => {
   const [isFlipped, setIsFlipped] = useState(false);
+
+  useEffect(() => {
+    if (forceFlipped !== undefined) {
+      setIsFlipped(forceFlipped);
+    }
+  }, [forceFlipped]);
 
   const speak = (e: React.MouseEvent) => {
     e.stopPropagation(); // Prevent card flip when clicking the speaker
@@ -111,7 +118,7 @@ const WordCard: React.FC<WordCardProps> = ({ english, hebrew }) => {
   };
 
   return (
-    <Card onClick={() => setIsFlipped(!isFlipped)}>
+    <Card onClick={() => forceFlipped === undefined && setIsFlipped(!isFlipped)}>
       <Text isHebrew={isFlipped}>
         {isFlipped ? hebrew : english}
       </Text>

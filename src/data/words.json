@@ -74,7 +74,18 @@
         { "english": "Tiger", "hebrew": "טיגריס" },
         { "english": "Elephant", "hebrew": "פיל" },
         { "english": "Lion", "hebrew": "ליאון" },
-        { "english": "Giraffe", "hebrew": "ג'ירפה" }
+        { "english": "Giraffe", "hebrew": "ג'ירפה" },
+        { "english": "Cat", "hebrew": "חתול" },
+        { "english": "Dog", "hebrew": "כלב" },
+        { "english": "bat", "hebrew": "עטלף" },
+        { "english": "Bird", "hebrew": "ציפור" },
+        { "english": "Fish", "hebrew": "דג" },
+        { "english": "Snake", "hebrew": "נחש" },
+        { "english": "Rabbit", "hebrew": "ארנב" },
+        { "english": "Mouse", "hebrew": "עכבר" },
+        { "english": "Pig", "hebrew": "חזיר" },
+        { "english": "Sheep", "hebrew": "כבש" },
+        { "english": "Cow", "hebrew": "פרה" }
       ]  
     },
     {
