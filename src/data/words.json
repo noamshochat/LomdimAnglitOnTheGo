@@ -51,7 +51,9 @@
         { "english": "Friend", "hebrew": "חבר" },
         { "english": "Help", "hebrew": "עזרה" },
         { "english": "People", "hebrew": "אנשים" },
-        { "english": "Doctor", "hebrew": "רופא" }
+        { "english": "Doctor", "hebrew": "רופא" },
+        { "english": "Boy", "hebrew": "ילד" },
+        { "english": "Astronaut", "hebrew": "אסטרונאוט" }
       ]
     },
     {
@@ -59,7 +61,10 @@
       "wordPairs": [
         { "english": "Water", "hebrew": "מים" },
         { "english": "Food", "hebrew": "אוכל" },
-        { "english": "Dinner", "hebrew": "ארוחת ערב" }
+        { "english": "Dinner", "hebrew": "ארוחת ערב" },
+        { "english": "Cake", "hebrew": "עוגה" },
+        { "english": "Coconut", "hebrew": "קוקוס" },
+        { "english": "Corn", "hebrew": "תירס" }
       ]
     },
     {
@@ -70,9 +75,6 @@
         { "english": "Animal", "hebrew": "חיה" },
         { "english": "Bear", "hebrew": "דוב" },
         { "english": "Tiger", "hebrew": "טיגריס" },
-        { "english": "Bear", "hebrew": "דוב" },
-        { "english": "Tiger", "hebrew": "טיגריס" },
-        { "english": "Elephant", "hebrew": "פיל" },
         { "english": "Lion", "hebrew": "אריה" },
         { "english": "Giraffe", "hebrew": "ג'ירפה" },
         { "english": "Cat", "hebrew": "חתול" },
@@ -85,7 +87,11 @@
         { "english": "Mouse", "hebrew": "עכבר" },
         { "english": "Pig", "hebrew": "חזיר" },
         { "english": "Sheep", "hebrew": "כבש" },
-        { "english": "Cow", "hebrew": "פרה" }
+        { "english": "Cow", "hebrew": "פרה" },
+        { "english": "Ant", "hebrew": "נמלה" },
+        { "english": "Alligator", "hebrew": "תנין" },
+        { "english": "Butterfly", "hebrew": "פרפר" },
+        { "english": "Chick", "hebrew": "אפרוח" }
       ]  
     },
     {
@@ -95,7 +101,9 @@
         { "english": "Bike", "hebrew": "אופניים" },
         { "english": "Trolley", "hebrew": "עגלה" },
         { "english": "Motor", "hebrew": "מנוע" },
-        { "english": "Driver", "hebrew": "נהג" }
+        { "english": "Driver", "hebrew": "נהג" },
+        { "english": "Airplane", "hebrew": "מטוס" },
+        { "english": "Anchor", "hebrew": "עוגן" }
       ]
     },
     {
@@ -139,7 +147,11 @@
         { "english": "Smile", "hebrew": "חיוך" },
         { "english": "Cool", "hebrew": "קר , מגניב (סלנג)" },
         { "english": "Tired", "hebrew": "עייף" },
-        { "english": "Tear", "hebrew": "דמעה" }
+        { "english": "Tear", "hebrew": "דמעה" },
+        { "english": "Happy", "hebrew": "שמח" },
+        { "english": "Sad", "hebrew": "עצוב" },
+        { "english": "Rich", "hebrew": "עשיר" },
+        { "english": "Poor", "hebrew": "עני" }
       ]
     },
     {
@@ -157,7 +169,10 @@
         { "english": "Wakes up", "hebrew": "מתעורר" },
         { "english": "With", "hebrew": "עם" },
         { "english": "Thirsty", "hebrew": "צמא" },
-        { "english": "Hungry", "hebrew": "רעב" }
+        { "english": "Hungry", "hebrew": "רעב" },
+        { "english": "Want", "hebrew": "רוצה" },
+        { "english": "Wear", "hebrew": "לובש" },
+        { "english": "Wearing", "hebrew": "לובש" }
       ]
     },
     {
@@ -191,7 +206,8 @@
         { "english": "Table", "hebrew": "שולחן" },
         { "english": "Bottle", "hebrew": "בקבוק" },
         { "english": "Chair", "hebrew": "כיסא" },
-        { "english": "Mirror", "hebrew": "מראה" }
+        { "english": "Mirror", "hebrew": "מראה" },
+        { "english": "Ball", "hebrew": "כדור" }
       ]
     },
     {
@@ -199,7 +215,21 @@
       "wordPairs": [
         { "english": "Circle", "hebrew": "מעגל" },
         { "english": "Far", "hebrew": "רחוק" },
-        { "english": "Bigger", "hebrew": "גדול יותר" }
+        { "english": "Bigger", "hebrew": "גדול יותר" },
+        { "english": "Big", "hebrew": "גדול" },
+        { "english": "Small", "hebrew": "קטן" },
+        { "english": "Long", "hebrew": "ארוך" },
+        { "english": "Short", "hebrew": "קצר" },
+        { "english": "Tall", "hebrew": "גבוה" },
+        { "english": "Thin", "hebrew": "רזה" },
+        { "english": "Wide", "hebrew": "רחב" },
+        { "english": "Narrow", "hebrew": "צר" },
+        { "english": "Old", "hebrew": "ישן" },
+        { "english": "New", "hebrew": "חדש" },
+        { "english": "Fast", "hebrew": "מהיר" },
+        { "english": "Slow", "hebrew": "איטי" },
+        { "english": "Expensive", "hebrew": "יקר" },
+        { "english": "Cheap", "hebrew": "זול" }
       ]
     },
     {
@@ -227,6 +257,31 @@
       "wordPairs": [
         { "english": "Penny", "hebrew": "פני" },
         { "english": "Dollar", "hebrew": "דולר" }
+      ]
+    },
+    {
+      "name": "Clothing and Accessories",
+      "wordPairs": [
+        { "english": "Cape", "hebrew": "גלימה" },
+        { "english": "Belt", "hebrew": "חגורה" },
+        { "english": "Scarf", "hebrew": "צעיף" },
+        { "english": "Clothes", "hebrew": "בגדים" }
+      ]
+    },
+    {
+      "name": "Weather",
+      "wordPairs": [
+        { "english": "Windy", "hebrew": "סוער" },
+        { "english": "Weather", "hebrew": "מזג אוויר" },
+        { "english": "Cloudy", "hebrew": "מעונן" },
+        { "english": "Rainy", "hebrew": "גשום" },
+        { "english": "Warm", "hebrew": "חם" }
+      ]
+    },
+    {
+      "name": "Conjunctions and Connectors",
+      "wordPairs": [
+        { "english": "But", "hebrew": "אבל" }
       ]
     }
   ]
