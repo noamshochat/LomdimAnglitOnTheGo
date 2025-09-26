@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import ReactCanvasConfetti from 'react-canvas-confetti';
 import type { CreateTypes } from 'canvas-confetti';
+import html2canvas from 'html2canvas';
 import words from '../data/words.json';
 
 const ExamContainer = styled.div`
@@ -331,6 +332,57 @@ const RestartButton = styled.button`
   }
 `;
 
+const ShareButton = styled.button`
+  padding: 0.8rem 1.5rem;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: 0.5rem;
+  min-height: 44px;
+  
+  @media (max-width: 768px) {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
+    min-height: 48px;
+    margin-left: 0.3rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+    min-height: 42px;
+    margin-left: 0.2rem;
+  }
+
+  &:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+  }
+  
+  &:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+    transform: none;
+  }
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+`;
+
 const ExamSetupContainer = styled.div`
   background: white;
   padding: 2rem;
@@ -500,7 +552,9 @@ const FinalExamTab: React.FC = () => {
   const [isQuizComplete, setIsQuizComplete] = useState(false);
   const [showExamSetup, setShowExamSetup] = useState(true);
   const [examLength, setExamLength] = useState<25 | 50 | 221>(25);
+  const [isSharing, setIsSharing] = useState(false);
   const confettiRef = useRef<CreateTypes>();
+  const scoreContainerRef = useRef<HTMLDivElement>(null);
 
   // Create comprehensive questions from ALL words (excluding sentences)
   const allQuestions = React.useMemo(() => {
@@ -730,6 +784,68 @@ const FinalExamTab: React.FC = () => {
     window.speechSynthesis.speak(utterance);
   };
 
+  const handleShareScore = async () => {
+    if (!scoreContainerRef.current) return;
+    
+    setIsSharing(true);
+    
+    try {
+      // Capture screenshot of the score container
+      const canvas = await html2canvas(scoreContainerRef.current, {
+        backgroundColor: '#ffffff',
+        scale: 2,
+        useCORS: true,
+        allowTaint: true
+      });
+      
+      // Convert canvas to blob
+      const blob = await new Promise<Blob>((resolve) => {
+        canvas.toBlob((blob) => {
+          if (blob) resolve(blob);
+        }, 'image/png');
+      });
+      
+      const percentage = Math.round((score / allQuestions.length) * 100);
+      const examType = examLength === 25 ? 'Mini' : examLength === 50 ? 'Quick' : 'Complete';
+      const shareText = `I just completed the ${examType} Final Exam with a score of ${percentage}%! 🎓📚`;
+      
+      // Try Web Share API first
+      if (navigator.share && navigator.canShare) {
+        const file = new File([blob], 'final-exam-result.png', { type: 'image/png' });
+        
+        if (navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            title: 'My Final Exam Results',
+            text: shareText,
+            files: [file]
+          });
+        } else {
+          // Fallback: share text only
+          await navigator.share({
+            title: 'My Final Exam Results',
+            text: shareText
+          });
+        }
+      } else {
+        // Fallback: copy to clipboard
+        const dataUrl = canvas.toDataURL('image/png');
+        const link = document.createElement('a');
+        link.download = 'final-exam-result.png';
+        link.href = dataUrl;
+        link.click();
+        
+        // Also copy text to clipboard
+        await navigator.clipboard.writeText(shareText);
+        alert('Screenshot saved and text copied to clipboard!');
+      }
+    } catch (error) {
+      console.error('Error sharing:', error);
+      alert('Unable to share. Please try again.');
+    } finally {
+      setIsSharing(false);
+    }
+  };
+
   if (isQuizComplete) {
     const percentage = Math.round((score / allQuestions.length) * 100);
     const isHighScore = percentage >= 80;
@@ -738,7 +854,7 @@ const FinalExamTab: React.FC = () => {
     return (
       <ExamContainer>
         <ReactCanvasConfetti onInit={onInit} />
-        <ScoreContainer>
+        <ScoreContainer ref={scoreContainerRef}>
           <ScoreTitle>Final Exam Complete! 🎓</ScoreTitle>
           <ScoreText>
             You got {score} out of {allQuestions.length} questions correct
@@ -761,9 +877,14 @@ const FinalExamTab: React.FC = () => {
               Good effort! Keep practicing! 📚
             </ScoreText>
           )}
-          <RestartButton onClick={handleRestartQuiz}>
-            Take Final Exam Again
-          </RestartButton>
+          <ButtonContainer>
+            <RestartButton onClick={handleRestartQuiz}>
+              Take Final Exam Again
+            </RestartButton>
+            <ShareButton onClick={handleShareScore} disabled={isSharing}>
+              {isSharing ? 'Sharing...' : '📤 Share Score'}
+            </ShareButton>
+          </ButtonContainer>
         </ScoreContainer>
       </ExamContainer>
     );

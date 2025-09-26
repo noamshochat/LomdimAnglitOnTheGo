@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import ReactCanvasConfetti from 'react-canvas-confetti';
 import type { CreateTypes } from 'canvas-confetti';
+import html2canvas from 'html2canvas';
 import words from '../data/words.json';
 
 const ExamContainer = styled.div`
@@ -302,6 +303,48 @@ const RestartButton = styled.button`
   }
 `;
 
+const ShareButton = styled.button`
+  padding: 0.8rem 1.5rem;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: 0.5rem;
+  
+  @media (max-width: 768px) {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+    margin-left: 0.3rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.8rem;
+    margin-left: 0.2rem;
+  }
+
+  &:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+  }
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+`;
+
 const Title = styled.h1`
   color: #2c3e50;
   text-align: center;
@@ -433,7 +476,9 @@ const ExamTab: React.FC = () => {
   const [showConfetti, setShowConfetti] = useState(false);
   const [showSuggestion, setShowSuggestion] = useState(false);
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+  const [isSharing, setIsSharing] = useState(false);
   const confettiRef = useRef<CreateTypes>();
+  const scoreContainerRef = useRef<HTMLDivElement>(null);
 
   const celebrationPatterns = [
     // Firework 1 - Classic Red and Gold
@@ -688,6 +733,67 @@ const ExamTab: React.FC = () => {
     window.speechSynthesis.speak(utterance);
   };
 
+  const handleShareScore = async () => {
+    if (!scoreContainerRef.current) return;
+    
+    setIsSharing(true);
+    
+    try {
+      // Capture screenshot of the score container
+      const canvas = await html2canvas(scoreContainerRef.current, {
+        backgroundColor: '#ffffff',
+        scale: 2,
+        useCORS: true,
+        allowTaint: true
+      });
+      
+      // Convert canvas to blob
+      const blob = await new Promise<Blob>((resolve) => {
+        canvas.toBlob((blob) => {
+          if (blob) resolve(blob);
+        }, 'image/png');
+      });
+      
+      const percentage = Math.round((score / allQuestions.length) * 100);
+      const shareText = `I just completed the English-Hebrew vocabulary exam with a score of ${percentage}%! 🎓📚`;
+      
+      // Try Web Share API first
+      if (navigator.share && navigator.canShare) {
+        const file = new File([blob], 'exam-result.png', { type: 'image/png' });
+        
+        if (navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            title: 'My Exam Results',
+            text: shareText,
+            files: [file]
+          });
+        } else {
+          // Fallback: share text only
+          await navigator.share({
+            title: 'My Exam Results',
+            text: shareText
+          });
+        }
+      } else {
+        // Fallback: copy to clipboard
+        const dataUrl = canvas.toDataURL('image/png');
+        const link = document.createElement('a');
+        link.download = 'exam-result.png';
+        link.href = dataUrl;
+        link.click();
+        
+        // Also copy text to clipboard
+        await navigator.clipboard.writeText(shareText);
+        alert('Screenshot saved and text copied to clipboard!');
+      }
+    } catch (error) {
+      console.error('Error sharing:', error);
+      alert('Unable to share. Please try again.');
+    } finally {
+      setIsSharing(false);
+    }
+  };
+
   if (isQuizComplete) {
     const percentage = Math.round((score / allQuestions.length) * 100);
     const isHighScore = percentage >= 90;
@@ -696,7 +802,7 @@ const ExamTab: React.FC = () => {
     return (
       <ExamContainer>
         <ReactCanvasConfetti onInit={onInit} />
-        <ScoreContainer>
+        <ScoreContainer ref={scoreContainerRef}>
           <ScoreTitle>Exam Complete!</ScoreTitle>
           <ScoreText>
             You got {score} out of {allQuestions.length} questions correct
@@ -714,9 +820,14 @@ const ExamTab: React.FC = () => {
               Excellent! 🎉
             </ScoreText>
           )}
-          <RestartButton onClick={handleRestartQuiz}>
-            Take Exam Again
-          </RestartButton>
+          <ButtonContainer>
+            <RestartButton onClick={handleRestartQuiz}>
+              Take Exam Again
+            </RestartButton>
+            <ShareButton onClick={handleShareScore} disabled={isSharing}>
+              {isSharing ? 'Sharing...' : '📤 Share Score'}
+            </ShareButton>
+          </ButtonContainer>
         </ScoreContainer>
 
         {showSuggestion && (
