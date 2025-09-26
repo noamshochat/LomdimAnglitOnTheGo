@@ -5,12 +5,22 @@ import ExamTab from './components/ExamTab';
 import StoryTab from './components/StoryTab';
 import StoryTab2 from './components/StoryTab2';
 import PicturePracticeTab from './components/PicturePracticeTab';
+import FinalExamTab from './components/FinalExamTab';
+import AccessibilityStatement from './components/AccessibilityStatement';
 import words from './data/words.json';
 
-const AppContainer = styled.div`
+const AppContainer = styled.main`
   min-height: 100vh;
   padding: 2rem;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  
+  @media (max-width: 768px) {
+    padding: 0.8rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.4rem;
+  }
 `;
 
 const Title = styled.h1`
@@ -18,6 +28,16 @@ const Title = styled.h1`
   color: #2c3e50;
   margin-bottom: 2rem;
   font-size: 2.5rem;
+  
+  @media (max-width: 768px) {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
 `;
 
 const CardGrid = styled.div`
@@ -26,6 +46,18 @@ const CardGrid = styled.div`
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    max-width: 100%;
+  }
+  
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 0 0.5rem;
+  }
 `;
 
 const Instructions = styled.p`
@@ -34,6 +66,20 @@ const Instructions = styled.p`
   margin-bottom: 2rem;
   font-size: 1.1rem;
   line-height: 1.6;
+  
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    padding: 0 1rem;
+    line-height: 1.7;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
+    padding: 0 0.8rem;
+    line-height: 1.8;
+  }
 `;
 
 const TabContainer = styled.div`
@@ -41,6 +87,21 @@ const TabContainer = styled.div`
   justify-content: center;
   margin-bottom: 2rem;
   gap: 1rem;
+  flex-wrap: wrap;
+  
+  @media (max-width: 768px) {
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+    padding: 0 1rem;
+  }
+  
+  @media (max-width: 480px) {
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding: 0 0.5rem;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const TabButton = styled.button<{ isActive: boolean }>`
@@ -53,10 +114,34 @@ const TabButton = styled.button<{ isActive: boolean }>`
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+  min-height: 44px;
+  min-width: 44px;
 
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  &:focus {
+    outline: 3px solid #3498db;
+    outline-offset: 2px;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    min-height: 48px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 300px;
+    min-height: 52px;
+    white-space: normal;
+    text-align: center;
   }
 `;
 
@@ -77,6 +162,16 @@ const CategoryTitle = styled.h2`
   font-size: 1.8rem;
   padding-bottom: 0.5rem;
   border-bottom: 2px solid #2c3e50;
+  
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+  }
 `;
 
 const Header = styled.div`
@@ -105,10 +200,29 @@ const SideMenu = styled.div`
   flex-direction: column;
   gap: 0.5rem;
   height: fit-content;
+  
   @media (max-width: 900px) {
     width: 100px;
     margin-right: 1rem;
     padding: 0.5rem 0.2rem;
+  }
+  
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 12px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.8rem;
+    gap: 0.4rem;
+    border-radius: 10px;
   }
 `;
 
@@ -124,13 +238,33 @@ const MenuButton = styled.button<{ isActive: boolean }>`
   text-align: left;
   transition: all 0.2s;
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  min-height: 44px;
+  
   &:hover {
     background: #e0e0e0;
     color: #2c3e50;
   }
+  
   @media (max-width: 900px) {
     font-size: 0.9rem;
     padding: 0.5rem 0.5rem;
+  }
+  
+  @media (max-width: 768px) {
+    margin-bottom: 0;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    text-align: center;
+    flex: 1;
+    min-width: 100px;
+    min-height: 48px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.8rem 0.6rem;
+    font-size: 0.85rem;
+    min-width: 90px;
+    min-height: 52px;
   }
 `;
 
@@ -139,6 +273,10 @@ const WordsLayout = styled.div`
   flex-direction: row;
   align-items: flex-start;
   width: 100%;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 const FlipAllButton = styled.button`
@@ -157,22 +295,269 @@ const FlipAllButton = styled.button`
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   }
+  
+  @media (max-width: 768px) {
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+`;
+
+const NavigationContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 2rem;
+  
+  @media (max-width: 768px) {
+    margin-bottom: 1.5rem;
+  }
+`;
+
+const BackButton = styled.button`
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #95a5a6;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-height: 44px;
+  
+  &:hover {
+    background-color: #7f8c8d;
+    transform: translateY(-2px);
+  }
+  
+  @media (max-width: 768px) {
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    min-height: 48px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+    min-height: 52px;
+  }
+`;
+
+const HomeButton = styled.button`
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #3498db;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-height: 44px;
+  
+  &:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+  }
+  
+  @media (max-width: 768px) {
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    min-height: 48px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+    min-height: 52px;
+  }
+`;
+
+const MainMenuGrid = styled.nav`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+`;
+
+const MenuCard = styled.button`
+  background: white;
+  border: none;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  &:active {
+    transform: scale(0.98);
+  }
+  
+  &:focus {
+    outline: 3px solid #3498db;
+    outline-offset: 2px;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+    min-height: 100px;
+    border-radius: 12px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 1.2rem;
+    min-height: 90px;
+    border-radius: 10px;
+  }
+`;
+
+const MenuCardTitle = styled.h3`
+  color: #2c3e50;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.1rem;
+  }
+`;
+
+const MenuCardDescription = styled.p`
+  color: #7f8c8d;
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.4;
+  
+  @media (max-width: 768px) {
+    font-size: 0.85rem;
+  }
+`;
+
+const DisabledMenuCard = styled(MenuCard)`
+  opacity: 0.5;
+  cursor: not-allowed;
+  
+  &:hover {
+    transform: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  &:active {
+    transform: none;
+  }
+`;
+
+const CategoryGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.8rem;
+  }
+  
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+`;
+
+const CategoryCard = styled.button<{ isActive: boolean }>`
+  background: ${props => props.isActive ? '#2c3e50' : 'white'};
+  color: ${props => props.isActive ? 'white' : '#2c3e50'};
+  border: none;
+  border-radius: 12px;
+  padding: 1.2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  &:active {
+    transform: scale(0.98);
+  }
+  
+  @media (max-width: 768px) {
+    padding: 1rem;
+    min-height: 70px;
+    font-size: 0.85rem;
+    border-radius: 10px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.8rem;
+    min-height: 60px;
+    font-size: 0.8rem;
+    border-radius: 8px;
+  }
 `;
 
 const App: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'words' | 'exam' | 'story1' | 'story2' | 'leArIrEr' | 'leArIrErExam' | 'picturePractice'>('words');
+  const [currentView, setCurrentView] = useState<'main' | 'words' | 'exam' | 'story1' | 'story2' | 'leArIrEr' | 'leArIrErExam' | 'picturePractice' | 'finalExam' | 'accessibility'>('main');
   const [selectedCategoryIdx, setSelectedCategoryIdx] = useState(0);
   const [allCardsFlipped, setAllCardsFlipped] = useState(false);
 
   // Sort categories alphabetically by name
   const sortedCategories = [...words.categories].sort((a, b) => a.name.localeCompare(b.name));
 
-  // For le, ar, ir, er Words tab
-  const leArIrErWords = words.categories.flatMap(category =>
-    category.wordPairs.filter(pair =>
-      /(?:le|ar|ir|er)$/i.test(pair.english)
-    ).map(pair => ({ ...pair, category: category.name }))
-  );
+  // For le, ar, ir, er Words tab (excluding sentences)
+  const leArIrErWords = words.categories
+    .filter(category => category.name !== "Sentences")
+    .flatMap(category =>
+      category.wordPairs.filter(pair =>
+        /(?:le|ar|ir|er)$/i.test(pair.english)
+      ).map(pair => ({ ...pair, category: category.name }))
+    );
 
   // For le, ar, ir, er Words Exam tab
   const leArIrErEndings = ['le', 'ar', 'ir', 'er'];
@@ -229,81 +614,162 @@ const App: React.FC = () => {
   const isAllWords = selectedCategoryIdx === -1;
   const selectedCategory = sortedCategories[selectedCategoryIdx];
 
+  const [showCategorySelection, setShowCategorySelection] = useState(true);
+
+  const handleBack = () => {
+    if (currentView === 'words') {
+      if (showCategorySelection) {
+        setCurrentView('main');
+      } else {
+        setShowCategorySelection(true);
+      }
+    } else {
+      setCurrentView('words');
+    }
+  };
+
+  const handleHome = () => {
+    setCurrentView('main');
+  };
+
   return (
     <AppContainer>
+      <a href="#main-content" className="skip-link">Skip to main content</a>
       <Header>
         <Title>English</Title>
-        <TabContainer>
-          <TabButton 
-            isActive={activeTab === 'words'} 
-            onClick={() => setActiveTab('words')}
-          >
-            Words
-          </TabButton>
-          <TabButton 
-            isActive={activeTab === 'exam'} 
-            onClick={() => setActiveTab('exam')}
-          >
-            Words Practice
-          </TabButton>
-          <TabButton 
-            isActive={activeTab === 'picturePractice'} 
-            onClick={() => setActiveTab('picturePractice')}
-          >
-            Word Practice in Pictures
-          </TabButton>
-          <DisabledTabButton isActive={false}>Story-1</DisabledTabButton>
-          <DisabledTabButton isActive={false}>Story-2</DisabledTabButton>
-          <TabButton 
-            isActive={activeTab === 'leArIrEr'} 
-            onClick={() => setActiveTab('leArIrEr')}
-          >
-            le, ar, ir, er Words
-          </TabButton>
-          <TabButton 
-            isActive={activeTab === 'leArIrErExam'} 
-            onClick={() => setActiveTab('leArIrErExam')}
-          >
-            le, ar, ir, er Words Exam
-          </TabButton>
-        </TabContainer>
+        {currentView !== 'main' && (
+          <NavigationContainer>
+            <BackButton onClick={handleBack}>
+              ← Back
+            </BackButton>
+            <HomeButton onClick={handleHome}>
+              🏠 Home
+            </HomeButton>
+          </NavigationContainer>
+        )}
       </Header>
-      <Content>
-        {activeTab === 'words' && (
-          <WordsLayout>
-            <SideMenu>
-              <MenuButton
-                isActive={isAllWords}
-                onClick={() => setSelectedCategoryIdx(-1)}
-              >
-                All Words
-              </MenuButton>
-              {sortedCategories.map((cat, idx) => (
-                <MenuButton
-                  key={cat.name}
-                  isActive={selectedCategoryIdx === idx}
-                  onClick={() => setSelectedCategoryIdx(idx)}
-                >
-                  {cat.name}
-                </MenuButton>
-              ))}
-            </SideMenu>
-            <div style={{ flex: 1 }}>
-              <Instructions>
-                Click on a card to reveal its Hebrew translation.<br />
-                Click the speaker icon 🔊 to hear the English pronunciation.
-              </Instructions>
-              <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
-                <FlipAllButton onClick={() => setAllCardsFlipped(!allCardsFlipped)}>
-                  {allCardsFlipped ? 'Show English' : 'Show Hebrew'}
-                </FlipAllButton>
+      <Content id="main-content">
+        {currentView === 'main' && (
+          <MainMenuGrid role="navigation" aria-label="Main navigation menu">
+            <MenuCard 
+              onClick={() => setCurrentView('words')}
+              aria-label="Study vocabulary words by category"
+            >
+              <MenuCardTitle>📚 Words</MenuCardTitle>
+              <MenuCardDescription>Study vocabulary by category</MenuCardDescription>
+            </MenuCard>
+            <MenuCard 
+              onClick={() => setCurrentView('exam')}
+              aria-label="Practice vocabulary with multiple choice questions"
+            >
+              <MenuCardTitle>🎯 Words Practice</MenuCardTitle>
+              <MenuCardDescription>Practice with multiple choice questions</MenuCardDescription>
+            </MenuCard>
+            <MenuCard 
+              onClick={() => setCurrentView('leArIrEr')}
+              aria-label="Study words with le, ar, ir, er endings"
+            >
+              <MenuCardTitle>🔤 le, ar, ir, er Words</MenuCardTitle>
+              <MenuCardDescription>Special focus on word endings</MenuCardDescription>
+            </MenuCard>
+            <MenuCard 
+              onClick={() => setCurrentView('leArIrErExam')}
+              aria-label="Test your knowledge of le, ar, ir, er word endings"
+            >
+              <MenuCardTitle>📝 le, ar, ir, er Exam</MenuCardTitle>
+              <MenuCardDescription>Test your knowledge of word endings</MenuCardDescription>
+            </MenuCard>
+            <MenuCard 
+              onClick={() => setCurrentView('finalExam')}
+              aria-label="Take comprehensive final exam with all vocabulary"
+            >
+              <MenuCardTitle>🎓 Final Exam</MenuCardTitle>
+              <MenuCardDescription>Comprehensive test of all vocabulary</MenuCardDescription>
+            </MenuCard>
+            <DisabledMenuCard aria-disabled="true">
+              <MenuCardTitle>🖼️ Word Practice in Pictures</MenuCardTitle>
+              <MenuCardDescription>Coming soon...</MenuCardDescription>
+            </DisabledMenuCard>
+            <DisabledMenuCard aria-disabled="true">
+              <MenuCardTitle>📖 Story-1</MenuCardTitle>
+              <MenuCardDescription>Coming soon...</MenuCardDescription>
+            </DisabledMenuCard>
+            <DisabledMenuCard aria-disabled="true">
+              <MenuCardTitle>📖 Story-2</MenuCardTitle>
+              <MenuCardDescription>Coming soon...</MenuCardDescription>
+            </DisabledMenuCard>
+            <MenuCard 
+              onClick={() => setCurrentView('accessibility')}
+              aria-label="View accessibility statement and features"
+            >
+              <MenuCardTitle>♿ Accessibility</MenuCardTitle>
+              <MenuCardDescription>Learn about our accessibility features</MenuCardDescription>
+            </MenuCard>
+          </MainMenuGrid>
+        )}
+        {currentView === 'words' && (
+          <>
+            {showCategorySelection ? (
+              <div style={{ width: '100%' }}>
+                <Instructions>
+                  Choose a category to study vocabulary words
+                </Instructions>
+                <CategoryGrid>
+                  <CategoryCard
+                    isActive={isAllWords}
+                    onClick={() => {
+                      setSelectedCategoryIdx(-1);
+                      setShowCategorySelection(false);
+                    }}
+                  >
+                    📚 All Words
+                  </CategoryCard>
+                  {sortedCategories.map((cat, idx) => (
+                    <CategoryCard
+                      key={cat.name}
+                      isActive={selectedCategoryIdx === idx}
+                      onClick={() => {
+                        setSelectedCategoryIdx(idx);
+                        setShowCategorySelection(false);
+                      }}
+                    >
+                      {cat.name}
+                    </CategoryCard>
+                  ))}
+                </CategoryGrid>
               </div>
-              {isAllWords ? (
-                sortedCategories.map((category, categoryIndex) => (
-                  <CategoryContainer key={categoryIndex}>
-                    <CategoryTitle>{category.name}</CategoryTitle>
+            ) : (
+              <div style={{ width: '100%' }}>
+                <Instructions>
+                  Click on a card to reveal its Hebrew translation.<br />
+                  Click the speaker icon 🔊 to hear the English pronunciation.
+                </Instructions>
+                <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
+                  <FlipAllButton onClick={() => setAllCardsFlipped(!allCardsFlipped)}>
+                    {allCardsFlipped ? 'Show English' : 'Show Hebrew'}
+                  </FlipAllButton>
+                </div>
+                {isAllWords ? (
+                  sortedCategories.map((category, categoryIndex) => (
+                    <CategoryContainer key={categoryIndex}>
+                      <CategoryTitle>{category.name}</CategoryTitle>
+                      <CardGrid>
+                        {category.wordPairs.map((pair, index) => (
+                          <WordCard
+                            key={index}
+                            english={pair.english}
+                            hebrew={pair.hebrew}
+                            forceFlipped={allCardsFlipped}
+                          />
+                        ))}
+                      </CardGrid>
+                    </CategoryContainer>
+                  ))
+                ) : (
+                  <>
+                    <CategoryTitle>{selectedCategory.name}</CategoryTitle>
                     <CardGrid>
-                      {category.wordPairs.map((pair, index) => (
+                      {selectedCategory.wordPairs.map((pair, index) => (
                         <WordCard
                           key={index}
                           english={pair.english}
@@ -312,29 +778,17 @@ const App: React.FC = () => {
                         />
                       ))}
                     </CardGrid>
-                  </CategoryContainer>
-                ))
-              ) : (
-                <>
-                  <CategoryTitle>{selectedCategory.name}</CategoryTitle>
-                  <CardGrid>
-                    {selectedCategory.wordPairs.map((pair, index) => (
-                      <WordCard
-                        key={index}
-                        english={pair.english}
-                        hebrew={pair.hebrew}
-                        forceFlipped={allCardsFlipped}
-                      />
-                    ))}
-                  </CardGrid>
-                </>
-              )}
-            </div>
-          </WordsLayout>
+                  </>
+                )}
+              </div>
+            )}
+          </>
         )}
-        {activeTab === 'exam' && <ExamTab />}
-        {activeTab === 'picturePractice' && <PicturePracticeTab />}
-        {activeTab === 'leArIrEr' && (
+        {currentView === 'exam' && <ExamTab />}
+        {currentView === 'picturePractice' && <PicturePracticeTab />}
+        {currentView === 'finalExam' && <FinalExamTab />}
+        {currentView === 'accessibility' && <AccessibilityStatement />}
+        {currentView === 'leArIrEr' && (
           <div style={{ width: '100%' }}>
             <Instructions>
               Words ending with <b>le</b>, <b>ar</b>, <b>ir</b>, or <b>er</b> from all topics.<br />
@@ -363,7 +817,7 @@ const App: React.FC = () => {
             </CardGrid>
           </div>
         )}
-        {activeTab === 'leArIrErExam' && (
+        {currentView === 'leArIrErExam' && (
           <div style={{ width: '100%' }}>
             <Instructions>
               For each question, choose the correct ending (<b>le</b>, <b>ar</b>, <b>ir</b>, or <b>er</b>) to complete the English word.<br />

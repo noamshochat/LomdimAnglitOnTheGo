@@ -64,7 +64,10 @@
         { "english": "Dinner", "hebrew": "ארוחת ערב" },
         { "english": "Cake", "hebrew": "עוגה" },
         { "english": "Coconut", "hebrew": "קוקוס" },
-        { "english": "Corn", "hebrew": "תירס" }
+        { "english": "Corn", "hebrew": "תירס" },
+        { "english": "Pineapple", "hebrew": "אננס" },
+        { "english": "Grape", "hebrew": "ענב" },
+        { "english": "Orange", "hebrew": "תפוז" }
       ]
     },
     {
@@ -91,7 +94,9 @@
         { "english": "Ant", "hebrew": "נמלה" },
         { "english": "Alligator", "hebrew": "תנין" },
         { "english": "Butterfly", "hebrew": "פרפר" },
-        { "english": "Chick", "hebrew": "אפרוח" }
+        { "english": "Chick", "hebrew": "אפרוח" },
+        { "english": "Spider", "hebrew": "עכביש" },
+        { "english": "Tiger", "hebrew": "טיגריס" }
       ]  
     },
     {
@@ -103,7 +108,9 @@
         { "english": "Motor", "hebrew": "מנוע" },
         { "english": "Driver", "hebrew": "נהג" },
         { "english": "Airplane", "hebrew": "מטוס" },
-        { "english": "Anchor", "hebrew": "עוגן" }
+        { "english": "Anchor", "hebrew": "עוגן" },
+        { "english": "Truck", "hebrew": "משאית" },
+        { "english": "Trailer", "hebrew": "קרוון" }
       ]
     },
     {
@@ -111,7 +118,9 @@
       "wordPairs": [
         { "english": "Book", "hebrew": "ספר" },
         { "english": "Pen", "hebrew": "עט" },
-        { "english": "Paper", "hebrew": "נייר" }
+        { "english": "Paper", "hebrew": "נייר" },
+        { "english": "Ruler", "hebrew": "סרגל" },
+        { "english": "Marker", "hebrew": "טוש" }
       ]
     },
     {
@@ -158,7 +167,18 @@
       "name": "Activities",
       "wordPairs": [
         { "english": "Party", "hebrew": "מסיבה" },
-        { "english": "Tricks", "hebrew": "טריקים" }
+        { "english": "Tricks", "hebrew": "טריקים" },
+        { "english": "Reading", "hebrew": "קריאה" },
+        { "english": "Writing", "hebrew": "כתיבה" },
+        { "english": "Drawing", "hebrew": "ציור" },
+        { "english": "Singing", "hebrew": "שירה" },
+        { "english": "Dancing", "hebrew": "ריקוד" },
+        { "english": "Swimming", "hebrew": "שחייה" },
+        { "english": "Running", "hebrew": "ריצה" },
+        { "english": "Cooking", "hebrew": "בישול" },
+        { "english": "Playing", "hebrew": "משחק" },
+        { "english": "Skating", "hebrew": "החלקה" },
+        { "english": "Cycling", "hebrew": "רכיבה על אופניים" }
       ]
     },
     {
@@ -196,6 +216,16 @@
         { "english": "I know", "hebrew": "אני יודע" },
         { "english": "I don't know", "hebrew": "אני לא יודע" },
         { "english": "Let's play with the kitten", "hebrew": "בוא נשחק עם החתלתול" },
+        { "english": "The teacher is reading a book", "hebrew": "המורה קורא ספר" },
+        { "english": "I like to eat pineapple and grapes", "hebrew": "אני אוהב לאכול אננס וענבים" },
+        { "english": "The computer is on the table", "hebrew": "המחשב על השולחן" },
+        { "english": "My favorite color is purple", "hebrew": "הצבע האהוב עלי הוא סגול" },
+        { "english": "The driver is wearing a blue shirt", "hebrew": "הנהג לובש חולצה כחולה" },
+        { "english": "We are going to the beach tomorrow", "hebrew": "אנחנו הולכים לחוף מחר" },
+        { "english": "The singer is dancing on stage", "hebrew": "הזמר רוקד על הבמה" },
+        { "english": "I need to buy a new phone", "hebrew": "אני צריך לקנות טלפון חדש" },
+        { "english": "The weather is warm and sunny", "hebrew": "מזג האוויר חם ושמשי" },
+        { "english": "My mother is cooking dinner", "hebrew": "אמא שלי מבשלת ארוחת ערב" },
         { "english": "Good idea", "hebrew": "רעיון טוב" }
       ]
     },
@@ -207,7 +237,9 @@
         { "english": "Bottle", "hebrew": "בקבוק" },
         { "english": "Chair", "hebrew": "כיסא" },
         { "english": "Mirror", "hebrew": "מראה" },
-        { "english": "Ball", "hebrew": "כדור" }
+        { "english": "Ball", "hebrew": "כדור" },
+        { "english": "Candle", "hebrew": "נר" },
+        { "english": "Puzzle", "hebrew": "פאזל" }
       ]
     },
     {
@@ -235,7 +267,17 @@
     {
       "name": "Technology",
       "wordPairs": [
-        { "english": "Laser", "hebrew": "לייזר" }
+        { "english": "Laser", "hebrew": "לייזר" },
+        { "english": "Computer", "hebrew": "מחשב" },
+        { "english": "Phone", "hebrew": "טלפון" },
+        { "english": "Tablet", "hebrew": "טאבלט" },
+        { "english": "Camera", "hebrew": "מצלמה" },
+        { "english": "Television", "hebrew": "טלוויזיה" },
+        { "english": "Radio", "hebrew": "רדיו" },
+        { "english": "Internet", "hebrew": "אינטרנט" },
+        { "english": "Email", "hebrew": "אימייל" },
+        { "english": "Website", "hebrew": "אתר אינטרנט" },
+        { "english": "Robot", "hebrew": "רובוט" }
       ]
     },
     {
@@ -243,20 +285,47 @@
       "wordPairs": [
         { "english": "Leader", "hebrew": "מוביל" },
         { "english": "Player", "hebrew": "שחקן" },
-        { "english": "Singer", "hebrew": "זמר" }
+        { "english": "Singer", "hebrew": "זמר" },
+        { "english": "Teacher", "hebrew": "מורה" },
+        { "english": "Student", "hebrew": "תלמיד" },
+        { "english": "Doctor", "hebrew": "רופא" },
+        { "english": "Nurse", "hebrew": "אחות" },
+        { "english": "Chef", "hebrew": "שף" },
+        { "english": "Artist", "hebrew": "אמן" },
+        { "english": "Writer", "hebrew": "סופר" },
+        { "english": "Driver", "hebrew": "נהג" }
       ]
     },
     {
       "name": "Nature and Environment",
       "wordPairs": [
-        { "english": "Air", "hebrew": "אוויר" }
+        { "english": "Air", "hebrew": "אוויר" },
+        { "english": "Tree", "hebrew": "עץ" },
+        { "english": "Flower", "hebrew": "פרח" },
+        { "english": "Grass", "hebrew": "דשא" },
+        { "english": "Mountain", "hebrew": "הר" },
+        { "english": "River", "hebrew": "נהר" },
+        { "english": "Ocean", "hebrew": "אוקיינוס" },
+        { "english": "Forest", "hebrew": "יער" },
+        { "english": "Desert", "hebrew": "מדבר" },
+        { "english": "Lake", "hebrew": "אגם" },
+        { "english": "Beach", "hebrew": "חוף" }
       ]
     },
     {
       "name": "Money",
       "wordPairs": [
         { "english": "Penny", "hebrew": "פני" },
-        { "english": "Dollar", "hebrew": "דולר" }
+        { "english": "Dollar", "hebrew": "דולר" },
+        { "english": "Coin", "hebrew": "מטבע" },
+        { "english": "Bill", "hebrew": "שטר" },
+        { "english": "Bank", "hebrew": "בנק" },
+        { "english": "Wallet", "hebrew": "ארנק" },
+        { "english": "Price", "hebrew": "מחיר" },
+        { "english": "Cost", "hebrew": "עלות" },
+        { "english": "Buy", "hebrew": "לקנות" },
+        { "english": "Sell", "hebrew": "למכור" },
+        { "english": "Pay", "hebrew": "לשלם" }
       ]
     },
     {
@@ -265,7 +334,14 @@
         { "english": "Cape", "hebrew": "גלימה" },
         { "english": "Belt", "hebrew": "חגורה" },
         { "english": "Scarf", "hebrew": "צעיף" },
-        { "english": "Clothes", "hebrew": "בגדים" }
+        { "english": "Clothes", "hebrew": "בגדים" },
+        { "english": "Shirt", "hebrew": "חולצה" },
+        { "english": "Pants", "hebrew": "מכנסיים" },
+        { "english": "Dress", "hebrew": "שמלה" },
+        { "english": "Shoes", "hebrew": "נעליים" },
+        { "english": "Hat", "hebrew": "כובע" },
+        { "english": "Socks", "hebrew": "גרביים" },
+        { "english": "Jacket", "hebrew": "מעיל" }
       ]
     },
     {
@@ -281,7 +357,17 @@
     {
       "name": "Conjunctions and Connectors",
       "wordPairs": [
-        { "english": "But", "hebrew": "אבל" }
+        { "english": "But", "hebrew": "אבל" },
+        { "english": "And", "hebrew": "וגם" },
+        { "english": "Or", "hebrew": "או" },
+        { "english": "So", "hebrew": "אז" },
+        { "english": "Because", "hebrew": "כי" },
+        { "english": "If", "hebrew": "אם" },
+        { "english": "When", "hebrew": "כאשר" },
+        { "english": "Where", "hebrew": "איפה" },
+        { "english": "Why", "hebrew": "למה" },
+        { "english": "How", "hebrew": "איך" },
+        { "english": "Then", "hebrew": "אז" }
       ]
     }
   ]

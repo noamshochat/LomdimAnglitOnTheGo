@@ -9,6 +9,16 @@
       content="English"
     />
     <title>English</title>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EWCLF7QY53"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-EWCLF7QY53');
+    </script>
     <style>
       body {
         margin: 0;
@@ -17,6 +27,35 @@
           sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+      }
+      
+      /* Skip link styles */
+      .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 6px;
+        background: #2c3e50;
+        color: white;
+        padding: 8px;
+        text-decoration: none;
+        border-radius: 0 0 4px 4px;
+        z-index: 1000;
+        font-weight: bold;
+      }
+      
+      .skip-link:focus {
+        top: 0;
+        outline: 3px solid #3498db;
+        outline-offset: 2px;
+      }
+      
+      /* High contrast mode support */
+      @media (prefers-contrast: high) {
+        .skip-link {
+          background: #000;
+          color: #fff;
+          border: 2px solid #fff;
+        }
       }
     </style>
   </head>
