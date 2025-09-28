@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import WordCard from './components/WordCard';
-import ExamTab from './components/ExamTab';
+import ThirdGradeTab from './components/ThirdGradeTab';
+import FifthGradeTab from './components/FifthGradeTab';
 import StoryTab from './components/StoryTab';
 import StoryTab2 from './components/StoryTab2';
 import PicturePracticeTab from './components/PicturePracticeTab';
@@ -543,7 +544,7 @@ const CategoryCard = styled.button<{ isActive: boolean }>`
 `;
 
 const App: React.FC = () => {
-  const [currentView, setCurrentView] = useState<'main' | 'words' | 'exam' | 'story1' | 'story2' | 'leArIrEr' | 'leArIrErExam' | 'picturePractice' | 'finalExam' | 'accessibility'>('main');
+  const [currentView, setCurrentView] = useState<'main' | 'words' | 'thirdGrade' | 'fifthGrade' | 'leArIrEr' | 'leArIrErExam' | 'finalExam' | 'accessibility'>('main');
   const [selectedCategoryIdx, setSelectedCategoryIdx] = useState(0);
   const [allCardsFlipped, setAllCardsFlipped] = useState(false);
 
@@ -659,11 +660,18 @@ const App: React.FC = () => {
               <MenuCardDescription>Study vocabulary by category</MenuCardDescription>
             </MenuCard>
             <MenuCard 
-              onClick={() => setCurrentView('exam')}
-              aria-label="Practice vocabulary with multiple choice questions"
+              onClick={() => setCurrentView('thirdGrade')}
+              aria-label="Study Third grade vocabulary words"
             >
-              <MenuCardTitle>🎯 Words Practice</MenuCardTitle>
-              <MenuCardDescription>Practice with multiple choice questions</MenuCardDescription>
+              <MenuCardTitle>📖 Third Grade</MenuCardTitle>
+              <MenuCardDescription>Age-appropriate vocabulary for third grade</MenuCardDescription>
+            </MenuCard>
+            <MenuCard 
+              onClick={() => setCurrentView('fifthGrade')}
+              aria-label="Study Fifth grade vocabulary words"
+            >
+              <MenuCardTitle>🎓 Fifth Grade</MenuCardTitle>
+              <MenuCardDescription>Age-appropriate vocabulary for fifth grade</MenuCardDescription>
             </MenuCard>
             <MenuCard 
               onClick={() => setCurrentView('leArIrEr')}
@@ -784,8 +792,8 @@ const App: React.FC = () => {
             )}
           </>
         )}
-        {currentView === 'exam' && <ExamTab />}
-        {currentView === 'picturePractice' && <PicturePracticeTab />}
+        {currentView === 'thirdGrade' && <ThirdGradeTab />}
+        {currentView === 'fifthGrade' && <FifthGradeTab />}
         {currentView === 'finalExam' && <FinalExamTab />}
         {currentView === 'accessibility' && <AccessibilityStatement />}
         {currentView === 'leArIrEr' && (
