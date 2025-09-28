@@ -9,6 +9,7 @@ import PicturePracticeTab from './components/PicturePracticeTab';
 import FinalExamTab from './components/FinalExamTab';
 import AccessibilityStatement from './components/AccessibilityStatement';
 import words from './data/words.json';
+import { trackPageView, trackEvent } from './utils/analytics';
 
 const AppContainer = styled.main`
   min-height: 100vh;
@@ -547,6 +548,22 @@ const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<'main' | 'words' | 'thirdGrade' | 'fifthGrade' | 'leArIrEr' | 'leArIrErExam' | 'finalExam' | 'accessibility'>('main');
   const [selectedCategoryIdx, setSelectedCategoryIdx] = useState(0);
   const [allCardsFlipped, setAllCardsFlipped] = useState(false);
+
+  // Track page views for Google Analytics
+  React.useEffect(() => {
+    const pageNames = {
+      'main': 'Main Menu',
+      'words': 'Words Practice',
+      'thirdGrade': 'Third Grade Words',
+      'fifthGrade': 'Fifth Grade Words',
+      'leArIrEr': 'le, ar, ir, er Words',
+      'leArIrErExam': 'le, ar, ir, er Exam',
+      'finalExam': 'Final Exam',
+      'accessibility': 'Accessibility Statement'
+    };
+    
+    trackPageView(currentView, pageNames[currentView]);
+  }, [currentView]);
 
   // Sort categories alphabetically by name
   const sortedCategories = [...words.categories].sort((a, b) => a.name.localeCompare(b.name));

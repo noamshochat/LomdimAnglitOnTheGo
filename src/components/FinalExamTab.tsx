@@ -4,6 +4,7 @@ import ReactCanvasConfetti from 'react-canvas-confetti';
 import type { CreateTypes } from 'canvas-confetti';
 import html2canvas from 'html2canvas';
 import words from '../data/words.json';
+import { trackExamCompletion } from '../utils/analytics';
 
 const ExamContainer = styled.div`
   padding: 1.5rem;
@@ -904,6 +905,10 @@ const FinalExamTab: React.FC = () => {
     const percentage = Math.round((score / allQuestions.length) * 100);
     const isHighScore = percentage >= 80;
     const isPerfectScore = percentage === 100;
+    
+    // Track exam completion in Google Analytics
+    const examType = examLength === 25 ? 'Mini Final Exam' : examLength === 50 ? 'Quick Final Exam' : examLength === 251 ? 'Complete Final Exam' : 'Third Grade Final Exam';
+    trackExamCompletion(examType, score, allQuestions.length, percentage);
 
     return (
       <ExamContainer>
