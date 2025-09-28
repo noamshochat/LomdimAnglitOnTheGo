@@ -855,6 +855,25 @@ const App: React.FC = () => {
                   onClick={() => {
                     const utter = new window.SpeechSynthesisUtterance(leArIrErExamQuestions[leExamIdx].fullWord);
                     utter.lang = 'en-US';
+                    
+                    // Try to find a female child-friendly voice
+                    const voices = window.speechSynthesis.getVoices();
+                    const femaleVoice = voices.find(voice => 
+                      voice.lang.startsWith('en') && 
+                      (voice.name.toLowerCase().includes('female') || 
+                       voice.name.toLowerCase().includes('woman') ||
+                       voice.name.toLowerCase().includes('zira') ||
+                       voice.name.toLowerCase().includes('hazel'))
+                    );
+                    
+                    if (femaleVoice) {
+                      utter.voice = femaleVoice;
+                    }
+                    
+                    // Set child-friendly speech rate (slightly slower)
+                    utter.rate = 0.8;
+                    utter.pitch = 1.1; // Slightly higher pitch for child-friendly sound
+                    
                     window.speechSynthesis.speak(utter);
                   }}
                   style={{ background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer', marginBottom: '1rem' }}
