@@ -369,6 +369,41 @@
         { "english": "How", "hebrew": "איך" },
         { "english": "Then", "hebrew": "אז" }
       ]
+    },
+    {
+      "name": "Fifth grade",
+      "wordPairs": [
+        
+      ]
+    },
+    {
+      "name": "Third grade",
+      "wordPairs": [
+        { "english": "Apple", "hebrew": "תפוח" },
+        { "english": "Alligator", "hebrew": "תנין" },
+        { "english": "Ant", "hebrew": "נמלה" },
+        { "english": "Astronaut", "hebrew": "אסטרונאוט" },
+        { "english": "Airplane", "hebrew": "מטוס" },
+        { "english": "Anchor", "hebrew": "עוגן" },
+        { "english": "Book", "hebrew": "ספר" },
+        { "english": "Bird", "hebrew": "ציפור" },
+        { "english": "Ball", "hebrew": "כדור" },
+        { "english": "Boy", "hebrew": "ילד" },
+        { "english": "Bat", "hebrew": "עטלף" },
+        { "english": "Butterfly", "hebrew": "פרפר" },
+        { "english": "Cat", "hebrew": "חתול" },
+        { "english": "Cake", "hebrew": "עוגה" },
+        { "english": "Chick", "hebrew": "אפרוח" },
+        { "english": "Coconut", "hebrew": "קוקוס" },
+        { "english": "Corn", "hebrew": "תירס" },
+        { "english": "Car", "hebrew": "מכונית" },
+        { "english": "Dog", "hebrew": "כלב" },
+        { "english": "Drum", "hebrew": "תוף" },
+        { "english": "Dolphin", "hebrew": "דולפין" },
+        { "english": "Duck", "hebrew": "ברווז" },
+        { "english": "Dragon", "hebrew": "דרקון" },
+        { "english": "Doll", "hebrew": "בובה" }
+      ]
     }
   ]
 }
