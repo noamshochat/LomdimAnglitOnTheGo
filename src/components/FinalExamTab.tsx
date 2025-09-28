@@ -591,9 +591,10 @@ const FinalExamTab: React.FC = () => {
 
     // Add options to each question
     return shuffledQuestions.map(q => {
+      const sourceCategory = examLength === 'thirdGrade' ? 'Third grade' : undefined;
       const options = [
         q.correctAnswer,
-        ...getRandomHebrewWords(words.categories, q.correctAnswer, 3)
+        ...getRandomHebrewWords(words.categories, q.correctAnswer, 3, sourceCategory)
       ].sort(() => Math.random() - 0.5);
 
       return {
@@ -601,17 +602,26 @@ const FinalExamTab: React.FC = () => {
         options
       };
     });
-  }, []);
+  }, [examLength]);
 
   const currentQuestion = allQuestions[currentQuestionIndex];
 
   // Helper function to get random Hebrew words excluding the correct answer
-  function getRandomHebrewWords(categories: any[], excludeWord: string, count: number): string[] {
-    const allHebrewWords = categories.flatMap(category => 
-      category.wordPairs.map((pair: any) => pair.hebrew)
-    );
+  function getRandomHebrewWords(categories: any[], excludeWord: string, count: number, sourceCategory?: string): string[] {
+    let allHebrewWords;
     
-    const uniqueWords = allHebrewWords.filter((word, index, self) => 
+    if (sourceCategory) {
+      // If we have a specific source category (like Third Grade), only use words from that category
+      const category = categories.find(cat => cat.name === sourceCategory);
+      allHebrewWords = category?.wordPairs.map((pair: any) => pair.hebrew) || [];
+    } else {
+      // Otherwise, use all words from all categories
+      allHebrewWords = categories.flatMap(category => 
+        category.wordPairs.map((pair: any) => pair.hebrew)
+      );
+    }
+    
+    const uniqueWords = allHebrewWords.filter((word: string, index: number, self: string[]) => 
       word !== excludeWord && self.indexOf(word) === index
     );
     
