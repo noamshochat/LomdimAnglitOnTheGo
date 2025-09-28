@@ -386,7 +386,7 @@ const ButtonContainer = styled.div`
 
 const ExamSetupContainer = styled.div`
   background: white;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -394,75 +394,75 @@ const ExamSetupContainer = styled.div`
   margin: 0 auto;
   
   @media (max-width: 768px) {
-    padding: 1.2rem;
+    padding: 1rem;
   }
   
   @media (max-width: 480px) {
-    padding: 1rem;
+    padding: 0.8rem;
   }
 `;
 
 const ExamSetupTitle = styled.h2`
   color: #2c3e50;
-  margin-bottom: 1.5rem;
-  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  font-size: 1.6rem;
   
   @media (max-width: 768px) {
-    font-size: 1.4rem;
-    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
   }
   
   @media (max-width: 480px) {
-    font-size: 1.2rem;
-    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+    margin-bottom: 0.6rem;
   }
 `;
 
 const ExamSetupDescription = styled.p`
   color: #7f8c8d;
-  margin-bottom: 2rem;
-  font-size: 1rem;
-  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
   
   @media (max-width: 768px) {
-    margin-bottom: 1.5rem;
-    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
   }
   
   @media (max-width: 480px) {
-    margin-bottom: 1.2rem;
-    font-size: 0.85rem;
+    margin-bottom: 0.8rem;
+    font-size: 0.8rem;
   }
 `;
 
 const ExamLengthOptions = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 2rem;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
   
   @media (max-width: 768px) {
-    gap: 0.8rem;
-    margin-bottom: 1.5rem;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
   }
   
   @media (max-width: 480px) {
-    gap: 0.6rem;
-    margin-bottom: 1.2rem;
+    gap: 0.5rem;
+    margin-bottom: 0.8rem;
   }
 `;
 
 const ExamLengthOption = styled.button<{ isSelected: boolean }>`
-  padding: 1rem 1.5rem;
+  padding: 0.8rem 1.2rem;
   border: 2px solid ${props => props.isSelected ? '#2c3e50' : '#e0e0e0'};
   border-radius: 12px;
   background-color: ${props => props.isSelected ? '#2c3e50' : 'white'};
   color: ${props => props.isSelected ? 'white' : '#2c3e50'};
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  min-height: 60px;
+  min-height: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -475,30 +475,36 @@ const ExamLengthOption = styled.button<{ isSelected: boolean }>`
   }
   
   @media (max-width: 768px) {
-    padding: 0.7rem 1rem;
-    min-height: 50px;
-    font-size: 0.85rem;
+    padding: 0.5rem 0.8rem;
+    min-height: 40px;
+    font-size: 0.8rem;
   }
   
   @media (max-width: 480px) {
-    padding: 0.6rem 0.8rem;
-    min-height: 45px;
-    font-size: 0.8rem;
+    padding: 0.4rem 0.6rem;
+    min-height: 35px;
+    font-size: 0.75rem;
   }
 `;
 
 const ExamLengthTitle = styled.div`
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.2rem;
   
   @media (max-width: 768px) {
-    font-size: 1rem;
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+    margin-bottom: 0.1rem;
   }
 `;
 
 const ExamLengthDescription = styled.div`
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   opacity: 0.8;
   
   @media (max-width: 768px) {
@@ -507,16 +513,16 @@ const ExamLengthDescription = styled.div`
 `;
 
 const StartExamButton = styled.button`
-  padding: 1rem 2rem;
+  padding: 0.8rem 1.5rem;
   background-color: #27ae60;
   color: white;
   border: none;
   border-radius: 8px;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  min-height: 50px;
+  min-height: 45px;
   width: 100%;
   
   &:hover {
