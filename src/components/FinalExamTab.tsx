@@ -551,7 +551,7 @@ const FinalExamTab: React.FC = () => {
   const [score, setScore] = useState(0);
   const [isQuizComplete, setIsQuizComplete] = useState(false);
   const [showExamSetup, setShowExamSetup] = useState(true);
-  const [examLength, setExamLength] = useState<25 | 50 | 221 | 'thirdGrade'>(25);
+  const [examLength, setExamLength] = useState<25 | 50 | 251 | 'thirdGrade'>(25);
   const [isSharing, setIsSharing] = useState(false);
   const confettiRef = useRef<CreateTypes>();
   const scoreContainerRef = useRef<HTMLDivElement>(null);
@@ -860,7 +860,7 @@ const FinalExamTab: React.FC = () => {
       });
       
       const percentage = Math.round((score / allQuestions.length) * 100);
-      const examType = examLength === 25 ? 'Mini' : examLength === 50 ? 'Quick' : examLength === 221 ? 'Complete' : 'Third Grade';
+      const examType = examLength === 25 ? 'Mini' : examLength === 50 ? 'Quick' : examLength === 251 ? 'Complete' : 'Third Grade';
       const shareText = `I just completed the ${examType} Final Exam with a score of ${percentage}%! 🎓📚`;
       
       // Try Web Share API first
@@ -909,7 +909,7 @@ const FinalExamTab: React.FC = () => {
       <ExamContainer>
         <ReactCanvasConfetti onInit={onInit} />
         <ScoreContainer ref={scoreContainerRef}>
-          <ScoreTitle>{examLength === 25 ? 'Mini Final Exam Complete!' : examLength === 50 ? 'Quick Final Exam Complete!' : examLength === 221 ? 'Complete Final Exam Complete!' : 'Third Grade Final Exam Complete!'} 🎓</ScoreTitle>
+          <ScoreTitle>{examLength === 25 ? 'Mini Final Exam Complete!' : examLength === 50 ? 'Quick Final Exam Complete!' : examLength === 251 ? 'Complete Final Exam Complete!' : 'Third Grade Final Exam Complete!'} 🎓</ScoreTitle>
           <ScoreText>
             You got {score} out of {allQuestions.length} questions correct
           </ScoreText>
@@ -974,10 +974,10 @@ const FinalExamTab: React.FC = () => {
               </ExamLengthDescription>
             </ExamLengthOption>
             <ExamLengthOption
-              isSelected={examLength === 221}
-              onClick={() => setExamLength(221)}
+              isSelected={examLength === 251}
+              onClick={() => setExamLength(251)}
             >
-              <ExamLengthTitle>🎓 Complete Exam (221 Questions)</ExamLengthTitle>
+              <ExamLengthTitle>🎓 Complete Exam (251 Questions)</ExamLengthTitle>
               <ExamLengthDescription>
                 ~65-80 minutes • Tests all vocabulary words
               </ExamLengthDescription>
@@ -993,7 +993,7 @@ const FinalExamTab: React.FC = () => {
             </ExamLengthOption>
           </ExamLengthOptions>
           <StartExamButton onClick={handleStartExam}>
-            Start {examLength === 25 ? 'Mini' : examLength === 50 ? 'Quick' : examLength === 221 ? 'Complete' : 'Third Grade'} Final Exam
+            Start {examLength === 25 ? 'Mini' : examLength === 50 ? 'Quick' : examLength === 251 ? 'Complete' : 'Third Grade'} Final Exam
           </StartExamButton>
         </ExamSetupContainer>
       </ExamContainer>
@@ -1003,7 +1003,7 @@ const FinalExamTab: React.FC = () => {
   return (
     <ExamContainer>
       <ReactCanvasConfetti onInit={onInit} />
-      <Title>Final Exam - {examLength === 25 ? 'Mini' : examLength === 50 ? 'Quick' : examLength === 221 ? 'Complete' : 'Third Grade'} ({examLength === 'thirdGrade' ? 24 : examLength} Questions)</Title>
+      <Title>Final Exam - {examLength === 25 ? 'Mini' : examLength === 50 ? 'Quick' : examLength === 251 ? 'Complete' : 'Third Grade'} ({examLength === 'thirdGrade' ? 24 : examLength} Questions)</Title>
       <ProgressContainer>
         <ProgressBar $progress={progress}>
           <ProgressFill $progress={progress} />
