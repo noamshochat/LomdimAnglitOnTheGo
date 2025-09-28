@@ -639,7 +639,7 @@ const App: React.FC = () => {
     <AppContainer>
       <a href="#main-content" className="skip-link">Skip to main content</a>
       <Header>
-        <Title>English</Title>
+        <Title>English-Hebrew cards for kids</Title>
         {currentView !== 'main' && (
           <NavigationContainer>
             <BackButton onClick={handleBack}>
