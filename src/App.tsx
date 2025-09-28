@@ -6,6 +6,7 @@ import StoryTab from './components/StoryTab';
 import StoryTab2 from './components/StoryTab2';
 import PicturePracticeTab from './components/PicturePracticeTab';
 import FinalExamTab from './components/FinalExamTab';
+import ThirdGradeTab from './components/ThirdGradeTab';
 import AccessibilityStatement from './components/AccessibilityStatement';
 import words from './data/words.json';
 
@@ -543,7 +544,7 @@ const CategoryCard = styled.button<{ isActive: boolean }>`
 `;
 
 const App: React.FC = () => {
-  const [currentView, setCurrentView] = useState<'main' | 'words' | 'exam' | 'story1' | 'story2' | 'leArIrEr' | 'leArIrErExam' | 'picturePractice' | 'finalExam' | 'accessibility'>('main');
+  const [currentView, setCurrentView] = useState<'main' | 'words' | 'exam' | 'story1' | 'story2' | 'leArIrEr' | 'leArIrErExam' | 'picturePractice' | 'finalExam' | 'thirdGrade' | 'accessibility'>('main');
   const [selectedCategoryIdx, setSelectedCategoryIdx] = useState(0);
   const [allCardsFlipped, setAllCardsFlipped] = useState(false);
 
@@ -686,6 +687,13 @@ const App: React.FC = () => {
               <MenuCardTitle>🎓 Final Exam</MenuCardTitle>
               <MenuCardDescription>Comprehensive test of all vocabulary</MenuCardDescription>
             </MenuCard>
+            <MenuCard 
+              onClick={() => setCurrentView('thirdGrade')}
+              aria-label="Study Third grade vocabulary words"
+            >
+              <MenuCardTitle>📖 Third Grade</MenuCardTitle>
+              <MenuCardDescription>Age-appropriate vocabulary for third grade</MenuCardDescription>
+            </MenuCard>
             <DisabledMenuCard aria-disabled="true">
               <MenuCardTitle>🖼️ Word Practice in Pictures</MenuCardTitle>
               <MenuCardDescription>Coming soon...</MenuCardDescription>
@@ -787,6 +795,7 @@ const App: React.FC = () => {
         {currentView === 'exam' && <ExamTab />}
         {currentView === 'picturePractice' && <PicturePracticeTab />}
         {currentView === 'finalExam' && <FinalExamTab />}
+        {currentView === 'thirdGrade' && <ThirdGradeTab />}
         {currentView === 'accessibility' && <AccessibilityStatement />}
         {currentView === 'leArIrEr' && (
           <div style={{ width: '100%' }}>

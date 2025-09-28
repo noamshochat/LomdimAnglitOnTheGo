@@ -551,29 +551,43 @@ const FinalExamTab: React.FC = () => {
   const [score, setScore] = useState(0);
   const [isQuizComplete, setIsQuizComplete] = useState(false);
   const [showExamSetup, setShowExamSetup] = useState(true);
-  const [examLength, setExamLength] = useState<25 | 50 | 221>(25);
+  const [examLength, setExamLength] = useState<25 | 50 | 221 | 'thirdGrade'>(25);
   const [isSharing, setIsSharing] = useState(false);
   const confettiRef = useRef<CreateTypes>();
   const scoreContainerRef = useRef<HTMLDivElement>(null);
 
   // Create comprehensive questions from ALL words (excluding sentences)
   const allQuestions = React.useMemo(() => {
-    // Get all words from all categories except Sentences
-    const allWords = words.categories
-      .filter(category => category.name !== "Sentences")
-      .flatMap(category => 
-        category.wordPairs.map(pair => ({
-          question: `What is the Hebrew translation for "${pair.english}"?`,
-          correctAnswer: pair.hebrew,
-          englishWord: pair.english,
-          category: category.name
-        }))
-      );
+    let sourceWords;
+    
+    if (examLength === 'thirdGrade') {
+      // Get only Third grade words
+      const thirdGradeCategory = words.categories.find(category => category.name === "Third grade");
+      sourceWords = thirdGradeCategory?.wordPairs.map(pair => ({
+        question: `What is the Hebrew translation for "${pair.english}"?`,
+        correctAnswer: pair.hebrew,
+        englishWord: pair.english,
+        category: "Third grade"
+      })) || [];
+    } else {
+      // Get all words from all categories except Sentences
+      sourceWords = words.categories
+        .filter(category => category.name !== "Sentences")
+        .flatMap(category => 
+          category.wordPairs.map(pair => ({
+            question: `What is the Hebrew translation for "${pair.english}"?`,
+            correctAnswer: pair.hebrew,
+            englishWord: pair.english,
+            category: category.name
+          }))
+        );
+    }
 
     // Shuffle and take questions based on selected exam length
-    const shuffledQuestions = [...allWords]
+    const questionCount = examLength === 'thirdGrade' ? sourceWords.length : examLength;
+    const shuffledQuestions = [...sourceWords]
       .sort(() => Math.random() - 0.5)
-      .slice(0, examLength);
+      .slice(0, questionCount);
 
     // Add options to each question
     return shuffledQuestions.map(q => {
@@ -806,7 +820,7 @@ const FinalExamTab: React.FC = () => {
       });
       
       const percentage = Math.round((score / allQuestions.length) * 100);
-      const examType = examLength === 25 ? 'Mini' : examLength === 50 ? 'Quick' : 'Complete';
+      const examType = examLength === 25 ? 'Mini' : examLength === 50 ? 'Quick' : examLength === 221 ? 'Complete' : 'Third Grade';
       const shareText = `I just completed the ${examType} Final Exam with a score of ${percentage}%! 🎓📚`;
       
       // Try Web Share API first
@@ -928,9 +942,18 @@ const FinalExamTab: React.FC = () => {
                 ~65-80 minutes • Tests all vocabulary words
               </ExamLengthDescription>
             </ExamLengthOption>
+            <ExamLengthOption
+              isSelected={examLength === 'thirdGrade'}
+              onClick={() => setExamLength('thirdGrade')}
+            >
+              <ExamLengthTitle>📖 Third Grade Exam (24 Questions)</ExamLengthTitle>
+              <ExamLengthDescription>
+                ~8-12 minutes • Age-appropriate vocabulary for third grade
+              </ExamLengthDescription>
+            </ExamLengthOption>
           </ExamLengthOptions>
           <StartExamButton onClick={handleStartExam}>
-            Start {examLength === 25 ? 'Mini' : examLength === 50 ? 'Quick' : 'Complete'} Final Exam
+            Start {examLength === 25 ? 'Mini' : examLength === 50 ? 'Quick' : examLength === 221 ? 'Complete' : 'Third Grade'} Final Exam
           </StartExamButton>
         </ExamSetupContainer>
       </ExamContainer>
@@ -940,7 +963,7 @@ const FinalExamTab: React.FC = () => {
   return (
     <ExamContainer>
       <ReactCanvasConfetti onInit={onInit} />
-      <Title>Final Exam - {examLength === 25 ? 'Mini' : examLength === 50 ? 'Quick' : 'Complete'} ({examLength} Questions)</Title>
+      <Title>Final Exam - {examLength === 25 ? 'Mini' : examLength === 50 ? 'Quick' : examLength === 221 ? 'Complete' : 'Third Grade'} ({examLength === 'thirdGrade' ? 24 : examLength} Questions)</Title>
       <ProgressContainer>
         <ProgressBar $progress={progress}>
           <ProgressFill $progress={progress} />
