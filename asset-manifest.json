@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/Forth-Grade-English-Hub/static/js/main.3ff30ddf.js",
+    "main.js": "/Forth-Grade-English-Hub/static/js/main.e6e0b01a.js",
     "index.html": "/Forth-Grade-English-Hub/index.html",
-    "main.3ff30ddf.js.map": "/Forth-Grade-English-Hub/static/js/main.3ff30ddf.js.map"
+    "main.e6e0b01a.js.map": "/Forth-Grade-English-Hub/static/js/main.e6e0b01a.js.map"
   },
   "entrypoints": [
-    "static/js/main.3ff30ddf.js"
+    "static/js/main.e6e0b01a.js"
   ]
 }
