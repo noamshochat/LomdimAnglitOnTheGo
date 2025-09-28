@@ -624,6 +624,8 @@ const App: React.FC = () => {
       } else {
         setShowCategorySelection(true);
       }
+    } else if (currentView === 'thirdGrade' || currentView === 'fifthGrade') {
+      setCurrentView('main');
     } else {
       setCurrentView('words');
     }

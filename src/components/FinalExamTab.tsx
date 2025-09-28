@@ -782,6 +782,17 @@ const FinalExamTab: React.FC = () => {
     }
   };
 
+  // Auto-advance to score screen when last question is answered correctly
+  React.useEffect(() => {
+    if (showAnswer && selectedAnswer === currentQuestion.correctAnswer && currentQuestionIndex === allQuestions.length - 1) {
+      const timer = setTimeout(() => {
+        setIsQuizComplete(true);
+        triggerConfetti();
+      }, 2000); // 2 second delay to show the correct answer
+      return () => clearTimeout(timer);
+    }
+  }, [showAnswer, selectedAnswer, currentQuestion.correctAnswer, currentQuestionIndex, allQuestions.length, triggerConfetti]);
+
   const handleRestartQuiz = () => {
     setCurrentQuestionIndex(0);
     setSelectedAnswer(null);
@@ -879,7 +890,7 @@ const FinalExamTab: React.FC = () => {
       <ExamContainer>
         <ReactCanvasConfetti onInit={onInit} />
         <ScoreContainer ref={scoreContainerRef}>
-          <ScoreTitle>Final Exam Complete! 🎓</ScoreTitle>
+          <ScoreTitle>{examLength === 25 ? 'Mini Final Exam Complete!' : examLength === 50 ? 'Quick Final Exam Complete!' : examLength === 221 ? 'Complete Final Exam Complete!' : 'Third Grade Final Exam Complete!'} 🎓</ScoreTitle>
           <ScoreText>
             You got {score} out of {allQuestions.length} questions correct
           </ScoreText>
@@ -979,7 +990,7 @@ const FinalExamTab: React.FC = () => {
           <ProgressFill $progress={progress} />
         </ProgressBar>
         <ProgressText>
-          {currentQuestionIndex} / {allQuestions.length}
+          {currentQuestionIndex + 1} / {allQuestions.length}
         </ProgressText>
       </ProgressContainer>
       <QuestionContainer>
@@ -1014,9 +1025,9 @@ const FinalExamTab: React.FC = () => {
         )}
       </QuestionContainer>
       {showAnswer && (
-        (selectedAnswer !== currentQuestion.correctAnswer || currentQuestionIndex === allQuestions.length - 1) && (
+        selectedAnswer !== currentQuestion.correctAnswer && (
           <NextButton onClick={handleNextQuestion}>
-            {currentQuestionIndex === allQuestions.length - 1 ? "Finish Final Exam" : "Next Question"}
+            Next Question
           </NextButton>
         )
       )}
