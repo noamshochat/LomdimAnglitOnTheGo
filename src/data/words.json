@@ -373,7 +373,25 @@
     {
       "name": "Fifth grade",
       "wordPairs": [
-        
+        { "english": "Want", "hebrew": "רוצה" },
+        { "english": "Costumes", "hebrew": "תחפושות" },
+        { "english": "Wear", "hebrew": "לובש" },
+        { "english": "Belt", "hebrew": "חגורה" },
+        { "english": "Long", "hebrew": "ארוך" },
+        { "english": "Cape", "hebrew": "גלימה" },
+        { "english": "Scarf", "hebrew": "צעיף" },
+        { "english": "Weather", "hebrew": "מזג אוויר" },
+        { "english": "Windy", "hebrew": "סוער" },
+        { "english": "Cool", "hebrew": "קר , מגניב (סלנג)" },
+        { "english": "Cloudy", "hebrew": "מעונן" },
+        { "english": "Rainy", "hebrew": "גשום" },
+        { "english": "Warm", "hebrew": "חם" },
+        { "english": "Wearing", "hebrew": "לובש" },
+        { "english": "Clothes", "hebrew": "בגדים" },
+        { "english": "Dirty", "hebrew": "מלוכלך" },
+        { "english": "Clean", "hebrew": "נקי" },
+        { "english": "But", "hebrew": "אבל" },
+        { "english": "Old", "hebrew": "ישן" }
       ]
     },
     {

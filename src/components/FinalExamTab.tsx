@@ -558,7 +558,7 @@ const FinalExamTab: React.FC = () => {
   const [score, setScore] = useState(0);
   const [isQuizComplete, setIsQuizComplete] = useState(false);
   const [showExamSetup, setShowExamSetup] = useState(true);
-  const [examLength, setExamLength] = useState<25 | 50 | 251 | 'thirdGrade'>(25);
+  const [examLength, setExamLength] = useState<25 | 50 | 251 | 'thirdGrade' | 'fifthGrade'>(25);
   const [isSharing, setIsSharing] = useState(false);
   const confettiRef = useRef<CreateTypes>();
   const scoreContainerRef = useRef<HTMLDivElement>(null);
@@ -576,6 +576,15 @@ const FinalExamTab: React.FC = () => {
         englishWord: pair.english,
         category: "Third grade"
       })) || [];
+    } else if (examLength === 'fifthGrade') {
+      // Get only Fifth grade words
+      const fifthGradeCategory = words.categories.find(category => category.name === "Fifth grade");
+      sourceWords = fifthGradeCategory?.wordPairs.map(pair => ({
+        question: `What is the Hebrew translation for "${pair.english}"?`,
+        correctAnswer: pair.hebrew,
+        englishWord: pair.english,
+        category: "Fifth grade"
+      })) || [];
     } else {
       // Get all words from all categories except Sentences
       sourceWords = words.categories
@@ -591,14 +600,14 @@ const FinalExamTab: React.FC = () => {
     }
 
     // Shuffle and take questions based on selected exam length
-    const questionCount = examLength === 'thirdGrade' ? sourceWords.length : examLength;
+    const questionCount = examLength === 'thirdGrade' ? sourceWords.length : examLength === 'fifthGrade' ? sourceWords.length : examLength;
     const shuffledQuestions = [...sourceWords]
       .sort(() => Math.random() - 0.5)
       .slice(0, questionCount);
 
     // Add options to each question
     return shuffledQuestions.map(q => {
-      const sourceCategory = examLength === 'thirdGrade' ? 'Third grade' : undefined;
+      const sourceCategory = examLength === 'thirdGrade' ? 'Third grade' : examLength === 'fifthGrade' ? 'Fifth grade' : undefined;
       const options = [
         q.correctAnswer,
         ...getRandomHebrewWords(words.categories, q.correctAnswer, 3, sourceCategory)
@@ -618,7 +627,7 @@ const FinalExamTab: React.FC = () => {
     let allHebrewWords;
     
     if (sourceCategory) {
-      // If we have a specific source category (like Third Grade), only use words from that category
+      // If we have a specific source category (like Third Grade or Fifth Grade), only use words from that category
       const category = categories.find(cat => cat.name === sourceCategory);
       allHebrewWords = category?.wordPairs.map((pair: any) => pair.hebrew) || [];
     } else {
@@ -867,7 +876,7 @@ const FinalExamTab: React.FC = () => {
       });
       
       const percentage = Math.round((score / allQuestions.length) * 100);
-      const examType = examLength === 25 ? 'Mini' : examLength === 50 ? 'Quick' : examLength === 251 ? 'Complete' : 'Third Grade';
+      const examType = examLength === 25 ? 'Mini' : examLength === 50 ? 'Quick' : examLength === 251 ? 'Complete' : examLength === 'thirdGrade' ? 'Third Grade' : 'Fifth Grade';
       const shareText = `I just completed the ${examType} Final Exam with a score of ${percentage}%! 🎓📚`;
       
       // Try Web Share API first
@@ -913,14 +922,14 @@ const FinalExamTab: React.FC = () => {
     const isPerfectScore = percentage === 100;
     
     // Track exam completion in Google Analytics
-    const examType = examLength === 25 ? 'Mini Final Exam' : examLength === 50 ? 'Quick Final Exam' : examLength === 251 ? 'Complete Final Exam' : 'Third Grade Final Exam';
+    const examType = examLength === 25 ? 'Mini Final Exam' : examLength === 50 ? 'Quick Final Exam' : examLength === 251 ? 'Complete Final Exam' : examLength === 'thirdGrade' ? 'Third Grade Final Exam' : 'Fifth Grade Final Exam';
     trackExamCompletion(examType, score, allQuestions.length, percentage);
 
     return (
       <ExamContainer>
         <ReactCanvasConfetti onInit={onInit} />
         <ScoreContainer ref={scoreContainerRef}>
-          <ScoreTitle>{examLength === 25 ? 'Mini Final Exam Complete!' : examLength === 50 ? 'Quick Final Exam Complete!' : examLength === 251 ? 'Complete Final Exam Complete!' : 'Third Grade Final Exam Complete!'} 🎓</ScoreTitle>
+          <ScoreTitle>{examLength === 25 ? 'Mini Final Exam Complete!' : examLength === 50 ? 'Quick Final Exam Complete!' : examLength === 251 ? 'Complete Final Exam Complete!' : examLength === 'thirdGrade' ? 'Third Grade Final Exam Complete!' : 'Fifth Grade Final Exam Complete!'} 🎓</ScoreTitle>
           <ScoreText>
             You got {score} out of {allQuestions.length} questions correct
           </ScoreText>
@@ -1002,9 +1011,18 @@ const FinalExamTab: React.FC = () => {
                 ~8-12 minutes • Age-appropriate vocabulary for third grade
               </ExamLengthDescription>
             </ExamLengthOption>
+            <ExamLengthOption
+              isSelected={examLength === 'fifthGrade'}
+              onClick={() => setExamLength('fifthGrade')}
+            >
+              <ExamLengthTitle>🎓 Fifth Grade Exam (19 Questions)</ExamLengthTitle>
+              <ExamLengthDescription>
+                ~6-10 minutes • Advanced vocabulary for fifth grade
+              </ExamLengthDescription>
+            </ExamLengthOption>
           </ExamLengthOptions>
           <StartExamButton onClick={handleStartExam}>
-            Start {examLength === 25 ? 'Mini' : examLength === 50 ? 'Quick' : examLength === 251 ? 'Complete' : 'Third Grade'} Final Exam
+            Start {examLength === 25 ? 'Mini' : examLength === 50 ? 'Quick' : examLength === 251 ? 'Complete' : examLength === 'thirdGrade' ? 'Third Grade' : 'Fifth Grade'} Final Exam
           </StartExamButton>
         </ExamSetupContainer>
       </ExamContainer>
@@ -1014,7 +1032,7 @@ const FinalExamTab: React.FC = () => {
   return (
     <ExamContainer>
       <ReactCanvasConfetti onInit={onInit} />
-      <Title>Final Exam - {examLength === 25 ? 'Mini' : examLength === 50 ? 'Quick' : examLength === 251 ? 'Complete' : 'Third Grade'} ({examLength === 'thirdGrade' ? 24 : examLength} Questions)</Title>
+      <Title>Final Exam - {examLength === 25 ? 'Mini' : examLength === 50 ? 'Quick' : examLength === 251 ? 'Complete' : examLength === 'thirdGrade' ? 'Third Grade' : 'Fifth Grade'} ({examLength === 'thirdGrade' ? 24 : examLength === 'fifthGrade' ? 19 : examLength} Questions)</Title>
       <ProgressContainer>
         <ProgressBar $progress={progress}>
           <ProgressFill $progress={progress} />
