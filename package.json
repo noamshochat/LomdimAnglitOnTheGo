@@ -1,5 +1,5 @@
 {
-  "name": "lomdim-anglit-4kids",
+  "name": "lomdim-anglit-on-the-go",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -45,5 +45,5 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://noamshochat.github.io/LomdimAnglit4kids/"
+  "homepage": "https://noamshochat.github.io/LomdimAnglitOnTheGo/"
 }
