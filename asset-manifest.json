@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/Forth-Grade-English-Hub/static/js/main.bcbd9daa.js",
-    "index.html": "/Forth-Grade-English-Hub/index.html",
-    "main.bcbd9daa.js.map": "/Forth-Grade-English-Hub/static/js/main.bcbd9daa.js.map"
+    "main.js": "/LomdimAnglitOnTheGo/static/js/main.c4018708.js",
+    "index.html": "/LomdimAnglitOnTheGo/index.html",
+    "main.c4018708.js.map": "/LomdimAnglitOnTheGo/static/js/main.c4018708.js.map"
   },
   "entrypoints": [
-    "static/js/main.bcbd9daa.js"
+    "static/js/main.c4018708.js"
   ]
 }
