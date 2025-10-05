@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import storiesData from '../data/stories2.json';
+import SentencesData from '../data/stories2.json';
 
 const StoryContainer = styled.div`
   padding: 2rem;
@@ -177,7 +177,7 @@ const StoryTab2: React.FC = () => {
   const [isQuizComplete, setIsQuizComplete] = useState(false);
   const [storyText, setStoryText] = useState<string>('');
 
-  const currentStory = storiesData.stories[currentStoryIndex];
+  const currentStory = SentencesData.Sentences[currentStoryIndex];
   const currentQuestion = currentStory.questions[currentQuestionIndex];
 
   useEffect(() => {
@@ -248,7 +248,7 @@ const StoryTab2: React.FC = () => {
       <StoryText>{storyText}</StoryText>
       <QuestionContainer>
         <QuestionText>{currentQuestion.question}</QuestionText>
-        {currentQuestion.options.map((option, index) => (
+        {currentQuestion.options.map((option: string, index: number) => (
           <OptionButton
             key={index}
             isSelected={selectedAnswer === option}

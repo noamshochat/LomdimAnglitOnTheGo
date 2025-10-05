@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import shortStories from '../data/shortStories.json';
+import shortSentences from '../data/shortSentences.json';
 
-const StoriesContainer = styled.div`
+const SentencesContainer = styled.div`
   padding: 2rem;
   max-width: 1000px;
   margin: 0 auto;
@@ -32,7 +32,7 @@ const Description = styled.p`
   line-height: 1.6;
 `;
 
-const StoriesGrid = styled.div`
+const SentencesGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 2rem;
@@ -118,7 +118,7 @@ const InstructionsText = styled.p`
   margin: 0;
 `;
 
-const ShortStoriesTab: React.FC = () => {
+const ShortTab: React.FC = () => {
 
   const renderStoryText = (text: string, highlightedWords: string[]) => {
     let processedText = text;
@@ -132,25 +132,25 @@ const ShortStoriesTab: React.FC = () => {
   };
 
   return (
-    <StoriesContainer>
-      <Title>📖 Short Stories</Title>
+    <SentencesContainer>
+      <Title>📖 Short Sentences</Title>
       
       <Description>
-        Read these simple stories to practice English vocabulary. 
+        Read these simple Sentences to practice English vocabulary. 
         Key words are highlighted in yellow to help you learn!
       </Description>
 
       <Instructions>
-        <InstructionsTitle>How to Use These Stories</InstructionsTitle>
+        <InstructionsTitle>How to Use These Sentences</InstructionsTitle>
         <InstructionsText>
           Read each story carefully. The highlighted words are important vocabulary words. 
-          Try to understand the meaning of each sentence. These stories use simple words 
+          Try to understand the meaning of each sentence. These Sentences use simple words 
           that are perfect for English learners!
         </InstructionsText>
       </Instructions>
 
-      <StoriesGrid>
-        {shortStories.stories.map((story) => (
+      <SentencesGrid>
+        {shortSentences.Sentences.map((story: any) => (
           <StoryCard key={story.id}>
             <StoryTitle>{story.title}</StoryTitle>
             <StoryText 
@@ -163,9 +163,9 @@ const ShortStoriesTab: React.FC = () => {
             </DifficultyBadge>
           </StoryCard>
         ))}
-      </StoriesGrid>
-    </StoriesContainer>
+      </SentencesGrid>
+    </SentencesContainer>
   );
 };
 
-export default ShortStoriesTab;
+export default ShortTab;

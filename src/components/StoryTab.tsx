@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import ReactConfetti from 'react-confetti';
-import storiesData from '../data/stories.json';
+import SentencesData from '../data/stories.json';
 
 const StoryContainer = styled.div`
   background-color: white;
@@ -368,7 +368,7 @@ const StoryTab: React.FC = () => {
   const questionContainerRef = useRef<HTMLDivElement>(null);
   const [showConfetti, setShowConfetti] = useState(false);
 
-  const currentStory = storiesData.stories[currentStoryIndex];
+  const currentStory = SentencesData.Sentences[currentStoryIndex];
   const currentQuestion = currentStory.questions[currentQuestionIndex];
 
   useEffect(() => {
@@ -538,7 +538,7 @@ const StoryTab: React.FC = () => {
       </StoryText>
       <QuestionContainer ref={questionContainerRef}>
         <QuestionText>{currentQuestion.question}</QuestionText>
-        {currentQuestion.options.map((option, index) => (
+        {currentQuestion.options.map((option: string, index: number) => (
           <OptionButton
             key={index}
             isSelected={selectedAnswer === option}

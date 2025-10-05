@@ -9,7 +9,7 @@ import PicturePracticeTab from './components/PicturePracticeTab';
 import FinalChallengeTab from './components/FinalExamTab';
 import AuxiliaryVerbTab from './components/AuxiliaryVerbTab';
 import AccessibilityStatement from './components/AccessibilityStatement';
-import ShortStoriesTab from './components/ShortStoriesTab';
+import ShortSentencesTab from './components/ShortStoriesTab';
 import words from './data/words.json';
 import { trackPageView, trackEvent } from './utils/analytics';
 
@@ -547,7 +547,7 @@ const CategoryCard = styled.button<{ isActive: boolean }>`
 `;
 
 const App: React.FC = () => {
-  const [currentView, setCurrentView] = useState<'main' | 'words' | 'thirdGrade' | 'fifthGrade' | 'leArIrEr' | 'leArIrErExam' | 'finalExam' | 'auxiliaryVerbs' | 'accessibility' | 'shortStories'>('main');
+  const [currentView, setCurrentView] = useState<'main' | 'words' | 'thirdGrade' | 'fifthGrade' | 'leArIrEr' | 'leArIrErExam' | 'finalExam' | 'auxiliaryVerbs' | 'accessibility' | 'shortSentences'>('main');
   const [selectedCategoryIdx, setSelectedCategoryIdx] = useState(0);
   const [allCardsFlipped, setAllCardsFlipped] = useState(false);
 
@@ -563,7 +563,7 @@ const App: React.FC = () => {
       'finalExam': 'Final Challenge',
       'auxiliaryVerbs': 'Auxiliary Verb Challenge',
       'accessibility': 'Accessibility Statement',
-      'shortStories': 'Short Stories'
+      'shortSentences': 'Short Sentences'
     };
     
     trackPageView(currentView, pageNames[currentView]);
@@ -645,7 +645,7 @@ const App: React.FC = () => {
       } else {
         setShowCategorySelection(true);
       }
-    } else if (currentView === 'thirdGrade' || currentView === 'fifthGrade' || currentView === 'shortStories' || currentView === 'auxiliaryVerbs') {
+    } else if (currentView === 'thirdGrade' || currentView === 'fifthGrade' || currentView === 'shortSentences' || currentView === 'auxiliaryVerbs') {
       setCurrentView('main');
     } else {
       setCurrentView('words');
@@ -718,11 +718,11 @@ const App: React.FC = () => {
               <MenuCardDescription>Practice is, am, are in sentences</MenuCardDescription>
             </MenuCard>
             <MenuCard 
-              onClick={() => setCurrentView('shortStories')}
-              aria-label="Read short stories to practice English"
+              onClick={() => setCurrentView('shortSentences')}
+              aria-label="Read short Sentences to practice English"
             >
-              <MenuCardTitle>📖 Short Stories</MenuCardTitle>
-              <MenuCardDescription>Simple stories with highlighted vocabulary</MenuCardDescription>
+              <MenuCardTitle>📖 Short Sentences</MenuCardTitle>
+              <MenuCardDescription>Simple Sentences with highlighted vocabulary</MenuCardDescription>
             </MenuCard>
             <MenuCard 
               onClick={() => setCurrentView('finalExam')}
@@ -832,7 +832,7 @@ const App: React.FC = () => {
         {currentView === 'thirdGrade' && <ThirdGradeTab />}
         {currentView === 'fifthGrade' && <FifthGradeTab />}
         {currentView === 'finalExam' && <FinalChallengeTab />}
-        {currentView === 'shortStories' && <ShortStoriesTab />}
+        {currentView === 'shortSentences' && <ShortSentencesTab />}
         {currentView === 'auxiliaryVerbs' && <AuxiliaryVerbTab />}
         {currentView === 'accessibility' && <AccessibilityStatement />}
         {currentView === 'leArIrEr' && (
