@@ -1,0 +1,18 @@
+{
+  "stories": [
+    {
+      "id": "pat-story",
+      "title": "Pat's Story",
+      "text": "This is Pat.\nPat is a girl.\nPat has a yellow pencil and two red pens.",
+      "highlightedWords": ["This", "girl"],
+      "difficulty": "beginner"
+    },
+    {
+      "id": "jim-story", 
+      "title": "Jim's Story",
+      "text": "This is Jim.\nJim is a boy.\nJim has three grey notebooks and five white books.",
+      "highlightedWords": ["This", "boy"],
+      "difficulty": "beginner"
+    }
+  ]
+}

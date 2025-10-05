@@ -4,9 +4,10 @@ import ReactCanvasConfetti from 'react-canvas-confetti';
 import type { CreateTypes } from 'canvas-confetti';
 import html2canvas from 'html2canvas';
 import words from '../data/words.json';
+import auxiliaryVerbs from '../data/auxiliaryVerbs.json';
 import { trackExamCompletion } from '../utils/analytics';
 
-const ExamContainer = styled.div`
+const ChallengeContainer = styled.div`
   padding: 1.5rem;
   max-width: 800px;
   margin: 0 auto;
@@ -384,7 +385,7 @@ const ButtonContainer = styled.div`
   }
 `;
 
-const ExamSetupContainer = styled.div`
+const ChallengeSetupContainer = styled.div`
   background: white;
   padding: 1.5rem;
   border-radius: 15px;
@@ -402,7 +403,7 @@ const ExamSetupContainer = styled.div`
   }
 `;
 
-const ExamSetupTitle = styled.h2`
+const ChallengeSetupTitle = styled.h2`
   color: #2c3e50;
   margin-bottom: 1rem;
   font-size: 1.6rem;
@@ -418,7 +419,7 @@ const ExamSetupTitle = styled.h2`
   }
 `;
 
-const ExamSetupDescription = styled.p`
+const ChallengeSetupDescription = styled.p`
   color: #7f8c8d;
   margin-bottom: 1.5rem;
   font-size: 0.95rem;
@@ -435,7 +436,7 @@ const ExamSetupDescription = styled.p`
   }
 `;
 
-const ExamLengthOptions = styled.div`
+const ChallengeLengthOptions = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
@@ -452,7 +453,7 @@ const ExamLengthOptions = styled.div`
   }
 `;
 
-const ExamLengthOption = styled.button<{ isSelected: boolean }>`
+const ChallengeLengthOption = styled.button<{ isSelected: boolean }>`
   padding: 0.8rem 1.2rem;
   border: 2px solid ${props => props.isSelected ? '#2c3e50' : '#e0e0e0'};
   border-radius: 12px;
@@ -487,7 +488,7 @@ const ExamLengthOption = styled.button<{ isSelected: boolean }>`
   }
 `;
 
-const ExamLengthTitle = styled.div`
+const ChallengeLengthTitle = styled.div`
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 0.2rem;
@@ -503,7 +504,7 @@ const ExamLengthTitle = styled.div`
   }
 `;
 
-const ExamLengthDescription = styled.div`
+const ChallengeLengthDescription = styled.div`
   font-size: 0.85rem;
   opacity: 0.8;
   
@@ -512,7 +513,7 @@ const ExamLengthDescription = styled.div`
   }
 `;
 
-const StartExamButton = styled.button`
+const StartChallengeButton = styled.button`
   padding: 0.8rem 1.5rem;
   background-color: #27ae60;
   color: white;
@@ -551,15 +552,21 @@ const StartExamButton = styled.button`
   }
 `;
 
-const FinalExamTab: React.FC = () => {
+interface FinalChallengeTabProps {
+  initialChallengeType?: 'auxiliaryVerbs' | 'default';
+}
+
+const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeType = 'default' }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showAnswer, setShowAnswer] = useState(false);
   const [score, setScore] = useState(0);
   const [isQuizComplete, setIsQuizComplete] = useState(false);
-  const [showExamSetup, setShowExamSetup] = useState(true);
-  const [examLength, setExamLength] = useState<25 | 50 | 251 | 'thirdGrade' | 'fifthGrade'>(25);
+  const [showChallengeSetup, setShowChallengeSetup] = useState(true);
+  const [challengeLength, setChallengeLength] = useState<25 | 50 | 269 | 'thirdGrade' | 'fifthGrade' | 'byCategory' | 'auxiliaryVerbs'>(25);
   const [isSharing, setIsSharing] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [showCategorySelection, setShowCategorySelection] = useState(false);
   const confettiRef = useRef<CreateTypes>();
   const scoreContainerRef = useRef<HTMLDivElement>(null);
 
@@ -567,7 +574,16 @@ const FinalExamTab: React.FC = () => {
   const allQuestions = React.useMemo(() => {
     let sourceWords;
     
-    if (examLength === 'thirdGrade') {
+    if (challengeLength === 'auxiliaryVerbs') {
+      // Get auxiliary verb questions
+      sourceWords = auxiliaryVerbs.map(item => ({
+        question: `Complete the sentence: "${item.sentence}"`,
+        correctAnswer: item.correctAnswer,
+        options: item.options,
+        category: "Auxiliary Verbs",
+        isAuxiliaryVerb: true
+      }));
+    } else if (challengeLength === 'thirdGrade') {
       // Get only Third grade words
       const thirdGradeCategory = words.categories.find(category => category.name === "Third grade");
       sourceWords = thirdGradeCategory?.wordPairs.map(pair => ({
@@ -576,7 +592,7 @@ const FinalExamTab: React.FC = () => {
         englishWord: pair.english,
         category: "Third grade"
       })) || [];
-    } else if (examLength === 'fifthGrade') {
+    } else if (challengeLength === 'fifthGrade') {
       // Get only Fifth grade words
       const fifthGradeCategory = words.categories.find(category => category.name === "Fifth grade");
       sourceWords = fifthGradeCategory?.wordPairs.map(pair => ({
@@ -584,6 +600,15 @@ const FinalExamTab: React.FC = () => {
         correctAnswer: pair.hebrew,
         englishWord: pair.english,
         category: "Fifth grade"
+      })) || [];
+    } else if (challengeLength === 'byCategory' && selectedCategory) {
+      // Get words from selected category only
+      const category = words.categories.find(cat => cat.name === selectedCategory);
+      sourceWords = category?.wordPairs.map(pair => ({
+        question: `What is the Hebrew translation for "${pair.english}"?`,
+        correctAnswer: pair.hebrew,
+        englishWord: pair.english,
+        category: selectedCategory
       })) || [];
     } else {
       // Get all words from all categories except Sentences
@@ -600,25 +625,41 @@ const FinalExamTab: React.FC = () => {
     }
 
     // Shuffle and take questions based on selected exam length
-    const questionCount = examLength === 'thirdGrade' ? sourceWords.length : examLength === 'fifthGrade' ? sourceWords.length : examLength;
+    const questionCount = challengeLength === 'thirdGrade' ? sourceWords.length : 
+                         challengeLength === 'fifthGrade' ? sourceWords.length : 
+                         challengeLength === 'byCategory' ? sourceWords.length : 
+                         challengeLength === 'auxiliaryVerbs' ? sourceWords.length :
+                         challengeLength;
     const shuffledQuestions = [...sourceWords]
       .sort(() => Math.random() - 0.5)
       .slice(0, questionCount);
 
     // Add options to each question
     return shuffledQuestions.map(q => {
-      const sourceCategory = examLength === 'thirdGrade' ? 'Third grade' : examLength === 'fifthGrade' ? 'Fifth grade' : undefined;
-      const options = [
-        q.correctAnswer,
-        ...getRandomHebrewWords(words.categories, q.correctAnswer, 3, sourceCategory)
-      ].sort(() => Math.random() - 0.5);
+      if ('isAuxiliaryVerb' in q && q.isAuxiliaryVerb) {
+        // For auxiliary verbs, use the predefined options
+        return {
+          ...q,
+          options: q.options
+        };
+      } else {
+        // For regular vocabulary questions, generate Hebrew options
+        const sourceCategory = challengeLength === 'thirdGrade' ? 'Third grade' : 
+                              challengeLength === 'fifthGrade' ? 'Fifth grade' : 
+                              challengeLength === 'byCategory' ? (selectedCategory || undefined) : 
+                              undefined;
+        const options = [
+          q.correctAnswer,
+          ...getRandomHebrewWords(words.categories, q.correctAnswer, 3, sourceCategory)
+        ].sort(() => Math.random() - 0.5);
 
-      return {
-        ...q,
-        options
-      };
+        return {
+          ...q,
+          options
+        };
+      }
     });
-  }, [examLength]);
+  }, [challengeLength, selectedCategory]);
 
   const currentQuestion = allQuestions[currentQuestionIndex];
 
@@ -815,11 +856,26 @@ const FinalExamTab: React.FC = () => {
     setShowAnswer(false);
     setScore(0);
     setIsQuizComplete(false);
-    setShowExamSetup(true);
+    setShowChallengeSetup(true);
   };
 
-  const handleStartExam = () => {
-    setShowExamSetup(false);
+  const handleStartChallenge = () => {
+    if (challengeLength === 'byCategory') {
+      setShowCategorySelection(true);
+      setShowChallengeSetup(false);
+    } else {
+      setShowChallengeSetup(false);
+      setCurrentQuestionIndex(0);
+      setSelectedAnswer(null);
+      setShowAnswer(false);
+      setScore(0);
+      setIsQuizComplete(false);
+    }
+  };
+
+  const handleCategorySelect = (categoryName: string) => {
+    setSelectedCategory(categoryName);
+    setShowCategorySelection(false);
     setCurrentQuestionIndex(0);
     setSelectedAnswer(null);
     setShowAnswer(false);
@@ -876,8 +932,8 @@ const FinalExamTab: React.FC = () => {
       });
       
       const percentage = Math.round((score / allQuestions.length) * 100);
-      const examType = examLength === 25 ? 'Mini' : examLength === 50 ? 'Quick' : examLength === 251 ? 'Complete' : examLength === 'thirdGrade' ? 'Third Grade' : 'Fifth Grade';
-      const shareText = `I just completed the ${examType} Final Exam with a score of ${percentage}%! 🎓📚`;
+      const examType = challengeLength === 25 ? 'Mini' : challengeLength === 50 ? 'Quick' : challengeLength === 269 ? 'Complete' : challengeLength === 'thirdGrade' ? 'Third Grade' : challengeLength === 'fifthGrade' ? 'Fifth Grade' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb' : challengeLength === 'byCategory' ? selectedCategory : 'Final';
+      const shareText = `I just completed the ${examType} Final Challenge with a score of ${percentage}%! 🎓📚`;
       
       // Try Web Share API first
       if (navigator.share && navigator.canShare) {
@@ -885,14 +941,14 @@ const FinalExamTab: React.FC = () => {
         
         if (navigator.canShare({ files: [file] })) {
           await navigator.share({
-            title: 'My Final Exam Results',
+            title: 'My Final Challenge Results',
             text: shareText,
             files: [file]
           });
         } else {
           // Fallback: share text only
           await navigator.share({
-            title: 'My Final Exam Results',
+            title: 'My Final Challenge Results',
             text: shareText
           });
         }
@@ -922,14 +978,14 @@ const FinalExamTab: React.FC = () => {
     const isPerfectScore = percentage === 100;
     
     // Track exam completion in Google Analytics
-    const examType = examLength === 25 ? 'Mini Final Exam' : examLength === 50 ? 'Quick Final Exam' : examLength === 251 ? 'Complete Final Exam' : examLength === 'thirdGrade' ? 'Third Grade Final Exam' : 'Fifth Grade Final Exam';
+    const examType = challengeLength === 25 ? 'Mini Final Challenge' : challengeLength === 50 ? 'Quick Final Challenge' : challengeLength === 269 ? 'Complete Final Challenge' : challengeLength === 'thirdGrade' ? 'Third Grade Final Challenge' : challengeLength === 'fifthGrade' ? 'Fifth Grade Final Challenge' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb Challenge' : challengeLength === 'byCategory' ? `${selectedCategory} Category Challenge` : 'Final Challenge';
     trackExamCompletion(examType, score, allQuestions.length, percentage);
 
     return (
-      <ExamContainer>
+      <ChallengeContainer>
         <ReactCanvasConfetti onInit={onInit} />
         <ScoreContainer ref={scoreContainerRef}>
-          <ScoreTitle>{examLength === 25 ? 'Mini Final Exam Complete!' : examLength === 50 ? 'Quick Final Exam Complete!' : examLength === 251 ? 'Complete Final Exam Complete!' : examLength === 'thirdGrade' ? 'Third Grade Final Exam Complete!' : 'Fifth Grade Final Exam Complete!'} 🎓</ScoreTitle>
+          <ScoreTitle>{challengeLength === 25 ? 'Mini Final Challenge Complete!' : challengeLength === 50 ? 'Quick Final Challenge Complete!' : challengeLength === 269 ? 'Complete Final Challenge Complete!' : challengeLength === 'thirdGrade' ? 'Third Grade Final Challenge Complete!' : challengeLength === 'fifthGrade' ? 'Fifth Grade Final Challenge Complete!' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb Challenge Complete!' : challengeLength === 'byCategory' ? `${selectedCategory} Category Challenge Complete!` : 'Final Challenge Complete!'} 🎓</ScoreTitle>
           <ScoreText>
             You got {score} out of {allQuestions.length} questions correct
           </ScoreText>
@@ -953,86 +1009,135 @@ const FinalExamTab: React.FC = () => {
           )}
           <ButtonContainer>
             <RestartButton onClick={handleRestartQuiz}>
-              Take Final Exam Again
+              Take Final Challenge Again
             </RestartButton>
             <ShareButton onClick={handleShareScore} disabled={isSharing}>
               {isSharing ? 'Sharing...' : '📤 Share Score'}
             </ShareButton>
           </ButtonContainer>
         </ScoreContainer>
-      </ExamContainer>
+      </ChallengeContainer>
     );
   }
 
-  if (showExamSetup) {
+  if (showCategorySelection) {
     return (
-      <ExamContainer>
-        <Title>Final Exam Setup</Title>
-        <ExamSetupContainer>
-          <ExamSetupTitle>Choose Exam Length</ExamSetupTitle>
-          <ExamSetupDescription>
-            Select how many questions you want in your final exam. 
-            You can always retake the exam with a different length.
-          </ExamSetupDescription>
-          <ExamLengthOptions>
-            <ExamLengthOption
-              isSelected={examLength === 25}
-              onClick={() => setExamLength(25)}
+      <ChallengeContainer>
+        <Title>Choose Category for Challenge</Title>
+        <ChallengeSetupContainer>
+          <ChallengeSetupTitle>Select a Category</ChallengeSetupTitle>
+          <ChallengeSetupDescription>
+            Choose a vocabulary category to take a challenge on. 
+            The challenge will include all words from that category.
+          </ChallengeSetupDescription>
+          <ChallengeLengthOptions>
+            {words.categories
+              .filter(category => category.name !== "Sentences")
+              .map((category) => (
+                <ChallengeLengthOption
+                  key={category.name}
+                  isSelected={selectedCategory === category.name}
+                  onClick={() => handleCategorySelect(category.name)}
+                >
+                  <ChallengeLengthTitle>📚 {category.name}</ChallengeLengthTitle>
+                  <ChallengeLengthDescription>
+                    {category.wordPairs.length} words • {category.wordPairs.length} questions
+                  </ChallengeLengthDescription>
+                </ChallengeLengthOption>
+              ))}
+          </ChallengeLengthOptions>
+        </ChallengeSetupContainer>
+      </ChallengeContainer>
+    );
+  }
+
+  if (showChallengeSetup) {
+    return (
+      <ChallengeContainer>
+        <Title>Final Challenge Setup</Title>
+        <ChallengeSetupContainer>
+          <ChallengeSetupTitle>Choose Challenge Length</ChallengeSetupTitle>
+          <ChallengeSetupDescription>
+            Select how many questions you want in your final challenge. 
+            You can always retake the challenge with a different length.
+          </ChallengeSetupDescription>
+          <ChallengeLengthOptions>
+            <ChallengeLengthOption
+              isSelected={challengeLength === 25}
+              onClick={() => setChallengeLength(25)}
             >
-              <ExamLengthTitle>⚡ Mini Exam (25 Questions)</ExamLengthTitle>
-              <ExamLengthDescription>
+              <ChallengeLengthTitle>⚡ Mini Challenge (25 Questions)</ChallengeLengthTitle>
+              <ChallengeLengthDescription>
                 ~8-12 minutes • Perfect for quick review
-              </ExamLengthDescription>
-            </ExamLengthOption>
-            <ExamLengthOption
-              isSelected={examLength === 50}
-              onClick={() => setExamLength(50)}
+              </ChallengeLengthDescription>
+            </ChallengeLengthOption>
+            <ChallengeLengthOption
+              isSelected={challengeLength === 50}
+              onClick={() => setChallengeLength(50)}
             >
-              <ExamLengthTitle>📝 Quick Exam (50 Questions)</ExamLengthTitle>
-              <ExamLengthDescription>
+              <ChallengeLengthTitle>📝 Quick Challenge (50 Questions)</ChallengeLengthTitle>
+              <ChallengeLengthDescription>
                 ~15-20 minutes • Good for practice and review
-              </ExamLengthDescription>
-            </ExamLengthOption>
-            <ExamLengthOption
-              isSelected={examLength === 251}
-              onClick={() => setExamLength(251)}
+              </ChallengeLengthDescription>
+            </ChallengeLengthOption>
+            <ChallengeLengthOption
+              isSelected={challengeLength === 269}
+              onClick={() => setChallengeLength(269)}
             >
-              <ExamLengthTitle>🎓 Complete Exam (251 Questions)</ExamLengthTitle>
-              <ExamLengthDescription>
+              <ChallengeLengthTitle>🎓 Complete Challenge (269 Questions)</ChallengeLengthTitle>
+              <ChallengeLengthDescription>
                 ~65-80 minutes • Tests all vocabulary words
-              </ExamLengthDescription>
-            </ExamLengthOption>
-            <ExamLengthOption
-              isSelected={examLength === 'thirdGrade'}
-              onClick={() => setExamLength('thirdGrade')}
+              </ChallengeLengthDescription>
+            </ChallengeLengthOption>
+            <ChallengeLengthOption
+              isSelected={challengeLength === 'thirdGrade'}
+              onClick={() => setChallengeLength('thirdGrade')}
             >
-              <ExamLengthTitle>📖 Third Grade Exam (24 Questions)</ExamLengthTitle>
-              <ExamLengthDescription>
+              <ChallengeLengthTitle>📖 Third Grade Challenge (24 Questions)</ChallengeLengthTitle>
+              <ChallengeLengthDescription>
                 ~8-12 minutes • Age-appropriate vocabulary for third grade
-              </ExamLengthDescription>
-            </ExamLengthOption>
-            <ExamLengthOption
-              isSelected={examLength === 'fifthGrade'}
-              onClick={() => setExamLength('fifthGrade')}
+              </ChallengeLengthDescription>
+            </ChallengeLengthOption>
+            <ChallengeLengthOption
+              isSelected={challengeLength === 'fifthGrade'}
+              onClick={() => setChallengeLength('fifthGrade')}
             >
-              <ExamLengthTitle>🎓 Fifth Grade Exam (19 Questions)</ExamLengthTitle>
-              <ExamLengthDescription>
+              <ChallengeLengthTitle>🎓 Fifth Grade Challenge (22 Questions)</ChallengeLengthTitle>
+              <ChallengeLengthDescription>
                 ~6-10 minutes • Advanced vocabulary for fifth grade
-              </ExamLengthDescription>
-            </ExamLengthOption>
-          </ExamLengthOptions>
-          <StartExamButton onClick={handleStartExam}>
-            Start {examLength === 25 ? 'Mini' : examLength === 50 ? 'Quick' : examLength === 251 ? 'Complete' : examLength === 'thirdGrade' ? 'Third Grade' : 'Fifth Grade'} Final Exam
-          </StartExamButton>
-        </ExamSetupContainer>
-      </ExamContainer>
+              </ChallengeLengthDescription>
+            </ChallengeLengthOption>
+            <ChallengeLengthOption
+              isSelected={challengeLength === 'byCategory'}
+              onClick={() => setChallengeLength('byCategory')}
+            >
+              <ChallengeLengthTitle>📚 Challenge by Category</ChallengeLengthTitle>
+              <ChallengeLengthDescription>
+                Choose a specific category to test • Custom length
+              </ChallengeLengthDescription>
+            </ChallengeLengthOption>
+            <ChallengeLengthOption
+              isSelected={challengeLength === 'auxiliaryVerbs'}
+              onClick={() => setChallengeLength('auxiliaryVerbs')}
+            >
+              <ChallengeLengthTitle>🔤 Auxiliary Verb Challenge (15 Questions)</ChallengeLengthTitle>
+              <ChallengeLengthDescription>
+                ~5-8 minutes • Practice is, am, are in sentences
+              </ChallengeLengthDescription>
+            </ChallengeLengthOption>
+          </ChallengeLengthOptions>
+          <StartChallengeButton onClick={handleStartChallenge}>
+            Start {challengeLength === 25 ? 'Mini' : challengeLength === 50 ? 'Quick' : challengeLength === 269 ? 'Complete' : challengeLength === 'thirdGrade' ? 'Third Grade' : challengeLength === 'fifthGrade' ? 'Fifth Grade' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb' : 'Category'} Final Challenge
+          </StartChallengeButton>
+        </ChallengeSetupContainer>
+      </ChallengeContainer>
     );
   }
 
   return (
-    <ExamContainer>
+    <ChallengeContainer>
       <ReactCanvasConfetti onInit={onInit} />
-      <Title>Final Exam - {examLength === 25 ? 'Mini' : examLength === 50 ? 'Quick' : examLength === 251 ? 'Complete' : examLength === 'thirdGrade' ? 'Third Grade' : 'Fifth Grade'} ({examLength === 'thirdGrade' ? 24 : examLength === 'fifthGrade' ? 19 : examLength} Questions)</Title>
+      <Title>Final Challenge - {challengeLength === 25 ? 'Mini' : challengeLength === 50 ? 'Quick' : challengeLength === 269 ? 'Complete' : challengeLength === 'thirdGrade' ? 'Third Grade' : challengeLength === 'fifthGrade' ? 'Fifth Grade' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb' : challengeLength === 'byCategory' ? selectedCategory : 'Unknown'} ({challengeLength === 'thirdGrade' ? 24 : challengeLength === 'fifthGrade' ? 22 : challengeLength === 'auxiliaryVerbs' ? 15 : challengeLength === 'byCategory' ? allQuestions.length : challengeLength} Questions)</Title>
       <ProgressContainer>
         <ProgressBar $progress={progress}>
           <ProgressFill $progress={progress} />
@@ -1044,11 +1149,13 @@ const FinalExamTab: React.FC = () => {
       <QuestionContainer>
         <QuestionText>
           {currentQuestion.question}
-          <VoiceButton onClick={() => speakWord(currentQuestion.englishWord)}>
-            🔊
-          </VoiceButton>
+          {'englishWord' in currentQuestion && (
+            <VoiceButton onClick={() => speakWord(currentQuestion.englishWord)}>
+              🔊
+            </VoiceButton>
+          )}
         </QuestionText>
-        {currentQuestion.options.map((option, index) => {
+        {currentQuestion.options.map((option: string, index: number) => {
           const isSelected = selectedAnswer === option;
           const isCorrect = option === currentQuestion.correctAnswer;
           
@@ -1079,8 +1186,8 @@ const FinalExamTab: React.FC = () => {
           </NextButton>
         )
       )}
-    </ExamContainer>
+    </ChallengeContainer>
   );
 };
 
-export default FinalExamTab;
+export default FinalChallengeTab;

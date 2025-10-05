@@ -12,7 +12,8 @@
         { "english": "Good night", "hebrew": "לילה טוב" },
         { "english": "How are you?", "hebrew": "מה שלומך?" },
         { "english": "I love you", "hebrew": "אני אוהב אותך" },
-        { "english": "Sorry", "hebrew": "סליחה" }
+        { "english": "Sorry", "hebrew": "סליחה" },
+        { "english": "This", "hebrew": "זה" }
       ]
     },
     {
@@ -53,6 +54,7 @@
         { "english": "People", "hebrew": "אנשים" },
         { "english": "Doctor", "hebrew": "רופא" },
         { "english": "Boy", "hebrew": "ילד" },
+        { "english": "Girl", "hebrew": "ילדה" },
         { "english": "Astronaut", "hebrew": "אסטרונאוט" }
       ]
     },
@@ -391,7 +393,10 @@
         { "english": "Dirty", "hebrew": "מלוכלך" },
         { "english": "Clean", "hebrew": "נקי" },
         { "english": "But", "hebrew": "אבל" },
-        { "english": "Old", "hebrew": "ישן" }
+        { "english": "Old", "hebrew": "ישן" },
+        { "english": "This", "hebrew": "זה" },
+        { "english": "Girl", "hebrew": "ילדה" },
+        { "english": "Boy", "hebrew": "ילד" }
       ]
     },
     {

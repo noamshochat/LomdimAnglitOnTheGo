@@ -1,0 +1,17 @@
+[
+  { "id": 1, "sentence": "The children ___ in the shop", "correctAnswer": "are", "options": ["is", "am", "are"] },
+  { "id": 2, "sentence": "The woman ___ behind the tree", "correctAnswer": "is", "options": ["is", "am", "are"] },
+  { "id": 3, "sentence": "He ___ a teacher", "correctAnswer": "is", "options": ["is", "am", "are"] },
+  { "id": 4, "sentence": "We ___ hungry", "correctAnswer": "are", "options": ["is", "am", "are"] },
+  { "id": 5, "sentence": "It ___ a dog", "correctAnswer": "is", "options": ["is", "am", "are"] },
+  { "id": 6, "sentence": "He ___ my little brother", "correctAnswer": "is", "options": ["is", "am", "are"] },
+  { "id": 7, "sentence": "Dan and I ___ funny", "correctAnswer": "are", "options": ["is", "am", "are"] },
+  { "id": 8, "sentence": "Shira and Dana ___ students", "correctAnswer": "are", "options": ["is", "am", "are"] },
+  { "id": 9, "sentence": "They ___ good friends", "correctAnswer": "are", "options": ["is", "am", "are"] },
+  { "id": 10, "sentence": "The clown ___ on the chair", "correctAnswer": "is", "options": ["is", "am", "are"] },
+  { "id": 11, "sentence": "It ___ dark", "correctAnswer": "is", "options": ["is", "am", "are"] },
+  { "id": 12, "sentence": "The kite ___ big", "correctAnswer": "is", "options": ["is", "am", "are"] },
+  { "id": 13, "sentence": "Today ___ sunny", "correctAnswer": "is", "options": ["is", "am", "are"] },
+  { "id": 14, "sentence": "I ___ tall", "correctAnswer": "am", "options": ["is", "am", "are"] },
+  { "id": 15, "sentence": "You ___ short", "correctAnswer": "are", "options": ["is", "am", "are"] }
+]

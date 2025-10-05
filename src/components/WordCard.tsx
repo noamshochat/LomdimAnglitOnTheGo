@@ -7,14 +7,16 @@ interface WordCardProps {
   forceFlipped?: boolean;
 }
 
-const Card = styled.button`
+const Card = styled.button<{ isFlipped: boolean }>`
   background-color: white;
   border: none;
   border-radius: 15px;
   padding: 1.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.3s ease;
+  transform: ${props => props.isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)'};
+  perspective: 1000px;
   min-height: 120px;
   display: flex;
   flex-direction: column;
@@ -45,7 +47,7 @@ const Card = styled.button`
   }
   
   &:hover {
-    transform: translateY(-5px);
+    transform: ${props => props.isFlipped ? 'rotateY(180deg) scale(1.02)' : 'scale(1.02)'};
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   }
   
@@ -67,6 +69,16 @@ const Card = styled.button`
     outline-offset: 2px;
   }
   }
+`;
+
+const CardContent = styled.div<{ isFlipped: boolean }>`
+  transform: ${props => props.isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)'};
+  transition: transform 0.3s ease;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Text = styled.div<{ isHebrew?: boolean }>`
@@ -190,25 +202,28 @@ const WordCard: React.FC<WordCardProps> = ({ english, hebrew, forceFlipped }) =>
 
   return (
     <Card 
+      isFlipped={isFlipped}
       onClick={() => setIsFlipped(!isFlipped)}
       onKeyDown={handleKeyDown}
       aria-label={`${english} - Click to flip and see Hebrew translation`}
       role="button"
       tabIndex={0}
     >
-      <Text isHebrew={isFlipped}>
-        {isFlipped ? hebrew : english}
-      </Text>
-      <SpeakerButton 
-        onClick={speak} 
-        onKeyDown={handleSpeakerKeyDown}
-        hidden={isFlipped}
-        aria-label={`Pronounce ${english}`}
-        title="Click to hear pronunciation"
-        tabIndex={isFlipped ? -1 : 0}
-      >
-        🔊
-      </SpeakerButton>
+      <CardContent isFlipped={isFlipped}>
+        <Text isHebrew={isFlipped}>
+          {isFlipped ? hebrew : english}
+        </Text>
+        <SpeakerButton 
+          onClick={speak} 
+          onKeyDown={handleSpeakerKeyDown}
+          hidden={isFlipped}
+          aria-label={`Pronounce ${english}`}
+          title="Click to hear pronunciation"
+          tabIndex={isFlipped ? -1 : 0}
+        >
+          🔊
+        </SpeakerButton>
+      </CardContent>
     </Card>
   );
 };

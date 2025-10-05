@@ -6,8 +6,10 @@ import FifthGradeTab from './components/FifthGradeTab';
 import StoryTab from './components/StoryTab';
 import StoryTab2 from './components/StoryTab2';
 import PicturePracticeTab from './components/PicturePracticeTab';
-import FinalExamTab from './components/FinalExamTab';
+import FinalChallengeTab from './components/FinalExamTab';
+import AuxiliaryVerbTab from './components/AuxiliaryVerbTab';
 import AccessibilityStatement from './components/AccessibilityStatement';
+import ShortStoriesTab from './components/ShortStoriesTab';
 import words from './data/words.json';
 import { trackPageView, trackEvent } from './utils/analytics';
 
@@ -545,7 +547,7 @@ const CategoryCard = styled.button<{ isActive: boolean }>`
 `;
 
 const App: React.FC = () => {
-  const [currentView, setCurrentView] = useState<'main' | 'words' | 'thirdGrade' | 'fifthGrade' | 'leArIrEr' | 'leArIrErExam' | 'finalExam' | 'accessibility'>('main');
+  const [currentView, setCurrentView] = useState<'main' | 'words' | 'thirdGrade' | 'fifthGrade' | 'leArIrEr' | 'leArIrErExam' | 'finalExam' | 'auxiliaryVerbs' | 'accessibility' | 'shortStories'>('main');
   const [selectedCategoryIdx, setSelectedCategoryIdx] = useState(0);
   const [allCardsFlipped, setAllCardsFlipped] = useState(false);
 
@@ -558,8 +560,10 @@ const App: React.FC = () => {
       'fifthGrade': 'Fifth Grade Words',
       'leArIrEr': 'le, ar, ir, er Words',
       'leArIrErExam': 'le, ar, ir, er Exam',
-      'finalExam': 'Final Exam',
-      'accessibility': 'Accessibility Statement'
+      'finalExam': 'Final Challenge',
+      'auxiliaryVerbs': 'Auxiliary Verb Challenge',
+      'accessibility': 'Accessibility Statement',
+      'shortStories': 'Short Stories'
     };
     
     trackPageView(currentView, pageNames[currentView]);
@@ -641,7 +645,7 @@ const App: React.FC = () => {
       } else {
         setShowCategorySelection(true);
       }
-    } else if (currentView === 'thirdGrade' || currentView === 'fifthGrade') {
+    } else if (currentView === 'thirdGrade' || currentView === 'fifthGrade' || currentView === 'shortStories' || currentView === 'auxiliaryVerbs') {
       setCurrentView('main');
     } else {
       setCurrentView('words');
@@ -707,10 +711,24 @@ const App: React.FC = () => {
               <MenuCardDescription>Test your knowledge of word endings</MenuCardDescription>
             </MenuCard>
             <MenuCard 
-              onClick={() => setCurrentView('finalExam')}
-              aria-label="Take comprehensive final exam with all vocabulary"
+              onClick={() => setCurrentView('auxiliaryVerbs')}
+              aria-label="Practice auxiliary verbs is, am, are in sentences"
             >
-              <MenuCardTitle>🎓 Final Exam</MenuCardTitle>
+              <MenuCardTitle>🔤 Auxiliary Verb Challenge</MenuCardTitle>
+              <MenuCardDescription>Practice is, am, are in sentences</MenuCardDescription>
+            </MenuCard>
+            <MenuCard 
+              onClick={() => setCurrentView('shortStories')}
+              aria-label="Read short stories to practice English"
+            >
+              <MenuCardTitle>📖 Short Stories</MenuCardTitle>
+              <MenuCardDescription>Simple stories with highlighted vocabulary</MenuCardDescription>
+            </MenuCard>
+            <MenuCard 
+              onClick={() => setCurrentView('finalExam')}
+              aria-label="Take comprehensive final challenge with all vocabulary"
+            >
+              <MenuCardTitle>🎓 Final Challenge</MenuCardTitle>
               <MenuCardDescription>Comprehensive test of all vocabulary</MenuCardDescription>
             </MenuCard>
             <DisabledMenuCard aria-disabled="true">
@@ -813,7 +831,9 @@ const App: React.FC = () => {
         )}
         {currentView === 'thirdGrade' && <ThirdGradeTab />}
         {currentView === 'fifthGrade' && <FifthGradeTab />}
-        {currentView === 'finalExam' && <FinalExamTab />}
+        {currentView === 'finalExam' && <FinalChallengeTab />}
+        {currentView === 'shortStories' && <ShortStoriesTab />}
+        {currentView === 'auxiliaryVerbs' && <AuxiliaryVerbTab />}
         {currentView === 'accessibility' && <AccessibilityStatement />}
         {currentView === 'leArIrEr' && (
           <div style={{ width: '100%' }}>
