@@ -1,5 +1,5 @@
 {
-  "name": "english-hebrew-cards",
+  "name": "lomdim-anglit-4kids",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -45,5 +45,5 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://noamshochat.github.io/Forth-Grade-English-Hub/"
+  "homepage": "https://noamshochat.github.io/LomdimAnglit4kids/"
 }
