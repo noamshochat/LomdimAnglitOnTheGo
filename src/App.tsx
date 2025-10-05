@@ -559,7 +559,7 @@ const App: React.FC = () => {
       'thirdGrade': 'Third Grade Words',
       'fifthGrade': 'Fifth Grade Words',
       'leArIrEr': 'le, ar, ir, er Words',
-      'leArIrErExam': 'le, ar, ir, er Exam',
+      'leArIrErExam': 'le, ar, ir, er Challenge',
       'finalExam': 'Final Challenge',
       'auxiliaryVerbs': 'Auxiliary Verb Challenge',
       'accessibility': 'Accessibility Statement',
@@ -581,7 +581,7 @@ const App: React.FC = () => {
       ).map(pair => ({ ...pair, category: category.name }))
     );
 
-  // For le, ar, ir, er Words Exam tab
+  // For le, ar, ir, er Words Challenge tab
   const leArIrErEndings = ['le', 'ar', 'ir', 'er'];
   const leArIrErExamQuestions = React.useMemo(() => {
     const all = leArIrErWords.map(pair => {
@@ -597,7 +597,7 @@ const App: React.FC = () => {
     return all.sort(() => Math.random() - 0.5).slice(0, 20);
   }, [leArIrErWords.length]);
 
-  // Quiz state for le, ar, ir, er Words Exam
+  // Quiz state for le, ar, ir, er Words Challenge
   const [leExamIdx, setLeExamIdx] = React.useState(0);
   const [leExamSelected, setLeExamSelected] = React.useState<string | null>(null);
   const [leExamShowAnswer, setLeExamShowAnswer] = React.useState(false);
@@ -707,7 +707,7 @@ const App: React.FC = () => {
               onClick={() => setCurrentView('leArIrErExam')}
               aria-label="Test your knowledge of le, ar, ir, er word endings"
             >
-              <MenuCardTitle>📝 le, ar, ir, er Exam</MenuCardTitle>
+              <MenuCardTitle>📝 le, ar, ir, er Challenge</MenuCardTitle>
               <MenuCardDescription>Test your knowledge of word endings</MenuCardDescription>
             </MenuCard>
             <MenuCard 
@@ -870,12 +870,12 @@ const App: React.FC = () => {
               For each question, choose the correct ending (<b>le</b>, <b>ar</b>, <b>ir</b>, or <b>er</b>) to complete the English word.<br />
               Click the speaker icon 🔊 to hear the full word.<br />
             </Instructions>
-            <CategoryTitle>le, ar, ir, er Words Exam</CategoryTitle>
+            <CategoryTitle>le, ar, ir, er Words Challenge</CategoryTitle>
             {leExamComplete ? (
               <div style={{ textAlign: 'center', margin: '2rem 0' }}>
                 <h2>Quiz Complete!</h2>
                 <p>You got {leExamScore} out of {leArIrErExamQuestions.length} correct.</p>
-                <button onClick={handleLeExamRestart} style={{ padding: '0.8rem 1.5rem', borderRadius: 8, background: '#2c3e50', color: 'white', border: 'none', fontSize: '1rem', cursor: 'pointer', marginTop: '1rem' }}>Take Exam Again</button>
+                <button onClick={handleLeExamRestart} style={{ padding: '0.8rem 1.5rem', borderRadius: 8, background: '#2c3e50', color: 'white', border: 'none', fontSize: '1rem', cursor: 'pointer', marginTop: '1rem' }}>Take Challenge Again</button>
               </div>
             ) : (
               <div style={{ maxWidth: 500, margin: '0 auto', background: 'white', borderRadius: 15, boxShadow: '0 4px 6px rgba(0,0,0,0.1)', padding: '2rem', textAlign: 'center' }}>
