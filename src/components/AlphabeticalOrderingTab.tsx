@@ -195,6 +195,28 @@ const ResultMessage = styled.div<{ isCorrect: boolean }>`
   font-weight: 500;
 `;
 
+const DragIndicator = styled.div<{ x: number; y: number }>`
+  position: fixed;
+  left: ${props => props.x - 50}px;
+  top: ${props => props.y - 25}px;
+  background: #007bff;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  z-index: 1000;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+  transform: scale(1.1);
+  transition: none;
+  
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+`;
+
 const AlphabeticalOrderingTab: React.FC = () => {
   const [selectedWords, setSelectedWords] = useState<string[]>([]);
   const [draggedWord, setDraggedWord] = useState<string | null>(null);
@@ -204,6 +226,7 @@ const AlphabeticalOrderingTab: React.FC = () => {
   const [checked, setChecked] = useState(false);
   const [touchStartPos, setTouchStartPos] = useState<{ x: number; y: number } | null>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [dragPosition, setDragPosition] = useState<{ x: number; y: number } | null>(null);
 
   // Generate random words from the entire words.json database
   const generateRandomWords = () => {
@@ -235,6 +258,7 @@ const AlphabeticalOrderingTab: React.FC = () => {
     e.preventDefault();
     const touch = e.touches[0];
     setTouchStartPos({ x: touch.clientX, y: touch.clientY });
+    setDragPosition({ x: touch.clientX, y: touch.clientY });
     setDraggedWord(word);
     setIsDragging(true);
   };
@@ -249,6 +273,8 @@ const AlphabeticalOrderingTab: React.FC = () => {
     // If moved more than 10px, consider it a drag
     if (deltaX > 10 || deltaY > 10) {
       e.preventDefault();
+      // Update drag position for visual feedback
+      setDragPosition({ x: touch.clientX, y: touch.clientY });
     }
   };
 
@@ -269,6 +295,7 @@ const AlphabeticalOrderingTab: React.FC = () => {
     setIsDragging(false);
     setDraggedWord(null);
     setTouchStartPos(null);
+    setDragPosition(null);
   };
 
   // Desktop drag handlers
@@ -342,6 +369,13 @@ const AlphabeticalOrderingTab: React.FC = () => {
         When you're done, click "Check Answer" to see how you did!
       </Instructions>
 
+      {/* Drag indicator for mobile */}
+      {isDragging && draggedWord && dragPosition && (
+        <DragIndicator x={dragPosition.x} y={dragPosition.y}>
+          {draggedWord}
+        </DragIndicator>
+      )}
+
       <ExerciseContainer>
         <ExerciseTitle>Order the following words according to ABC order</ExerciseTitle>
         
@@ -354,6 +388,10 @@ const AlphabeticalOrderingTab: React.FC = () => {
               onTouchStart={(e) => handleTouchStart(e, word)}
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
+              style={{
+                opacity: isDragging && draggedWord === word ? 0.3 : 1,
+                transform: isDragging && draggedWord === word ? 'scale(0.95)' : 'scale(1)'
+              }}
               {...getWordStatus(word, -1)}
             >
               {word}
@@ -381,6 +419,10 @@ const AlphabeticalOrderingTab: React.FC = () => {
                   onTouchStart={(e) => handleTouchStart(e, word)}
                   onTouchMove={handleTouchMove}
                   onTouchEnd={handleTouchEnd}
+                  style={{
+                    opacity: isDragging && draggedWord === word ? 0.3 : 1,
+                    transform: isDragging && draggedWord === word ? 'scale(0.95)' : 'scale(1)'
+                  }}
                   {...getWordStatus(word, index)}
                 >
                   {word}
