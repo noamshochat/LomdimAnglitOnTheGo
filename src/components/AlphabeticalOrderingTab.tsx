@@ -80,6 +80,10 @@ const WordItem = styled.div<{ isDragging?: boolean; isCorrect?: boolean; isIncor
   color: #2c3e50;
   transition: all 0.3s ease;
   user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: none;
   
   &:hover {
     transform: translateY(-2px);
@@ -88,11 +92,16 @@ const WordItem = styled.div<{ isDragging?: boolean; isCorrect?: boolean; isIncor
   
   &:active {
     cursor: grabbing;
+    transform: scale(0.95);
   }
   
   @media (max-width: 768px) {
     padding: 0.6rem 1rem;
     font-size: 0.9rem;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `;
 
@@ -120,10 +129,12 @@ const DropSlot = styled.div<{ isOver?: boolean; hasWord?: boolean }>`
   justify-content: center;
   transition: all 0.3s ease;
   position: relative;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: none;
   
   @media (max-width: 768px) {
     padding: 0.8rem;
-    min-height: 50px;
+    min-height: 44px;
   }
 `;
 
@@ -191,6 +202,8 @@ const AlphabeticalOrderingTab: React.FC = () => {
   const [showResult, setShowResult] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const [checked, setChecked] = useState(false);
+  const [touchStartPos, setTouchStartPos] = useState<{ x: number; y: number } | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
 
   // Generate random words from the entire words.json database
   const generateRandomWords = () => {
@@ -217,6 +230,48 @@ const AlphabeticalOrderingTab: React.FC = () => {
     setChecked(false);
   }, []);
 
+  // Touch event handlers for mobile
+  const handleTouchStart = (e: React.TouchEvent, word: string) => {
+    e.preventDefault();
+    const touch = e.touches[0];
+    setTouchStartPos({ x: touch.clientX, y: touch.clientY });
+    setDraggedWord(word);
+    setIsDragging(true);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging || !touchStartPos) return;
+    
+    const touch = e.touches[0];
+    const deltaX = Math.abs(touch.clientX - touchStartPos.x);
+    const deltaY = Math.abs(touch.clientY - touchStartPos.y);
+    
+    // If moved more than 10px, consider it a drag
+    if (deltaX > 10 || deltaY > 10) {
+      e.preventDefault();
+    }
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!isDragging) return;
+    
+    const touch = e.changedTouches[0];
+    const element = document.elementFromPoint(touch.clientX, touch.clientY);
+    
+    if (element) {
+      const dropSlot = element.closest('[data-slot-index]');
+      if (dropSlot) {
+        const slotIndex = parseInt(dropSlot.getAttribute('data-slot-index') || '0');
+        handleWordDrop(draggedWord, slotIndex);
+      }
+    }
+    
+    setIsDragging(false);
+    setDraggedWord(null);
+    setTouchStartPos(null);
+  };
+
+  // Desktop drag handlers
   const handleDragStart = (e: React.DragEvent, word: string) => {
     setDraggedWord(word);
     e.dataTransfer.effectAllowed = 'move';
@@ -229,18 +284,22 @@ const AlphabeticalOrderingTab: React.FC = () => {
 
   const handleDrop = (e: React.DragEvent, slotIndex: number) => {
     e.preventDefault();
-    
-    if (draggedWord) {
+    handleWordDrop(draggedWord, slotIndex);
+  };
+
+  // Common drop handler for both touch and drag
+  const handleWordDrop = (word: string | null, slotIndex: number) => {
+    if (word) {
       const newSlots = [...dropSlots];
       
       // Remove word from its current position if it exists
-      const currentIndex = newSlots.indexOf(draggedWord);
+      const currentIndex = newSlots.indexOf(word);
       if (currentIndex !== -1) {
         newSlots[currentIndex] = null;
       }
       
       // Add word to new position
-      newSlots[slotIndex] = draggedWord;
+      newSlots[slotIndex] = word;
       setDropSlots(newSlots);
     }
     
@@ -292,6 +351,9 @@ const AlphabeticalOrderingTab: React.FC = () => {
               key={`${word}-${index}`}
               draggable
               onDragStart={(e) => handleDragStart(e, word)}
+              onTouchStart={(e) => handleTouchStart(e, word)}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
               {...getWordStatus(word, -1)}
             >
               {word}
@@ -303,8 +365,12 @@ const AlphabeticalOrderingTab: React.FC = () => {
           {dropSlots.map((word, index) => (
             <DropSlot
               key={index}
+              data-slot-index={index}
               onDragOver={handleDragOver}
               onDrop={(e) => handleDrop(e, index)}
+              onTouchStart={(e) => handleTouchStart(e, word || '')}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
               hasWord={!!word}
             >
               <SlotNumber>{index + 1}</SlotNumber>
@@ -312,6 +378,9 @@ const AlphabeticalOrderingTab: React.FC = () => {
                 <WordItem
                   draggable
                   onDragStart={(e) => handleDragStart(e, word)}
+                  onTouchStart={(e) => handleTouchStart(e, word)}
+                  onTouchMove={handleTouchMove}
+                  onTouchEnd={handleTouchEnd}
                   {...getWordStatus(word, index)}
                 >
                   {word}
