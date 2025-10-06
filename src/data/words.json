@@ -33,7 +33,25 @@
       "wordPairs": [
         { "english": "Tomorrow", "hebrew": "מחר" },
         { "english": "Yesterday", "hebrew": "אתמול" },
-        { "english": "Maybe", "hebrew": "אולי" }
+        { "english": "Maybe", "hebrew": "אולי" },
+        { "english": "January", "hebrew": "ינואר" },
+        { "english": "February", "hebrew": "פברואר" },
+        { "english": "March", "hebrew": "מרץ" },
+        { "english": "April", "hebrew": "אפריל" },
+        { "english": "May", "hebrew": "מאי" },
+        { "english": "June", "hebrew": "יוני" },
+        { "english": "July", "hebrew": "יולי" },
+        { "english": "August", "hebrew": "אוגוסט" },
+        { "english": "September", "hebrew": "ספטמבר" },
+        { "english": "October", "hebrew": "אוקטובר" },
+        { "english": "November", "hebrew": "נובמבר" },
+        { "english": "December", "hebrew": "דצמבר" },
+        { "english": "Season", "hebrew": "עונה" },
+        { "english": "Winter", "hebrew": "חורף" },
+        { "english": "Summer", "hebrew": "קיץ" },
+        { "english": "Spring", "hebrew": "אביב" },
+        { "english": "Autumn", "hebrew": "סתיו" },
+        { "english": "Fall", "hebrew": "סתיו" }
       ]
     },
     {
@@ -55,7 +73,61 @@
         { "english": "Doctor", "hebrew": "רופא" },
         { "english": "Boy", "hebrew": "ילד" },
         { "english": "Girl", "hebrew": "ילדה" },
-        { "english": "Astronaut", "hebrew": "אסטרונאוט" }
+        { "english": "Astronaut", "hebrew": "אסטרונאוט" },
+        { "english": "Father", "hebrew": "אבא" },
+        { "english": "Mother", "hebrew": "אמא" },
+        { "english": "Son", "hebrew": "בן" },
+        { "english": "Daughter", "hebrew": "בת" },
+        { "english": "Husband", "hebrew": "בעל" },
+        { "english": "Wife", "hebrew": "אישה" },
+        { "english": "Brother", "hebrew": "אח" },
+        { "english": "Sister", "hebrew": "אחות" },
+        { "english": "Grandfather", "hebrew": "סבא" },
+        { "english": "Grandmother", "hebrew": "סבתא" },
+        { "english": "Grandson", "hebrew": "נכד" },
+        { "english": "Granddaughter", "hebrew": "נכדה" },
+        { "english": "Uncle", "hebrew": "דוד" },
+        { "english": "Aunt", "hebrew": "דודה" },
+        { "english": "Nephew", "hebrew": "אחיין" },
+        { "english": "Niece", "hebrew": "אחיינית" },
+        { "english": "Cousin", "hebrew": "בן דוד" },
+        { "english": "Parent", "hebrew": "הורה" },
+        { "english": "Child", "hebrew": "ילד" },
+        { "english": "Sibling", "hebrew": "אח" },
+        { "english": "Grandparents", "hebrew": "סבא וסבתא" },
+        { "english": "Grandchild", "hebrew": "נכד" },
+        { "english": "I", "hebrew": "אני" },
+        { "english": "You", "hebrew": "אתה/את" },
+        { "english": "He", "hebrew": "הוא" },
+        { "english": "She", "hebrew": "היא" },
+        { "english": "It", "hebrew": "זה/זו" },
+        { "english": "We", "hebrew": "אנחנו" },
+        { "english": "They", "hebrew": "הם/הן" }
+      ]
+    },
+    {
+      "name": "Body Parts",
+      "wordPairs": [
+        { "english": "Head", "hebrew": "ראש" },
+        { "english": "Hair", "hebrew": "שיער" },
+        { "english": "Face", "hebrew": "פנים" },
+        { "english": "Nose", "hebrew": "אף" },
+        { "english": "Ear", "hebrew": "אוזן" },
+        { "english": "Eye", "hebrew": "עין" },
+        { "english": "Mouth", "hebrew": "פה" },
+        { "english": "Teeth", "hebrew": "שיניים" },
+        { "english": "Neck", "hebrew": "צוואר" },
+        { "english": "Shoulder", "hebrew": "כתף" },
+        { "english": "Body", "hebrew": "גוף" },
+        { "english": "Stomach", "hebrew": "בטן" },
+        { "english": "Arm", "hebrew": "זרוע" },
+        { "english": "Elbow", "hebrew": "מרפק" },
+        { "english": "Hand", "hebrew": "יד" },
+        { "english": "Finger", "hebrew": "אצבע" },
+        { "english": "Leg", "hebrew": "רגל" },
+        { "english": "Knee", "hebrew": "ברך" },
+        { "english": "Foot", "hebrew": "כף רגל" },
+        { "english": "Toe", "hebrew": "בוהן" }
       ]
     },
     {
@@ -69,7 +141,34 @@
         { "english": "Corn", "hebrew": "תירס" },
         { "english": "Pineapple", "hebrew": "אננס" },
         { "english": "Grape", "hebrew": "ענב" },
-        { "english": "Orange", "hebrew": "תפוז" }
+        { "english": "Orange", "hebrew": "תפוז" },
+        { "english": "Banana", "hebrew": "בננה" },
+        { "english": "Apple", "hebrew": "תפוח" },
+        { "english": "Lemon", "hebrew": "לימון" },
+        { "english": "Pizza", "hebrew": "פיצה" },
+        { "english": "Cherry", "hebrew": "דובדבן" },
+        { "english": "Grapes", "hebrew": "ענבים" },
+        { "english": "Guava", "hebrew": "גויאבה" },
+        { "english": "Kiwi", "hebrew": "קיווי" },
+        { "english": "Mango", "hebrew": "מנגו" },
+        { "english": "Melon", "hebrew": "מלון" },
+        { "english": "Peach", "hebrew": "אפרסק" },
+        { "english": "Pear", "hebrew": "אגס" },
+        { "english": "Plum", "hebrew": "שזיף" },
+        { "english": "Strawberry", "hebrew": "תות" },
+        { "english": "Watermelon", "hebrew": "אבטיח" },
+        { "english": "Avocado", "hebrew": "אבוקדו" },
+        { "english": "Broccoli", "hebrew": "ברוקולי" },
+        { "english": "Cabbage", "hebrew": "כרוב" },
+        { "english": "Carrot", "hebrew": "גזר" },
+        { "english": "Cucumber", "hebrew": "מלפפון" },
+        { "english": "Eggplant", "hebrew": "חציל" },
+        { "english": "Lettuce", "hebrew": "חסה" },
+        { "english": "Olive", "hebrew": "זית" },
+        { "english": "Onion", "hebrew": "בצל" },
+        { "english": "Pepper", "hebrew": "פלפל" },
+        { "english": "Potato", "hebrew": "תפוח אדמה" },
+        { "english": "Tomato", "hebrew": "עגבניה" }
       ]
     },
     {
@@ -98,7 +197,13 @@
         { "english": "Butterfly", "hebrew": "פרפר" },
         { "english": "Chick", "hebrew": "אפרוח" },
         { "english": "Spider", "hebrew": "עכביש" },
-        { "english": "Tiger", "hebrew": "טיגריס" }
+        { "english": "Tiger", "hebrew": "טיגריס" },
+        { "english": "Dolphin", "hebrew": "דולפין" },
+        { "english": "Zebra", "hebrew": "זברה" },
+        { "english": "Chicken", "hebrew": "תרנגולת" },
+        { "english": "Horse", "hebrew": "סוס" },
+        { "english": "Kangaroo", "hebrew": "קנגורו" },
+        { "english": "Monkey", "hebrew": "קוף" }
       ]  
     },
     {
@@ -311,7 +416,9 @@
         { "english": "Forest", "hebrew": "יער" },
         { "english": "Desert", "hebrew": "מדבר" },
         { "english": "Lake", "hebrew": "אגם" },
-        { "english": "Beach", "hebrew": "חוף" }
+        { "english": "Beach", "hebrew": "חוף" },
+        { "english": "Cactus", "hebrew": "קקטוס" },
+        { "english": "Star", "hebrew": "כוכב" }
       ]
     },
     {

@@ -1,0 +1,10 @@
+{
+  "exercises": [
+    {
+      "id": "exercise-1",
+      "title": "Order the following words according to ABC order",
+      "words": ["banana", "apple", "cactus", "lemon", "dolphin", "pizza", "fish", "zebra", "giraffe", "star"],
+      "difficulty": "beginner"
+    }
+  ]
+}
