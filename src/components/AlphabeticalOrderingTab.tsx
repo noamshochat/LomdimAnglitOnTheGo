@@ -217,6 +217,29 @@ const DragIndicator = styled.div<{ x: number; y: number }>`
   }
 `;
 
+const DraggingWord = styled.div<{ x: number; y: number }>`
+  position: fixed;
+  left: ${props => props.x - 50}px;
+  top: ${props => props.y - 25}px;
+  background: #f8f9fa;
+  border: 2px solid #007bff;
+  border-radius: 8px;
+  padding: 0.8rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #2c3e50;
+  z-index: 1001;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+  transform: scale(1.05);
+  transition: none;
+  
+  @media (max-width: 768px) {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+`;
+
 const AlphabeticalOrderingTab: React.FC = () => {
   const [selectedWords, setSelectedWords] = useState<string[]>([]);
   const [draggedWord, setDraggedWord] = useState<string | null>(null);
@@ -369,11 +392,11 @@ const AlphabeticalOrderingTab: React.FC = () => {
         When you're done, click "Check Answer" to see how you did!
       </Instructions>
 
-      {/* Drag indicator for mobile */}
+      {/* Dragging word for mobile */}
       {isDragging && draggedWord && dragPosition && (
-        <DragIndicator x={dragPosition.x} y={dragPosition.y}>
+        <DraggingWord x={dragPosition.x} y={dragPosition.y}>
           {draggedWord}
-        </DragIndicator>
+        </DraggingWord>
       )}
 
       <ExerciseContainer>
@@ -389,7 +412,7 @@ const AlphabeticalOrderingTab: React.FC = () => {
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
               style={{
-                opacity: isDragging && draggedWord === word ? 0.3 : 1,
+                opacity: isDragging && draggedWord === word ? 0 : 1,
                 transform: isDragging && draggedWord === word ? 'scale(0.95)' : 'scale(1)'
               }}
               {...getWordStatus(word, -1)}
@@ -420,7 +443,7 @@ const AlphabeticalOrderingTab: React.FC = () => {
                   onTouchMove={handleTouchMove}
                   onTouchEnd={handleTouchEnd}
                   style={{
-                    opacity: isDragging && draggedWord === word ? 0.3 : 1,
+                    opacity: isDragging && draggedWord === word ? 0 : 1,
                     transform: isDragging && draggedWord === word ? 'scale(0.95)' : 'scale(1)'
                   }}
                   {...getWordStatus(word, index)}
