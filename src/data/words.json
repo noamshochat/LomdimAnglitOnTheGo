@@ -102,7 +102,9 @@
         { "english": "She", "hebrew": "היא" },
         { "english": "It", "hebrew": "זה/זו" },
         { "english": "We", "hebrew": "אנחנו" },
-        { "english": "They", "hebrew": "הם/הן" }
+        { "english": "They", "hebrew": "הם/הן" },
+        { "english": "Them", "hebrew": "אותם/אותן" },
+        { "english": "That", "hebrew": "זה/זו" }
       ]
     },
     {
@@ -127,7 +129,8 @@
         { "english": "Leg", "hebrew": "רגל" },
         { "english": "Knee", "hebrew": "ברך" },
         { "english": "Foot", "hebrew": "כף רגל" },
-        { "english": "Toe", "hebrew": "בוהן" }
+        { "english": "Toe", "hebrew": "בוהן" },
+        { "english": "Eyes", "hebrew": "עיניים" }
       ]
     },
     {
@@ -217,7 +220,8 @@
         { "english": "Airplane", "hebrew": "מטוס" },
         { "english": "Anchor", "hebrew": "עוגן" },
         { "english": "Truck", "hebrew": "משאית" },
-        { "english": "Trailer", "hebrew": "קרוון" }
+        { "english": "Trailer", "hebrew": "קרוון" },
+        { "english": "Ship", "hebrew": "ספינה" }
       ]
     },
     {
@@ -285,7 +289,8 @@
         { "english": "Cooking", "hebrew": "בישול" },
         { "english": "Playing", "hebrew": "משחק" },
         { "english": "Skating", "hebrew": "החלקה" },
-        { "english": "Cycling", "hebrew": "רכיבה על אופניים" }
+        { "english": "Cycling", "hebrew": "רכיבה על אופניים" },
+        { "english": "Meet", "hebrew": "לפגוש" }
       ]
     },
     {
@@ -299,7 +304,8 @@
         { "english": "Hungry", "hebrew": "רעב" },
         { "english": "Want", "hebrew": "רוצה" },
         { "english": "Wear", "hebrew": "לובש" },
-        { "english": "Wearing", "hebrew": "לובש" }
+        { "english": "Wearing", "hebrew": "לובש" },
+        { "english": "Has", "hebrew": "יש לו/לה" }
       ]
     },
     {
@@ -368,7 +374,9 @@
         { "english": "Fast", "hebrew": "מהיר" },
         { "english": "Slow", "hebrew": "איטי" },
         { "english": "Expensive", "hebrew": "יקר" },
-        { "english": "Cheap", "hebrew": "זול" }
+        { "english": "Cheap", "hebrew": "זול" },
+        { "english": "Tall", "hebrew": "גבוה" },
+        { "english": "Short", "hebrew": "קצר" }
       ]
     },
     {
@@ -503,7 +511,17 @@
         { "english": "Old", "hebrew": "ישן" },
         { "english": "This", "hebrew": "זה" },
         { "english": "Girl", "hebrew": "ילדה" },
-        { "english": "Boy", "hebrew": "ילד" }
+        { "english": "Boy", "hebrew": "ילד" },
+        { "english": "Them", "hebrew": "אותם/אותן" },
+        { "english": "Ship", "hebrew": "ספינה" },
+        { "english": "That", "hebrew": "זה/זו" },
+        { "english": "Meet", "hebrew": "לפגוש" },
+        { "english": "Has", "hebrew": "יש לו/לה" },
+        { "english": "Eyes", "hebrew": "עיניים" },
+        { "english": "Food", "hebrew": "אוכל" },
+        { "english": "Tall", "hebrew": "גבוה" },
+        { "english": "Short", "hebrew": "קצר" },
+        { "english": "Hair", "hebrew": "שיער" }
       ]
     },
     {
