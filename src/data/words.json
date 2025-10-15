@@ -171,7 +171,8 @@
         { "english": "Onion", "hebrew": "בצל" },
         { "english": "Pepper", "hebrew": "פלפל" },
         { "english": "Potato", "hebrew": "תפוח אדמה" },
-        { "english": "Tomato", "hebrew": "עגבניה" }
+        { "english": "Tomato", "hebrew": "עגבניה" },
+        { "english": "Egg", "hebrew": "ביצה" }
       ]
     },
     {
@@ -206,7 +207,9 @@
         { "english": "Chicken", "hebrew": "תרנגולת" },
         { "english": "Horse", "hebrew": "סוס" },
         { "english": "Kangaroo", "hebrew": "קנגורו" },
-        { "english": "Monkey", "hebrew": "קוף" }
+        { "english": "Monkey", "hebrew": "קוף" },
+        { "english": "Eagle", "hebrew": "נשר" },
+        { "english": "Elk", "hebrew": "אייל" }
       ]  
     },
     {
@@ -352,7 +355,8 @@
         { "english": "Mirror", "hebrew": "מראה" },
         { "english": "Ball", "hebrew": "כדור" },
         { "english": "Candle", "hebrew": "נר" },
-        { "english": "Puzzle", "hebrew": "פאזל" }
+        { "english": "Puzzle", "hebrew": "פאזל" },
+        { "english": "Eight", "hebrew": "שמונה" }
       ]
     },
     {
@@ -550,7 +554,13 @@
         { "english": "Dolphin", "hebrew": "דולפין" },
         { "english": "Duck", "hebrew": "ברווז" },
         { "english": "Dragon", "hebrew": "דרקון" },
-        { "english": "Doll", "hebrew": "בובה" }
+        { "english": "Doll", "hebrew": "בובה" },
+        { "english": "Elephant", "hebrew": "פיל" },
+        { "english": "Eagle", "hebrew": "נשר" },
+        { "english": "Eight", "hebrew": "שמונה" },
+        { "english": "Eggplant", "hebrew": "חציל" },
+        { "english": "Egg", "hebrew": "ביצה" },
+        { "english": "Elk", "hebrew": "אייל" }
       ]
     }
   ]
