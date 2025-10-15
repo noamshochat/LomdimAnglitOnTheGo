@@ -1137,7 +1137,7 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
   return (
     <ChallengeContainer>
       <ReactCanvasConfetti onInit={onInit} />
-      <Title>Final Challenge - {challengeLength === 25 ? 'Mini' : challengeLength === 50 ? 'Quick' : challengeLength === 269 ? 'Complete' : challengeLength === 'thirdGrade' ? 'Third Grade' : challengeLength === 'fifthGrade' ? 'Fifth Grade' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb' : challengeLength === 'byCategory' ? selectedCategory : 'Unknown'} ({challengeLength === 'thirdGrade' ? 24 : challengeLength === 'fifthGrade' ? 22 : challengeLength === 'auxiliaryVerbs' ? 15 : challengeLength === 'byCategory' ? allQuestions.length : challengeLength} Questions)</Title>
+      <Title>Final Challenge - {challengeLength === 25 ? 'Mini' : challengeLength === 50 ? 'Quick' : challengeLength === 269 ? 'Complete' : challengeLength === 'thirdGrade' ? 'Third Grade' : challengeLength === 'fifthGrade' ? 'Fifth Grade' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb' : challengeLength === 'byCategory' ? selectedCategory : 'Unknown'} ({challengeLength === 'thirdGrade' ? 30 : challengeLength === 'fifthGrade' ? 32 : challengeLength === 'auxiliaryVerbs' ? 15 : challengeLength === 'byCategory' ? allQuestions.length : challengeLength} Questions)</Title>
       <ProgressContainer>
         <ProgressBar $progress={progress}>
           <ProgressFill $progress={progress} />
