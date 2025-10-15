@@ -563,7 +563,7 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
   const [score, setScore] = useState(0);
   const [isQuizComplete, setIsQuizComplete] = useState(false);
   const [showChallengeSetup, setShowChallengeSetup] = useState(true);
-  const [challengeLength, setChallengeLength] = useState<25 | 50 | 269 | 'thirdGrade' | 'fifthGrade' | 'byCategory' | 'auxiliaryVerbs'>(25);
+  const [challengeLength, setChallengeLength] = useState<25 | 50 | 365 | 'thirdGrade' | 'fifthGrade' | 'byCategory' | 'auxiliaryVerbs'>(25);
   const [isSharing, setIsSharing] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [showCategorySelection, setShowCategorySelection] = useState(false);
@@ -932,7 +932,7 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
       });
       
       const percentage = Math.round((score / allQuestions.length) * 100);
-      const examType = challengeLength === 25 ? 'Mini' : challengeLength === 50 ? 'Quick' : challengeLength === 269 ? 'Complete' : challengeLength === 'thirdGrade' ? 'Third Grade' : challengeLength === 'fifthGrade' ? 'Fifth Grade' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb' : challengeLength === 'byCategory' ? selectedCategory : 'Final';
+      const examType = challengeLength === 25 ? 'Mini' : challengeLength === 50 ? 'Quick' : challengeLength === 365 ? 'Complete' : challengeLength === 'thirdGrade' ? 'Third Grade' : challengeLength === 'fifthGrade' ? 'Fifth Grade' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb' : challengeLength === 'byCategory' ? selectedCategory : 'Final';
       const shareText = `I just completed the ${examType} Final Challenge with a score of ${percentage}%! 🎓📚`;
       
       // Try Web Share API first
@@ -978,14 +978,14 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
     const isPerfectScore = percentage === 100;
     
     // Track exam completion in Google Analytics
-    const examType = challengeLength === 25 ? 'Mini Final Challenge' : challengeLength === 50 ? 'Quick Final Challenge' : challengeLength === 269 ? 'Complete Final Challenge' : challengeLength === 'thirdGrade' ? 'Third Grade Final Challenge' : challengeLength === 'fifthGrade' ? 'Fifth Grade Final Challenge' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb Challenge' : challengeLength === 'byCategory' ? `${selectedCategory} Category Challenge` : 'Final Challenge';
+    const examType = challengeLength === 25 ? 'Mini Final Challenge' : challengeLength === 50 ? 'Quick Final Challenge' : challengeLength === 365 ? 'Complete Final Challenge' : challengeLength === 'thirdGrade' ? 'Third Grade Final Challenge' : challengeLength === 'fifthGrade' ? 'Fifth Grade Final Challenge' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb Challenge' : challengeLength === 'byCategory' ? `${selectedCategory} Category Challenge` : 'Final Challenge';
     trackExamCompletion(examType, score, allQuestions.length, percentage);
 
     return (
       <ChallengeContainer>
         <ReactCanvasConfetti onInit={onInit} />
         <ScoreContainer ref={scoreContainerRef}>
-          <ScoreTitle>{challengeLength === 25 ? 'Mini Final Challenge Complete!' : challengeLength === 50 ? 'Quick Final Challenge Complete!' : challengeLength === 269 ? 'Complete Final Challenge Complete!' : challengeLength === 'thirdGrade' ? 'Third Grade Final Challenge Complete!' : challengeLength === 'fifthGrade' ? 'Fifth Grade Final Challenge Complete!' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb Challenge Complete!' : challengeLength === 'byCategory' ? `${selectedCategory} Category Challenge Complete!` : 'Final Challenge Complete!'} 🎓</ScoreTitle>
+          <ScoreTitle>{challengeLength === 25 ? 'Mini Final Challenge Complete!' : challengeLength === 50 ? 'Quick Final Challenge Complete!' : challengeLength === 365 ? 'Complete Final Challenge Complete!' : challengeLength === 'thirdGrade' ? 'Third Grade Final Challenge Complete!' : challengeLength === 'fifthGrade' ? 'Fifth Grade Final Challenge Complete!' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb Challenge Complete!' : challengeLength === 'byCategory' ? `${selectedCategory} Category Challenge Complete!` : 'Final Challenge Complete!'} 🎓</ScoreTitle>
           <ScoreText>
             You got {score} out of {allQuestions.length} questions correct
           </ScoreText>
