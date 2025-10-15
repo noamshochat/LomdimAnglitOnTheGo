@@ -1081,30 +1081,30 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
               </ChallengeLengthDescription>
             </ChallengeLengthOption>
             <ChallengeLengthOption
-              isSelected={challengeLength === 269}
-              onClick={() => setChallengeLength(269)}
+              isSelected={challengeLength === 365}
+              onClick={() => setChallengeLength(365)}
             >
-              <ChallengeLengthTitle>🎓 Complete Challenge (269 Questions)</ChallengeLengthTitle>
+              <ChallengeLengthTitle>🎓 Complete Challenge (365 Questions)</ChallengeLengthTitle>
               <ChallengeLengthDescription>
-                ~65-80 minutes • Tests all vocabulary words
+                ~90-110 minutes • Tests all unique vocabulary words
               </ChallengeLengthDescription>
             </ChallengeLengthOption>
             <ChallengeLengthOption
               isSelected={challengeLength === 'thirdGrade'}
               onClick={() => setChallengeLength('thirdGrade')}
             >
-              <ChallengeLengthTitle>📖 Third Grade Challenge (24 Questions)</ChallengeLengthTitle>
+              <ChallengeLengthTitle>📖 Third Grade Challenge (30 Questions)</ChallengeLengthTitle>
               <ChallengeLengthDescription>
-                ~8-12 minutes • Age-appropriate vocabulary for third grade
+                ~10-15 minutes • Age-appropriate vocabulary for third grade
               </ChallengeLengthDescription>
             </ChallengeLengthOption>
             <ChallengeLengthOption
               isSelected={challengeLength === 'fifthGrade'}
               onClick={() => setChallengeLength('fifthGrade')}
             >
-              <ChallengeLengthTitle>🎓 Fifth Grade Challenge (22 Questions)</ChallengeLengthTitle>
+              <ChallengeLengthTitle>🎓 Fifth Grade Challenge (32 Questions)</ChallengeLengthTitle>
               <ChallengeLengthDescription>
-                ~6-10 minutes • Advanced vocabulary for fifth grade
+                ~10-15 minutes • Advanced vocabulary for fifth grade
               </ChallengeLengthDescription>
             </ChallengeLengthOption>
             <ChallengeLengthOption
@@ -1127,7 +1127,7 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
             </ChallengeLengthOption>
           </ChallengeLengthOptions>
           <StartChallengeButton onClick={handleStartChallenge}>
-            Start {challengeLength === 25 ? 'Mini' : challengeLength === 50 ? 'Quick' : challengeLength === 269 ? 'Complete' : challengeLength === 'thirdGrade' ? 'Third Grade' : challengeLength === 'fifthGrade' ? 'Fifth Grade' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb' : 'Category'} Final Challenge
+            Start {challengeLength === 25 ? 'Mini' : challengeLength === 50 ? 'Quick' : challengeLength === 365 ? 'Complete' : challengeLength === 'thirdGrade' ? 'Third Grade' : challengeLength === 'fifthGrade' ? 'Fifth Grade' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb' : 'Category'} Final Challenge
           </StartChallengeButton>
         </ChallengeSetupContainer>
       </ChallengeContainer>
@@ -1137,7 +1137,7 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
   return (
     <ChallengeContainer>
       <ReactCanvasConfetti onInit={onInit} />
-      <Title>Final Challenge - {challengeLength === 25 ? 'Mini' : challengeLength === 50 ? 'Quick' : challengeLength === 269 ? 'Complete' : challengeLength === 'thirdGrade' ? 'Third Grade' : challengeLength === 'fifthGrade' ? 'Fifth Grade' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb' : challengeLength === 'byCategory' ? selectedCategory : 'Unknown'} ({challengeLength === 'thirdGrade' ? 30 : challengeLength === 'fifthGrade' ? 32 : challengeLength === 'auxiliaryVerbs' ? 15 : challengeLength === 'byCategory' ? allQuestions.length : challengeLength} Questions)</Title>
+      <Title>Final Challenge - {challengeLength === 25 ? 'Mini' : challengeLength === 50 ? 'Quick' : challengeLength === 365 ? 'Complete' : challengeLength === 'thirdGrade' ? 'Third Grade' : challengeLength === 'fifthGrade' ? 'Fifth Grade' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb' : challengeLength === 'byCategory' ? selectedCategory : 'Unknown'} ({challengeLength === 'thirdGrade' ? 30 : challengeLength === 'fifthGrade' ? 32 : challengeLength === 'auxiliaryVerbs' ? 15 : challengeLength === 'byCategory' ? allQuestions.length : challengeLength} Questions)</Title>
       <ProgressContainer>
         <ProgressBar $progress={progress}>
           <ProgressFill $progress={progress} />
