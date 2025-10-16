@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import ReactCanvasConfetti from 'react-canvas-confetti';
+import type { CreateTypes } from 'canvas-confetti';
 import hasHaveExercisesData from '../data/hasHaveExercises.json';
 
 const Container = styled.div`
@@ -306,6 +308,12 @@ const HasHaveTab: React.FC = () => {
   const [showAnswer, setShowAnswer] = useState(false);
   const [score, setScore] = useState(0);
   const [isQuizComplete, setIsQuizComplete] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const confettiRef = useRef<CreateTypes>();
+
+  const onInit = ({ confetti }: { confetti: CreateTypes }) => {
+    confettiRef.current = confetti;
+  };
 
   const currentQuestion = hasHaveExercisesData[currentQuestionIndex];
 
@@ -315,6 +323,10 @@ const HasHaveTab: React.FC = () => {
       setShowAnswer(true);
       if (answer === currentQuestion.correctAnswer) {
         setScore(prevScore => prevScore + 1);
+        // Auto-advance after 1 second for correct answers
+        setTimeout(() => {
+          handleNextQuestion();
+        }, 1000);
       }
     }
   };
@@ -324,6 +336,15 @@ const HasHaveTab: React.FC = () => {
     setShowAnswer(false);
     if (currentQuestionIndex === hasHaveExercisesData.length - 1) {
       setIsQuizComplete(true);
+      // Trigger confetti when quiz is complete
+      setShowConfetti(true);
+      if (confettiRef.current) {
+        confettiRef.current({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+      }
     } else {
       setCurrentQuestionIndex(prev => prev + 1);
     }
@@ -335,6 +356,7 @@ const HasHaveTab: React.FC = () => {
     setShowAnswer(false);
     setScore(0);
     setIsQuizComplete(false);
+    setShowConfetti(false);
   };
 
   // Conjugation table data
@@ -351,6 +373,9 @@ const HasHaveTab: React.FC = () => {
   if (isQuizComplete) {
     return (
       <Container>
+        {showConfetti && (
+          <ReactCanvasConfetti onInit={onInit} />
+        )}
         <Title>🎉 Have/Has Challenge Complete!</Title>
         <CompleteContainer>
           <ScoreText>
@@ -366,6 +391,9 @@ const HasHaveTab: React.FC = () => {
 
   return (
     <Container>
+      {showConfetti && (
+        <ReactCanvasConfetti onInit={onInit} />
+      )}
       <Title>🔤 Have/Has Challenge</Title>
       <Instructions>
         Complete the following sentences with "have" or "has".<br />
@@ -422,7 +450,7 @@ const HasHaveTab: React.FC = () => {
               }
             </Feedback>
           )}
-          {showAnswer && (
+          {showAnswer && selectedAnswer !== currentQuestion.correctAnswer && (
             <NextButton onClick={handleNextQuestion}>
               {currentQuestionIndex === hasHaveExercisesData.length - 1 ? 'Finish Challenge' : 'Next Question'}
             </NextButton>
