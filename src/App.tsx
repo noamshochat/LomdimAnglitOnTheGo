@@ -9,6 +9,7 @@ import PicturePracticeTab from './components/PicturePracticeTab';
 import FinalChallengeTab from './components/FinalExamTab';
 import AuxiliaryVerbTab from './components/AuxiliaryVerbTab';
 import AlphabeticalOrderingTab from './components/AlphabeticalOrderingTab';
+import HasHaveTab from './components/HasHaveTab';
 import AccessibilityStatement from './components/AccessibilityStatement';
 import ShortSentencesTab from './components/ShortStoriesTab';
 import words from './data/words.json';
@@ -548,7 +549,7 @@ const CategoryCard = styled.button<{ isActive: boolean }>`
 `;
 
 const App: React.FC = () => {
-  const [currentView, setCurrentView] = useState<'main' | 'words' | 'thirdGrade' | 'fifthGrade' | 'leArIrEr' | 'leArIrErExam' | 'finalExam' | 'auxiliaryVerbs' | 'alphabeticalOrdering' | 'accessibility' | 'shortSentences'>('main');
+  const [currentView, setCurrentView] = useState<'main' | 'words' | 'thirdGrade' | 'fifthGrade' | 'leArIrEr' | 'leArIrErExam' | 'finalExam' | 'auxiliaryVerbs' | 'alphabeticalOrdering' | 'hasHave' | 'accessibility' | 'shortSentences'>('main');
   const [selectedCategoryIdx, setSelectedCategoryIdx] = useState(0);
   const [allCardsFlipped, setAllCardsFlipped] = useState(false);
 
@@ -564,6 +565,7 @@ const App: React.FC = () => {
       'finalExam': 'Final Challenge',
       'auxiliaryVerbs': 'Auxiliary Verb Challenge',
       'alphabeticalOrdering': 'Alphabetical Ordering Challenge',
+      'hasHave': 'Have/Has Challenge',
       'accessibility': 'Accessibility Statement',
       'shortSentences': 'Short Sentences'
     };
@@ -647,7 +649,7 @@ const App: React.FC = () => {
       } else {
         setShowCategorySelection(true);
       }
-    } else if (currentView === 'thirdGrade' || currentView === 'fifthGrade' || currentView === 'shortSentences' || currentView === 'auxiliaryVerbs' || currentView === 'alphabeticalOrdering') {
+    } else if (currentView === 'thirdGrade' || currentView === 'fifthGrade' || currentView === 'shortSentences' || currentView === 'auxiliaryVerbs' || currentView === 'alphabeticalOrdering' || currentView === 'hasHave') {
       setCurrentView('main');
     } else {
       setCurrentView('words');
@@ -725,6 +727,13 @@ const App: React.FC = () => {
             >
               <MenuCardTitle>🔤 Alphabetical Ordering</MenuCardTitle>
               <MenuCardDescription>Drag words into alphabetical order</MenuCardDescription>
+            </MenuCard>
+            <MenuCard 
+              onClick={() => setCurrentView('hasHave')}
+              aria-label="Practice have/has verbs in sentences"
+            >
+              <MenuCardTitle>🔤 Have/Has Challenge</MenuCardTitle>
+              <MenuCardDescription>Practice have/has verbs in sentences</MenuCardDescription>
             </MenuCard>
             <MenuCard 
               onClick={() => setCurrentView('shortSentences')}
@@ -844,6 +853,7 @@ const App: React.FC = () => {
         {currentView === 'shortSentences' && <ShortSentencesTab />}
         {currentView === 'auxiliaryVerbs' && <AuxiliaryVerbTab />}
         {currentView === 'alphabeticalOrdering' && <AlphabeticalOrderingTab />}
+        {currentView === 'hasHave' && <HasHaveTab />}
         {currentView === 'accessibility' && <AccessibilityStatement />}
         {currentView === 'leArIrEr' && (
           <div style={{ width: '100%' }}>

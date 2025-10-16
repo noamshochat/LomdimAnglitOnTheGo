@@ -5,6 +5,7 @@ import type { CreateTypes } from 'canvas-confetti';
 import html2canvas from 'html2canvas';
 import words from '../data/words.json';
 import auxiliaryVerbs from '../data/auxiliaryVerbs.json';
+import hasHaveExercisesData from '../data/hasHaveExercises.json';
 import { trackExamCompletion } from '../utils/analytics';
 
 const ChallengeContainer = styled.div`
@@ -563,7 +564,7 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
   const [score, setScore] = useState(0);
   const [isQuizComplete, setIsQuizComplete] = useState(false);
   const [showChallengeSetup, setShowChallengeSetup] = useState(true);
-  const [challengeLength, setChallengeLength] = useState<25 | 50 | 365 | 'thirdGrade' | 'fifthGrade' | 'byCategory' | 'auxiliaryVerbs'>(25);
+  const [challengeLength, setChallengeLength] = useState<25 | 50 | 365 | 'thirdGrade' | 'fifthGrade' | 'byCategory' | 'auxiliaryVerbs' | 'hasHave'>(25);
   const [isSharing, setIsSharing] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [showCategorySelection, setShowCategorySelection] = useState(false);
@@ -582,6 +583,15 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
         options: item.options,
         category: "Auxiliary Verbs",
         isAuxiliaryVerb: true
+      }));
+    } else if (challengeLength === 'hasHave') {
+      // Get has/have exercise questions
+      sourceWords = hasHaveExercisesData.map(item => ({
+        question: `Complete the sentence: "${item.sentence}"`,
+        correctAnswer: item.correctAnswer,
+        options: item.options,
+        category: "Has/Have Exercises",
+        isHasHave: true
       }));
     } else if (challengeLength === 'thirdGrade') {
       // Get only Third grade words
@@ -629,6 +639,7 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
                          challengeLength === 'fifthGrade' ? sourceWords.length : 
                          challengeLength === 'byCategory' ? sourceWords.length : 
                          challengeLength === 'auxiliaryVerbs' ? sourceWords.length :
+                         challengeLength === 'hasHave' ? sourceWords.length :
                          challengeLength;
     const shuffledQuestions = [...sourceWords]
       .sort(() => Math.random() - 0.5)
@@ -638,6 +649,12 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
     return shuffledQuestions.map(q => {
       if ('isAuxiliaryVerb' in q && q.isAuxiliaryVerb) {
         // For auxiliary verbs, use the predefined options
+        return {
+          ...q,
+          options: q.options
+        };
+      } else if ('isHasHave' in q && q.isHasHave) {
+        // For has/have exercises, use the predefined options
         return {
           ...q,
           options: q.options
@@ -932,7 +949,7 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
       });
       
       const percentage = Math.round((score / allQuestions.length) * 100);
-      const examType = challengeLength === 25 ? 'Mini' : challengeLength === 50 ? 'Quick' : challengeLength === 365 ? 'Complete' : challengeLength === 'thirdGrade' ? 'Third Grade' : challengeLength === 'fifthGrade' ? 'Fifth Grade' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb' : challengeLength === 'byCategory' ? selectedCategory : 'Final';
+      const examType = challengeLength === 25 ? 'Mini' : challengeLength === 50 ? 'Quick' : challengeLength === 365 ? 'Complete' : challengeLength === 'thirdGrade' ? 'Third Grade' : challengeLength === 'fifthGrade' ? 'Fifth Grade' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb' : challengeLength === 'hasHave' ? 'Has/Have' : challengeLength === 'byCategory' ? selectedCategory : 'Final';
       const shareText = `I just completed the ${examType} Final Challenge with a score of ${percentage}%! 🎓📚`;
       
       // Try Web Share API first
@@ -978,14 +995,14 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
     const isPerfectScore = percentage === 100;
     
     // Track exam completion in Google Analytics
-    const examType = challengeLength === 25 ? 'Mini Final Challenge' : challengeLength === 50 ? 'Quick Final Challenge' : challengeLength === 365 ? 'Complete Final Challenge' : challengeLength === 'thirdGrade' ? 'Third Grade Final Challenge' : challengeLength === 'fifthGrade' ? 'Fifth Grade Final Challenge' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb Challenge' : challengeLength === 'byCategory' ? `${selectedCategory} Category Challenge` : 'Final Challenge';
+    const examType = challengeLength === 25 ? 'Mini Final Challenge' : challengeLength === 50 ? 'Quick Final Challenge' : challengeLength === 365 ? 'Complete Final Challenge' : challengeLength === 'thirdGrade' ? 'Third Grade Final Challenge' : challengeLength === 'fifthGrade' ? 'Fifth Grade Final Challenge' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb Challenge' : challengeLength === 'hasHave' ? 'Has/Have Challenge' : challengeLength === 'byCategory' ? `${selectedCategory} Category Challenge` : 'Final Challenge';
     trackExamCompletion(examType, score, allQuestions.length, percentage);
 
     return (
       <ChallengeContainer>
         <ReactCanvasConfetti onInit={onInit} />
         <ScoreContainer ref={scoreContainerRef}>
-          <ScoreTitle>{challengeLength === 25 ? 'Mini Final Challenge Complete!' : challengeLength === 50 ? 'Quick Final Challenge Complete!' : challengeLength === 365 ? 'Complete Final Challenge Complete!' : challengeLength === 'thirdGrade' ? 'Third Grade Final Challenge Complete!' : challengeLength === 'fifthGrade' ? 'Fifth Grade Final Challenge Complete!' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb Challenge Complete!' : challengeLength === 'byCategory' ? `${selectedCategory} Category Challenge Complete!` : 'Final Challenge Complete!'} 🎓</ScoreTitle>
+          <ScoreTitle>{challengeLength === 25 ? 'Mini Final Challenge Complete!' : challengeLength === 50 ? 'Quick Final Challenge Complete!' : challengeLength === 365 ? 'Complete Final Challenge Complete!' : challengeLength === 'thirdGrade' ? 'Third Grade Final Challenge Complete!' : challengeLength === 'fifthGrade' ? 'Fifth Grade Final Challenge Complete!' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb Challenge Complete!' : challengeLength === 'hasHave' ? 'Has/Have Challenge Complete!' : challengeLength === 'byCategory' ? `${selectedCategory} Category Challenge Complete!` : 'Final Challenge Complete!'} 🎓</ScoreTitle>
           <ScoreText>
             You got {score} out of {allQuestions.length} questions correct
           </ScoreText>
@@ -1125,9 +1142,18 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
                 ~5-8 minutes • Practice is, am, are in sentences
               </ChallengeLengthDescription>
             </ChallengeLengthOption>
+            <ChallengeLengthOption
+              isSelected={challengeLength === 'hasHave'}
+              onClick={() => setChallengeLength('hasHave')}
+            >
+              <ChallengeLengthTitle>🔤 Has/Have Challenge (15 Questions)</ChallengeLengthTitle>
+              <ChallengeLengthDescription>
+                ~5-8 minutes • Practice has and have in sentences
+              </ChallengeLengthDescription>
+            </ChallengeLengthOption>
           </ChallengeLengthOptions>
           <StartChallengeButton onClick={handleStartChallenge}>
-            Start {challengeLength === 25 ? 'Mini' : challengeLength === 50 ? 'Quick' : challengeLength === 365 ? 'Complete' : challengeLength === 'thirdGrade' ? 'Third Grade' : challengeLength === 'fifthGrade' ? 'Fifth Grade' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb' : 'Category'} Final Challenge
+            Start {challengeLength === 25 ? 'Mini' : challengeLength === 50 ? 'Quick' : challengeLength === 365 ? 'Complete' : challengeLength === 'thirdGrade' ? 'Third Grade' : challengeLength === 'fifthGrade' ? 'Fifth Grade' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb' : challengeLength === 'hasHave' ? 'Has/Have' : 'Category'} Final Challenge
           </StartChallengeButton>
         </ChallengeSetupContainer>
       </ChallengeContainer>
@@ -1137,7 +1163,7 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
   return (
     <ChallengeContainer>
       <ReactCanvasConfetti onInit={onInit} />
-      <Title>Final Challenge - {challengeLength === 25 ? 'Mini' : challengeLength === 50 ? 'Quick' : challengeLength === 365 ? 'Complete' : challengeLength === 'thirdGrade' ? 'Third Grade' : challengeLength === 'fifthGrade' ? 'Fifth Grade' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb' : challengeLength === 'byCategory' ? selectedCategory : 'Unknown'} ({challengeLength === 'thirdGrade' ? 30 : challengeLength === 'fifthGrade' ? 32 : challengeLength === 'auxiliaryVerbs' ? 15 : challengeLength === 'byCategory' ? allQuestions.length : challengeLength} Questions)</Title>
+      <Title>Final Challenge - {challengeLength === 25 ? 'Mini' : challengeLength === 50 ? 'Quick' : challengeLength === 365 ? 'Complete' : challengeLength === 'thirdGrade' ? 'Third Grade' : challengeLength === 'fifthGrade' ? 'Fifth Grade' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb' : challengeLength === 'hasHave' ? 'Has/Have' : challengeLength === 'byCategory' ? selectedCategory : 'Unknown'} ({challengeLength === 'thirdGrade' ? 30 : challengeLength === 'fifthGrade' ? 32 : challengeLength === 'auxiliaryVerbs' ? 15 : challengeLength === 'hasHave' ? 15 : challengeLength === 'byCategory' ? allQuestions.length : challengeLength} Questions)</Title>
       <ProgressContainer>
         <ProgressBar $progress={progress}>
           <ProgressFill $progress={progress} />

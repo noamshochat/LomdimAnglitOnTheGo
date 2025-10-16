@@ -308,7 +308,8 @@
         { "english": "Want", "hebrew": "רוצה" },
         { "english": "Wear", "hebrew": "לובש" },
         { "english": "Wearing", "hebrew": "לובש" },
-        { "english": "Has", "hebrew": "יש לו/לה" }
+        { "english": "Has", "hebrew": "יש לו/לה" },
+        { "english": "Have", "hebrew": "יש ל" }
       ]
     },
     {

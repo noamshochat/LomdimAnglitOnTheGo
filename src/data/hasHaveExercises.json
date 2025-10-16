@@ -1,0 +1,18 @@
+[
+  { "id": 1, "sentence": "We ___ pencils in the classroom", "correctAnswer": "have", "options": ["has", "have"] },
+  { "id": 2, "sentence": "Dorit ___ a computer at home", "correctAnswer": "has", "options": ["has", "have"] },
+  { "id": 3, "sentence": "Gili and I ___ homework", "correctAnswer": "have", "options": ["has", "have"] },
+  { "id": 4, "sentence": "The dog ___ a bone", "correctAnswer": "has", "options": ["has", "have"] },
+  { "id": 5, "sentence": "The table ___ four legs", "correctAnswer": "has", "options": ["has", "have"] },
+  { "id": 6, "sentence": "Mother and father ___ a new car", "correctAnswer": "have", "options": ["has", "have"] },
+  { "id": 7, "sentence": "The cats ___ milk", "correctAnswer": "have", "options": ["has", "have"] },
+  { "id": 8, "sentence": "The doll ___ big blue eyes", "correctAnswer": "has", "options": ["has", "have"] },
+  { "id": 9, "sentence": "The children ___ candies", "correctAnswer": "have", "options": ["has", "have"] },
+  { "id": 10, "sentence": "The teacher ___ a big bag", "correctAnswer": "has", "options": ["has", "have"] },
+  { "id": 11, "sentence": "I ___ a book", "correctAnswer": "have", "options": ["has", "have"] },
+  { "id": 12, "sentence": "She ___ a beautiful dress", "correctAnswer": "has", "options": ["has", "have"] },
+  { "id": 13, "sentence": "They ___ many friends", "correctAnswer": "have", "options": ["has", "have"] },
+  { "id": 14, "sentence": "The bird ___ colorful feathers", "correctAnswer": "has", "options": ["has", "have"] },
+  { "id": 15, "sentence": "You ___ a nice smile", "correctAnswer": "have", "options": ["has", "have"] }
+]
+
