@@ -553,6 +553,39 @@ const StartChallengeButton = styled.button`
   }
 `;
 
+const ToggleContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  
+  @media (max-width: 768px) {
+    margin-bottom: 1rem;
+  }
+`;
+
+const ToggleButton = styled.button<{ $isActive: boolean }>`
+  padding: 0.6rem 1.2rem;
+  border: 2px solid ${props => props.$isActive ? '#2c3e50' : '#bdc3c7'};
+  border-radius: 8px;
+  background-color: ${props => props.$isActive ? '#2c3e50' : 'white'};
+  color: ${props => props.$isActive ? 'white' : '#2c3e50'};
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    border-color: #2c3e50;
+    background-color: ${props => props.$isActive ? '#1a252f' : '#f8f9fa'};
+  }
+  
+  @media (max-width: 768px) {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+`;
+
 interface FinalChallengeTabProps {
   initialChallengeType?: 'auxiliaryVerbs' | 'default';
 }
@@ -568,8 +601,18 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
   const [isSharing, setIsSharing] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [showCategorySelection, setShowCategorySelection] = useState(false);
+  const [isReverseMode, setIsReverseMode] = useState(false);
   const confettiRef = useRef<CreateTypes>();
   const scoreContainerRef = useRef<HTMLDivElement>(null);
+
+  // Reset quiz when mode changes
+  React.useEffect(() => {
+    setCurrentQuestionIndex(0);
+    setSelectedAnswer(null);
+    setShowAnswer(false);
+    setScore(0);
+    setIsQuizComplete(false);
+  }, [isReverseMode]);
 
   // Create comprehensive questions from ALL words (excluding sentences)
   const allQuestions = React.useMemo(() => {
@@ -597,27 +640,30 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
       // Get only Third grade words
       const thirdGradeCategory = words.categories.find(category => category.name === "Third grade");
       sourceWords = thirdGradeCategory?.wordPairs.map(pair => ({
-        question: `What is the Hebrew translation for "${pair.english}"?`,
-        correctAnswer: pair.hebrew,
+        question: isReverseMode ? pair.hebrew : pair.english,
+        correctAnswer: isReverseMode ? pair.english : pair.hebrew,
         englishWord: pair.english,
+        hebrewWord: pair.hebrew,
         category: "Third grade"
       })) || [];
     } else if (challengeLength === 'fifthGrade') {
       // Get only Fifth grade words
       const fifthGradeCategory = words.categories.find(category => category.name === "Fifth grade");
       sourceWords = fifthGradeCategory?.wordPairs.map(pair => ({
-        question: `What is the Hebrew translation for "${pair.english}"?`,
-        correctAnswer: pair.hebrew,
+        question: isReverseMode ? pair.hebrew : pair.english,
+        correctAnswer: isReverseMode ? pair.english : pair.hebrew,
         englishWord: pair.english,
+        hebrewWord: pair.hebrew,
         category: "Fifth grade"
       })) || [];
     } else if (challengeLength === 'byCategory' && selectedCategory) {
       // Get words from selected category only
       const category = words.categories.find(cat => cat.name === selectedCategory);
       sourceWords = category?.wordPairs.map(pair => ({
-        question: `What is the Hebrew translation for "${pair.english}"?`,
-        correctAnswer: pair.hebrew,
+        question: isReverseMode ? pair.hebrew : pair.english,
+        correctAnswer: isReverseMode ? pair.english : pair.hebrew,
         englishWord: pair.english,
+        hebrewWord: pair.hebrew,
         category: selectedCategory
       })) || [];
     } else {
@@ -626,9 +672,10 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
         .filter(category => category.name !== "Sentences")
         .flatMap(category => 
           category.wordPairs.map(pair => ({
-            question: `What is the Hebrew translation for "${pair.english}"?`,
-            correctAnswer: pair.hebrew,
+            question: isReverseMode ? pair.hebrew : pair.english,
+            correctAnswer: isReverseMode ? pair.english : pair.hebrew,
             englishWord: pair.english,
+            hebrewWord: pair.hebrew,
             category: category.name
           }))
         );
@@ -660,14 +707,17 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
           options: q.options
         };
       } else {
-        // For regular vocabulary questions, generate Hebrew options
+        // For regular vocabulary questions, generate options based on mode
         const sourceCategory = challengeLength === 'thirdGrade' ? 'Third grade' : 
                               challengeLength === 'fifthGrade' ? 'Fifth grade' : 
                               challengeLength === 'byCategory' ? (selectedCategory || undefined) : 
                               undefined;
         const options = [
           q.correctAnswer,
-          ...getRandomHebrewWords(words.categories, q.correctAnswer, 3, sourceCategory)
+          ...(isReverseMode ? 
+            getRandomEnglishWords(words.categories, q.correctAnswer, 3, sourceCategory) :
+            getRandomHebrewWords(words.categories, q.correctAnswer, 3, sourceCategory)
+          )
         ].sort(() => Math.random() - 0.5);
 
         return {
@@ -676,7 +726,7 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
         };
       }
     });
-  }, [challengeLength, selectedCategory]);
+  }, [challengeLength, selectedCategory, isReverseMode]);
 
   const currentQuestion = allQuestions[currentQuestionIndex];
 
@@ -696,6 +746,29 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
     }
     
     const uniqueWords = allHebrewWords.filter((word: string, index: number, self: string[]) => 
+      word !== excludeWord && self.indexOf(word) === index
+    );
+    
+    const shuffled = [...uniqueWords].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, Math.min(count, uniqueWords.length));
+  }
+
+  // Helper function to get random English words excluding the correct answer
+  function getRandomEnglishWords(categories: any[], excludeWord: string, count: number, sourceCategory?: string): string[] {
+    let allEnglishWords;
+    
+    if (sourceCategory) {
+      // If we have a specific source category (like Third Grade or Fifth Grade), only use words from that category
+      const category = categories.find(cat => cat.name === sourceCategory);
+      allEnglishWords = category?.wordPairs.map((pair: any) => pair.english) || [];
+    } else {
+      // Otherwise, use all words from all categories
+      allEnglishWords = categories.flatMap(category => 
+        category.wordPairs.map((pair: any) => pair.english)
+      );
+    }
+    
+    const uniqueWords = allEnglishWords.filter((word: string, index: number, self: string[]) => 
       word !== excludeWord && self.indexOf(word) === index
     );
     
@@ -1164,6 +1237,22 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
     <ChallengeContainer>
       <ReactCanvasConfetti onInit={onInit} />
       <Title>Final Challenge - {challengeLength === 25 ? 'Mini' : challengeLength === 50 ? 'Quick' : challengeLength === 365 ? 'Complete' : challengeLength === 'thirdGrade' ? 'Third Grade' : challengeLength === 'fifthGrade' ? 'Fifth Grade' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb' : challengeLength === 'hasHave' ? 'Has/Have' : challengeLength === 'byCategory' ? selectedCategory : 'Unknown'} ({challengeLength === 'thirdGrade' ? 30 : challengeLength === 'fifthGrade' ? 32 : challengeLength === 'auxiliaryVerbs' ? 15 : challengeLength === 'hasHave' ? 15 : challengeLength === 'byCategory' ? allQuestions.length : challengeLength} Questions)</Title>
+      {(challengeLength !== 'auxiliaryVerbs' && challengeLength !== 'hasHave') && (
+        <ToggleContainer>
+          <ToggleButton 
+            onClick={() => setIsReverseMode(!isReverseMode)}
+            $isActive={!isReverseMode}
+          >
+            English → Hebrew
+          </ToggleButton>
+          <ToggleButton 
+            onClick={() => setIsReverseMode(!isReverseMode)}
+            $isActive={isReverseMode}
+          >
+            Hebrew → English
+          </ToggleButton>
+        </ToggleContainer>
+      )}
       <ProgressContainer>
         <ProgressBar $progress={progress}>
           <ProgressFill $progress={progress} />
@@ -1176,7 +1265,7 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
         <QuestionText>
           {currentQuestion.question}
           {'englishWord' in currentQuestion && (
-            <VoiceButton onClick={() => speakWord(currentQuestion.englishWord)}>
+            <VoiceButton onClick={() => speakWord(isReverseMode ? currentQuestion.hebrewWord : currentQuestion.englishWord)}>
               🔊
             </VoiceButton>
           )}

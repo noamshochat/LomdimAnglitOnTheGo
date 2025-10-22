@@ -190,6 +190,8 @@
         { "english": "bat", "hebrew": "עטלף" },
         { "english": "Bird", "hebrew": "ציפור" },
         { "english": "Fish", "hebrew": "דג" },
+        { "english": "Fox", "hebrew": "שועל" },
+        { "english": "Frog", "hebrew": "צפרדע" },
         { "english": "Snake", "hebrew": "נחש" },
         { "english": "Rabbit", "hebrew": "ארנב" },
         { "english": "Mouse", "hebrew": "עכבר" },
@@ -357,7 +359,8 @@
         { "english": "Ball", "hebrew": "כדור" },
         { "english": "Candle", "hebrew": "נר" },
         { "english": "Puzzle", "hebrew": "פאזל" },
-        { "english": "Eight", "hebrew": "שמונה" }
+        { "english": "Eight", "hebrew": "שמונה" },
+        { "english": "Fan", "hebrew": "מאוורר" }
       ]
     },
     {
@@ -413,7 +416,8 @@
         { "english": "Chef", "hebrew": "שף" },
         { "english": "Artist", "hebrew": "אמן" },
         { "english": "Writer", "hebrew": "סופר" },
-        { "english": "Driver", "hebrew": "נהג" }
+        { "english": "Driver", "hebrew": "נהג" },
+        { "english": "Farmer", "hebrew": "איכר" }
       ]
     },
     {
@@ -561,7 +565,8 @@
         { "english": "Eight", "hebrew": "שמונה" },
         { "english": "Eggplant", "hebrew": "חציל" },
         { "english": "Egg", "hebrew": "ביצה" },
-        { "english": "Elk", "hebrew": "אייל" }
+        { "english": "Elk", "hebrew": "אייל" },
+        { "english": "Frog", "hebrew": "צפרדע" }
       ]
     }
   ]

@@ -467,6 +467,39 @@ const ModalButton = styled.button`
   }
 `;
 
+const ToggleContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  
+  @media (max-width: 768px) {
+    margin-bottom: 1rem;
+  }
+`;
+
+const ToggleButton = styled.button<{ $isActive: boolean }>`
+  padding: 0.6rem 1.2rem;
+  border: 2px solid ${props => props.$isActive ? '#2c3e50' : '#bdc3c7'};
+  border-radius: 8px;
+  background-color: ${props => props.$isActive ? '#2c3e50' : 'white'};
+  color: ${props => props.$isActive ? 'white' : '#2c3e50'};
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    border-color: #2c3e50;
+    background-color: ${props => props.$isActive ? '#1a252f' : '#f8f9fa'};
+  }
+  
+  @media (max-width: 768px) {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+`;
+
 const ExamTab: React.FC = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
@@ -477,8 +510,18 @@ const ExamTab: React.FC = () => {
   const [showSuggestion, setShowSuggestion] = useState(false);
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const [isSharing, setIsSharing] = useState(false);
+  const [isReverseMode, setIsReverseMode] = useState(false);
   const confettiRef = useRef<CreateTypes>();
   const scoreContainerRef = useRef<HTMLDivElement>(null);
+
+  // Reset quiz when mode changes
+  React.useEffect(() => {
+    setCurrentQuestionIndex(0);
+    setSelectedAnswer(null);
+    setShowAnswer(false);
+    setScore(0);
+    setIsQuizComplete(false);
+  }, [isReverseMode]);
 
   const celebrationPatterns = [
     // Firework 1 - Classic Red and Gold
@@ -602,9 +645,10 @@ const ExamTab: React.FC = () => {
       .filter(category => category.name !== "Sentences")
       .flatMap(category => 
         category.wordPairs.map(pair => ({
-          question: `What is the Hebrew translation for "${pair.english}"?`,
-          correctAnswer: pair.hebrew,
-          englishWord: pair.english
+          question: isReverseMode ? pair.hebrew : pair.english,
+          correctAnswer: isReverseMode ? pair.english : pair.hebrew,
+          englishWord: pair.english,
+          hebrewWord: pair.hebrew
         }))
       );
 
@@ -617,7 +661,10 @@ const ExamTab: React.FC = () => {
     return shuffledQuestions.map(q => {
       const options = [
         q.correctAnswer,
-        ...getRandomHebrewWords(words.categories, q.correctAnswer, 3)
+        ...(isReverseMode ? 
+          getRandomEnglishWords(words.categories, q.correctAnswer, 3) :
+          getRandomHebrewWords(words.categories, q.correctAnswer, 3)
+        )
       ].sort(() => Math.random() - 0.5);
 
       return {
@@ -625,7 +672,7 @@ const ExamTab: React.FC = () => {
         options
       };
     });
-  }, []);
+  }, [isReverseMode]);
 
   const currentQuestion = allQuestions[currentQuestionIndex];
 
@@ -640,6 +687,25 @@ const ExamTab: React.FC = () => {
     
     // Remove the correct answer and get unique words
     const uniqueWords = allHebrewWords.filter((word, index, self) => 
+      word !== excludeWord && self.indexOf(word) === index
+    );
+    
+    // Shuffle and take the requested number of words
+    const shuffled = [...uniqueWords].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, Math.min(count, uniqueWords.length));
+  }
+
+  // Helper function to get random English words excluding the correct answer
+  function getRandomEnglishWords(categories: any[], excludeWord: string, count: number): string[] {
+    // Get all English words from all categories except Sentences
+    const allEnglishWords = categories
+      .filter(category => category.name !== "Sentences")
+      .flatMap(category => 
+        category.wordPairs.map((pair: any) => pair.english)
+      );
+    
+    // Remove the correct answer and get unique words
+    const uniqueWords = allEnglishWords.filter((word, index, self) => 
       word !== excludeWord && self.indexOf(word) === index
     );
     
@@ -869,6 +935,20 @@ const ExamTab: React.FC = () => {
   return (
     <ExamContainer role="main" aria-labelledby="exam-title">
       <Title id="exam-title">Words Practice</Title>
+      <ToggleContainer>
+        <ToggleButton 
+          onClick={() => setIsReverseMode(!isReverseMode)}
+          $isActive={!isReverseMode}
+        >
+          English → Hebrew
+        </ToggleButton>
+        <ToggleButton 
+          onClick={() => setIsReverseMode(!isReverseMode)}
+          $isActive={isReverseMode}
+        >
+          Hebrew → English
+        </ToggleButton>
+      </ToggleContainer>
       <ProgressContainer role="progressbar" aria-valuenow={currentQuestionIndex} aria-valuemax={allQuestions.length} aria-label="Quiz progress">
         <ProgressBar $progress={progress}>
           <ProgressFill $progress={progress} />
@@ -881,8 +961,8 @@ const ExamTab: React.FC = () => {
         <QuestionText id="current-question">
           {currentQuestion.question}
           <VoiceButton 
-            onClick={() => speakWord(currentQuestion.englishWord)}
-            aria-label={`Pronounce ${currentQuestion.englishWord}`}
+            onClick={() => speakWord(isReverseMode ? currentQuestion.hebrewWord : currentQuestion.englishWord)}
+            aria-label={`Pronounce ${isReverseMode ? currentQuestion.hebrewWord : currentQuestion.englishWord}`}
             title="Click to hear pronunciation"
           >
             🔊
