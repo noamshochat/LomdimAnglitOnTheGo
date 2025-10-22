@@ -566,6 +566,11 @@
         { "english": "Eggplant", "hebrew": "חציל" },
         { "english": "Egg", "hebrew": "ביצה" },
         { "english": "Elk", "hebrew": "אייל" },
+        { "english": "Fan", "hebrew": "מאוורר" },
+        { "english": "Farmer", "hebrew": "איכר" },
+        { "english": "Fish", "hebrew": "דג" },
+        { "english": "Flowers", "hebrew": "פרחים" },
+        { "english": "Fox", "hebrew": "שועל" },
         { "english": "Frog", "hebrew": "צפרדע" }
       ]
     }

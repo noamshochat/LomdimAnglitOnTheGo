@@ -64,14 +64,16 @@ const QuestionText = styled.h3`
   margin-bottom: 1.5rem;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1rem;
   font-size: 1.3rem;
+  text-align: center;
   
   @media (max-width: 768px) {
     font-size: 1rem;
     margin-bottom: 0.8rem;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 0.4rem;
   }
   
@@ -1264,8 +1266,8 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
       <QuestionContainer>
         <QuestionText>
           {currentQuestion.question}
-          {'englishWord' in currentQuestion && (
-            <VoiceButton onClick={() => speakWord(isReverseMode ? currentQuestion.hebrewWord : currentQuestion.englishWord)}>
+          {'englishWord' in currentQuestion && !isReverseMode && (
+            <VoiceButton onClick={() => speakWord(currentQuestion.englishWord)}>
               🔊
             </VoiceButton>
           )}

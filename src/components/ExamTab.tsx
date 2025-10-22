@@ -59,14 +59,16 @@ const QuestionText = styled.h3`
   margin-bottom: 1.5rem;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1rem;
   font-size: 1.3rem;
+  text-align: center;
   
   @media (max-width: 768px) {
     font-size: 1rem;
     margin-bottom: 0.8rem;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 0.4rem;
   }
   
@@ -960,13 +962,15 @@ const ExamTab: React.FC = () => {
       <QuestionContainer role="group" aria-labelledby="current-question">
         <QuestionText id="current-question">
           {currentQuestion.question}
-          <VoiceButton 
-            onClick={() => speakWord(isReverseMode ? currentQuestion.hebrewWord : currentQuestion.englishWord)}
-            aria-label={`Pronounce ${isReverseMode ? currentQuestion.hebrewWord : currentQuestion.englishWord}`}
-            title="Click to hear pronunciation"
-          >
-            🔊
-          </VoiceButton>
+          {!isReverseMode && (
+            <VoiceButton 
+              onClick={() => speakWord(currentQuestion.englishWord)}
+              aria-label={`Pronounce ${currentQuestion.englishWord}`}
+              title="Click to hear pronunciation"
+            >
+              🔊
+            </VoiceButton>
+          )}
         </QuestionText>
         {currentQuestion.options.map((option, index) => {
           const isSelected = selectedAnswer === option;
