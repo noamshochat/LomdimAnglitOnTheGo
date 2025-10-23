@@ -894,6 +894,9 @@ const ExamTab: React.FC = () => {
           <ScoreText>
             You got {score} out of {allQuestions.length} questions correct
           </ScoreText>
+          <ScoreText style={{ fontSize: '1rem', color: '#7f8c8d', marginBottom: '0.5rem' }}>
+            Challenge Mode: {isReverseMode ? 'Hebrew → English' : 'English → Hebrew'}
+          </ScoreText>
           <ScorePercentage>
             {percentage}%
           </ScorePercentage>
