@@ -185,6 +185,7 @@
         { "english": "Tiger", "hebrew": "טיגריס" },
         { "english": "Lion", "hebrew": "אריה" },
         { "english": "Giraffe", "hebrew": "ג'ירפה" },
+        { "english": "Goose", "hebrew": "אווז" },
         { "english": "Cat", "hebrew": "חתול" },
         { "english": "Dog", "hebrew": "כלב" },
         { "english": "bat", "hebrew": "עטלף" },
@@ -360,7 +361,9 @@
         { "english": "Candle", "hebrew": "נר" },
         { "english": "Puzzle", "hebrew": "פאזל" },
         { "english": "Eight", "hebrew": "שמונה" },
-        { "english": "Fan", "hebrew": "מאוורר" }
+        { "english": "Fan", "hebrew": "מאוורר" },
+        { "english": "Gift", "hebrew": "מתנה" },
+        { "english": "Guitar", "hebrew": "גיטרה" }
       ]
     },
     {
@@ -464,6 +467,7 @@
         { "english": "Shirt", "hebrew": "חולצה" },
         { "english": "Pants", "hebrew": "מכנסיים" },
         { "english": "Dress", "hebrew": "שמלה" },
+        { "english": "Gloves", "hebrew": "כפפות" },
         { "english": "Shoes", "hebrew": "נעליים" },
         { "english": "Hat", "hebrew": "כובע" },
         { "english": "Socks", "hebrew": "גרביים" },
@@ -571,7 +575,13 @@
         { "english": "Fish", "hebrew": "דג" },
         { "english": "Flowers", "hebrew": "פרחים" },
         { "english": "Fox", "hebrew": "שועל" },
-        { "english": "Frog", "hebrew": "צפרדע" }
+        { "english": "Frog", "hebrew": "צפרדע" },
+        { "english": "Gift", "hebrew": "מתנה" },
+        { "english": "Girl", "hebrew": "ילדה" },
+        { "english": "Gloves", "hebrew": "כפפות" },
+        { "english": "Goose", "hebrew": "אווז" },
+        { "english": "Grape", "hebrew": "ענב" },
+        { "english": "Guitar", "hebrew": "גיטרה" }
       ]
     }
   ]
