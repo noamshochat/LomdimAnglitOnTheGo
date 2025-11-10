@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/LomdimAnglitOnTheGo/static/js/main.4a449fe1.js",
+    "main.js": "/LomdimAnglitOnTheGo/static/js/main.284ef7fd.js",
     "index.html": "/LomdimAnglitOnTheGo/index.html",
-    "main.4a449fe1.js.map": "/LomdimAnglitOnTheGo/static/js/main.4a449fe1.js.map"
+    "main.284ef7fd.js.map": "/LomdimAnglitOnTheGo/static/js/main.284ef7fd.js.map"
   },
   "entrypoints": [
-    "static/js/main.4a449fe1.js"
+    "static/js/main.284ef7fd.js"
   ]
 }
