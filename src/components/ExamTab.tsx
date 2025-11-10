@@ -939,7 +939,7 @@ const ExamTab: React.FC = () => {
 
   return (
     <ExamContainer role="main" aria-labelledby="exam-title">
-      <Title id="exam-title">Words Practice</Title>
+      <Title id="exam-title">Words Practice (30 Questions)</Title>
       <ToggleContainer>
         <ToggleButton 
           onClick={() => setIsReverseMode(!isReverseMode)}

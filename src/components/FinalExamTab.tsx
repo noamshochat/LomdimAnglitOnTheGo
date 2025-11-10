@@ -1243,7 +1243,7 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
   return (
     <ChallengeContainer>
       <ReactCanvasConfetti onInit={onInit} />
-      <Title>Final Challenge - {challengeLength === 25 ? 'Mini' : challengeLength === 50 ? 'Quick' : challengeLength === 365 ? 'Complete' : challengeLength === 'thirdGrade' ? 'Third Grade' : challengeLength === 'fifthGrade' ? 'Fifth Grade' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb' : challengeLength === 'hasHave' ? 'Has/Have' : challengeLength === 'byCategory' ? selectedCategory : 'Unknown'} ({challengeLength === 'thirdGrade' ? 30 : challengeLength === 'fifthGrade' ? 32 : challengeLength === 'auxiliaryVerbs' ? 15 : challengeLength === 'hasHave' ? 15 : challengeLength === 'byCategory' ? allQuestions.length : challengeLength} Questions)</Title>
+      <Title>Final Challenge - {challengeLength === 25 ? 'Mini' : challengeLength === 50 ? 'Quick' : challengeLength === 365 ? 'Complete' : challengeLength === 'thirdGrade' ? 'Third Grade' : challengeLength === 'fifthGrade' ? 'Fifth Grade' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb' : challengeLength === 'hasHave' ? 'Has/Have' : challengeLength === 'byCategory' ? selectedCategory : 'Unknown'} ({allQuestions.length} Questions)</Title>
       {(challengeLength !== 'auxiliaryVerbs' && challengeLength !== 'hasHave') && (
         <ToggleContainer>
           <ToggleButton 
