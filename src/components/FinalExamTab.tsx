@@ -616,6 +616,27 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
     setIsQuizComplete(false);
   }, [isReverseMode]);
 
+  // Helper function to get question count for each challenge type
+  const getChallengeQuestionCount = (type: 25 | 50 | 365 | 'thirdGrade' | 'fifthGrade' | 'byCategory' | 'auxiliaryVerbs' | 'hasHave'): number => {
+    if (type === 'thirdGrade') {
+      const thirdGradeCategory = words.categories.find(category => category.name === "Third grade");
+      return thirdGradeCategory?.wordPairs.length || 0;
+    } else if (type === 'fifthGrade') {
+      const fifthGradeCategory = words.categories.find(category => category.name === "Fifth grade");
+      return fifthGradeCategory?.wordPairs.length || 0;
+    } else if (type === 'auxiliaryVerbs') {
+      return auxiliaryVerbs.length;
+    } else if (type === 'hasHave') {
+      return hasHaveExercisesData.length;
+    } else if (type === 'byCategory' && selectedCategory) {
+      const category = words.categories.find(cat => cat.name === selectedCategory);
+      return category?.wordPairs.length || 0;
+    } else if (typeof type === 'number') {
+      return type;
+    }
+    return 0;
+  };
+
   // Create comprehensive questions from ALL words (excluding sentences)
   const allQuestions = React.useMemo(() => {
     let sourceWords;
@@ -1190,7 +1211,7 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
               isSelected={challengeLength === 'thirdGrade'}
               onClick={() => setChallengeLength('thirdGrade')}
             >
-              <ChallengeLengthTitle>📖 Third Grade Challenge (30 Questions)</ChallengeLengthTitle>
+              <ChallengeLengthTitle>📖 Third Grade Challenge ({getChallengeQuestionCount('thirdGrade')} Questions)</ChallengeLengthTitle>
               <ChallengeLengthDescription>
                 ~10-15 minutes • Age-appropriate vocabulary for third grade
               </ChallengeLengthDescription>
@@ -1199,7 +1220,7 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
               isSelected={challengeLength === 'fifthGrade'}
               onClick={() => setChallengeLength('fifthGrade')}
             >
-              <ChallengeLengthTitle>🎓 Fifth Grade Challenge (32 Questions)</ChallengeLengthTitle>
+              <ChallengeLengthTitle>🎓 Fifth Grade Challenge ({getChallengeQuestionCount('fifthGrade')} Questions)</ChallengeLengthTitle>
               <ChallengeLengthDescription>
                 ~10-15 minutes • Advanced vocabulary for fifth grade
               </ChallengeLengthDescription>
@@ -1217,7 +1238,7 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
               isSelected={challengeLength === 'auxiliaryVerbs'}
               onClick={() => setChallengeLength('auxiliaryVerbs')}
             >
-              <ChallengeLengthTitle>🔤 Auxiliary Verb Challenge (15 Questions)</ChallengeLengthTitle>
+              <ChallengeLengthTitle>🔤 Auxiliary Verb Challenge ({getChallengeQuestionCount('auxiliaryVerbs')} Questions)</ChallengeLengthTitle>
               <ChallengeLengthDescription>
                 ~5-8 minutes • Practice is, am, are in sentences
               </ChallengeLengthDescription>
@@ -1226,7 +1247,7 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
               isSelected={challengeLength === 'hasHave'}
               onClick={() => setChallengeLength('hasHave')}
             >
-              <ChallengeLengthTitle>🔤 Has/Have Challenge (15 Questions)</ChallengeLengthTitle>
+              <ChallengeLengthTitle>🔤 Has/Have Challenge ({getChallengeQuestionCount('hasHave')} Questions)</ChallengeLengthTitle>
               <ChallengeLengthDescription>
                 ~5-8 minutes • Practice has and have in sentences
               </ChallengeLengthDescription>
