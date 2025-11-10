@@ -138,6 +138,7 @@
       "wordPairs": [
         { "english": "Water", "hebrew": "מים" },
         { "english": "Food", "hebrew": "אוכל" },
+        { "english": "Drink", "hebrew": "לשתות" },
         { "english": "Dinner", "hebrew": "ארוחת ערב" },
         { "english": "Cake", "hebrew": "עוגה" },
         { "english": "Coconut", "hebrew": "קוקוס" },
@@ -199,6 +200,8 @@
         { "english": "Pig", "hebrew": "חזיר" },
         { "english": "Sheep", "hebrew": "כבש" },
         { "english": "Cow", "hebrew": "פרה" },
+        { "english": "Cows", "hebrew": "פרות" },
+        { "english": "Donkey", "hebrew": "חמור" },
         { "english": "Ant", "hebrew": "נמלה" },
         { "english": "Alligator", "hebrew": "תנין" },
         { "english": "Butterfly", "hebrew": "פרפר" },
@@ -534,7 +537,19 @@
         { "english": "Food", "hebrew": "אוכל" },
         { "english": "Tall", "hebrew": "גבוה" },
         { "english": "Short", "hebrew": "קצר" },
-        { "english": "Hair", "hebrew": "שיער" }
+        { "english": "Hair", "hebrew": "שיער" },
+        { "english": "Cows", "hebrew": "פרות" },
+        { "english": "Donkey", "hebrew": "חמור" },
+        { "english": "Drink", "hebrew": "לשתות" },
+        { "english": "Going", "hebrew": "הולך" },
+        { "english": "Mattar", "hebrew": "קרה" },
+        { "english": "Near", "hebrew": "קרוב" },
+        { "english": "Tail", "hebrew": "זנב" },
+        { "english": "Too", "hebrew": "גם" },
+        { "english": "Town", "hebrew": "עיר" },
+        { "english": "Under", "hebrew": "מתחת" },
+        { "english": "Where", "hebrew": "איפה" },
+        { "english": "Young", "hebrew": "צעיר" }
       ]
     },
     {
