@@ -314,6 +314,63 @@ const ScorePercentage = styled.p`
   }
 `;
 
+const IncorrectWordsContainer = styled.div`
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: left;
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  
+  @media (max-width: 768px) {
+    max-height: 200px;
+    padding: 0.8rem;
+  }
+`;
+
+const IncorrectWordsTitle = styled.h3`
+  font-size: 1.1rem;
+  color: #e74c3c;
+  margin-bottom: 0.8rem;
+  text-align: center;
+  font-weight: bold;
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+`;
+
+const IncorrectWordItem = styled.div`
+  padding: 0.6rem;
+  margin-bottom: 0.5rem;
+  background-color: white;
+  border-radius: 6px;
+  border-left: 3px solid #e74c3c;
+  font-size: 0.9rem;
+  
+  @media (max-width: 768px) {
+    font-size: 0.85rem;
+    padding: 0.5rem;
+  }
+`;
+
+const IncorrectWordText = styled.div`
+  margin-bottom: 0.3rem;
+  color: #2c3e50;
+`;
+
+const IncorrectWordAnswer = styled.div`
+  color: #7f8c8d;
+  font-size: 0.85rem;
+  
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+  }
+`;
+
 const RestartButton = styled.button`
   padding: 0.8rem 1.5rem;
   background-color: #2c3e50;
@@ -604,6 +661,7 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [showCategorySelection, setShowCategorySelection] = useState(false);
   const [isReverseMode, setIsReverseMode] = useState(false);
+  const [incorrectAnswers, setIncorrectAnswers] = useState<Array<{question: string, correctAnswer: string, userAnswer: string, englishWord?: string, hebrewWord?: string}>>([]);
   const confettiRef = useRef<CreateTypes>();
   const scoreContainerRef = useRef<HTMLDivElement>(null);
 
@@ -614,6 +672,7 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
     setShowAnswer(false);
     setScore(0);
     setIsQuizComplete(false);
+    setIncorrectAnswers([]);
   }, [isReverseMode]);
 
   // Helper function to get question count for each challenge type
@@ -813,6 +872,23 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
             setCurrentQuestionIndex(prev => prev + 1);
           }, 2000);
         }
+      } else {
+        // Track incorrect answer
+        setIncorrectAnswers(prev => [...prev, {
+          question: currentQuestion.question,
+          correctAnswer: currentQuestion.correctAnswer,
+          userAnswer: answer,
+          englishWord: 'englishWord' in currentQuestion ? currentQuestion.englishWord : undefined,
+          hebrewWord: 'hebrewWord' in currentQuestion ? currentQuestion.hebrewWord : undefined
+        }]);
+        // Auto-advance after 2 seconds if not last question
+        if (currentQuestionIndex < allQuestions.length - 1) {
+          setTimeout(() => {
+            setSelectedAnswer(null);
+            setShowAnswer(false);
+            setCurrentQuestionIndex(prev => prev + 1);
+          }, 2000);
+        }
       }
     }
   };
@@ -969,6 +1045,7 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
     setShowAnswer(false);
     setScore(0);
     setIsQuizComplete(false);
+    setIncorrectAnswers([]);
     setShowChallengeSetup(true);
   };
 
@@ -983,6 +1060,7 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
       setShowAnswer(false);
       setScore(0);
       setIsQuizComplete(false);
+      setIncorrectAnswers([]);
     }
   };
 
@@ -994,6 +1072,7 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
     setShowAnswer(false);
     setScore(0);
     setIsQuizComplete(false);
+    setIncorrectAnswers([]);
   };
 
   const progress = ((currentQuestionIndex) / allQuestions.length) * 100;
@@ -1046,7 +1125,16 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
       
       const percentage = Math.round((score / allQuestions.length) * 100);
       const examType = challengeLength === 25 ? 'Mini' : challengeLength === 50 ? 'Quick' : challengeLength === 365 ? 'Complete' : challengeLength === 'thirdGrade' ? 'Third Grade' : challengeLength === 'fifthGrade' ? 'Fifth Grade' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb' : challengeLength === 'hasHave' ? 'Has/Have' : challengeLength === 'byCategory' ? selectedCategory : 'Final';
-      const shareText = `I just completed the ${examType} Final Challenge with a score of ${percentage}%! 🎓📚`;
+      let shareText = `I just completed the ${examType} Final Challenge with a score of ${percentage}%! 🎓📚\n\n`;
+      
+      if (incorrectAnswers.length > 0) {
+        shareText += `Words to Review (${incorrectAnswers.length}):\n`;
+        incorrectAnswers.forEach((item, index) => {
+          shareText += `${index + 1}. ${item.question}\n`;
+          shareText += `   ❌ Your answer: ${item.userAnswer}\n`;
+          shareText += `   ✅ Correct: ${item.correctAnswer}\n\n`;
+        });
+      }
       
       // Try Web Share API first
       if (navigator.share && navigator.canShare) {
@@ -1124,6 +1212,26 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
             <ScoreText style={{ color: '#e67e22', fontWeight: 'bold' }}>
               Good effort! Keep practicing! 📚
             </ScoreText>
+          )}
+          {incorrectAnswers.length > 0 && (
+            <IncorrectWordsContainer>
+              <IncorrectWordsTitle>
+                Words to Review ({incorrectAnswers.length})
+              </IncorrectWordsTitle>
+              {incorrectAnswers.map((item, index) => (
+                <IncorrectWordItem key={index}>
+                  <IncorrectWordText>
+                    <strong>{item.question}</strong>
+                  </IncorrectWordText>
+                  <IncorrectWordAnswer>
+                    ❌ Your answer: {item.userAnswer}
+                  </IncorrectWordAnswer>
+                  <IncorrectWordAnswer>
+                    ✅ Correct: {item.correctAnswer}
+                  </IncorrectWordAnswer>
+                </IncorrectWordItem>
+              ))}
+            </IncorrectWordsContainer>
           )}
           <ButtonContainer>
             <RestartButton onClick={handleRestartQuiz}>
