@@ -13,5 +13,20 @@
   { "id": 12, "sentence": "The kite ___ big", "correctAnswer": "is", "options": ["is", "am", "are"] },
   { "id": 13, "sentence": "Today ___ sunny", "correctAnswer": "is", "options": ["is", "am", "are"] },
   { "id": 14, "sentence": "I ___ tall", "correctAnswer": "am", "options": ["is", "am", "are"] },
-  { "id": 15, "sentence": "You ___ short", "correctAnswer": "are", "options": ["is", "am", "are"] }
+  { "id": 15, "sentence": "You ___ short", "correctAnswer": "are", "options": ["is", "am", "are"] },
+  { "id": 16, "sentence": "She ___ my friend", "correctAnswer": "is", "options": ["is", "am", "are"] },
+  { "id": 17, "sentence": "I ___ happy", "correctAnswer": "am", "options": ["is", "am", "are"] },
+  { "id": 18, "sentence": "The books ___ on the table", "correctAnswer": "are", "options": ["is", "am", "are"] },
+  { "id": 19, "sentence": "The cat ___ sleeping", "correctAnswer": "is", "options": ["is", "am", "are"] },
+  { "id": 20, "sentence": "We ___ at school", "correctAnswer": "are", "options": ["is", "am", "are"] },
+  { "id": 21, "sentence": "shira and I ___ a student", "correctAnswer": "am", "options": ["is", "am", "are"] },
+  { "id": 22, "sentence": "The flowers ___ beautiful", "correctAnswer": "are", "options": ["is", "am", "are"] },
+  { "id": 23, "sentence": "He ___ playing soccer", "correctAnswer": "is", "options": ["is", "am", "are"] },
+  { "id": 24, "sentence": "You ___ very kind", "correctAnswer": "are", "options": ["is", "am", "are"] },
+  { "id": 25, "sentence": "The bird ___ flying", "correctAnswer": "is", "options": ["is", "am", "are"] },
+  { "id": 26, "sentence": "I ___ reading a book", "correctAnswer": "am", "options": ["is", "am", "are"] },
+  { "id": 27, "sentence": "The dogs ___ running", "correctAnswer": "are", "options": ["is", "am", "are"] },
+  { "id": 28, "sentence": "She ___ wearing a dress", "correctAnswer": "is", "options": ["is", "am", "are"] },
+  { "id": 29, "sentence": "They ___ in the park", "correctAnswer": "are", "options": ["is", "am", "are"] },
+  { "id": 30, "sentence": "The apple ___ red", "correctAnswer": "is", "options": ["is", "am", "are"] }
 ]
