@@ -14,8 +14,9 @@ const Card = styled.button<{ isFlipped: boolean }>`
   padding: 1.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease;
   transform: ${props => props.isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)'};
+  transform-style: preserve-3d;
   perspective: 1000px;
   min-height: 120px;
   display: flex;
@@ -52,33 +53,36 @@ const Card = styled.button<{ isFlipped: boolean }>`
   }
   
   &:active {
-    transform: scale(0.98);
+    transform: ${props => props.isFlipped ? 'rotateY(180deg) scale(0.98)' : 'scale(0.98)'};
   }
   
   @media (max-width: 768px) {
     &:hover {
-      transform: none;
+      transform: ${props => props.isFlipped ? 'rotateY(180deg)' : 'none'};
     }
     
-  &:active {
-    transform: scale(0.95);
+    &:active {
+      transform: ${props => props.isFlipped ? 'rotateY(180deg) scale(0.95)' : 'scale(0.95)'};
+    }
   }
   
   &:focus {
     outline: 3px solid #3498db;
     outline-offset: 2px;
   }
-  }
 `;
 
 const CardContent = styled.div<{ isFlipped: boolean }>`
-  transform: ${props => props.isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)'};
+  transform: ${props => props.isFlipped ? 'rotateY(-180deg)' : 'rotateY(0deg)'};
   transition: transform 0.3s ease;
+  transform-style: preserve-3d;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 `;
 
 const Text = styled.div<{ isHebrew?: boolean }>`

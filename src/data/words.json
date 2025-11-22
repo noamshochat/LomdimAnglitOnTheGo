@@ -55,6 +55,24 @@
       ]
     },
     {
+      "name": "Numbers",
+      "wordPairs": [
+        { "english": "Zero", "hebrew": "אפס" },
+        { "english": "One", "hebrew": "אחת" },
+        { "english": "Two", "hebrew": "שתיים" },
+        { "english": "Three", "hebrew": "שלוש" },
+        { "english": "Four", "hebrew": "ארבע" },
+        { "english": "Five", "hebrew": "חמש" },
+        { "english": "Six", "hebrew": "שש" },
+        { "english": "Seven", "hebrew": "שבע" },
+        { "english": "Eight", "hebrew": "שמונה" },
+        { "english": "Nine", "hebrew": "תשע" },
+        { "english": "Ten", "hebrew": "עשר" },
+        { "english": "Eleven", "hebrew": "אחת עשרה" },
+        { "english": "Twelve", "hebrew": "שתים עשרה" }
+      ]
+    },
+    {
       "name": "Places and Institutions",
       "wordPairs": [
         { "english": "Town", "hebrew": "עיר" },
@@ -84,6 +102,11 @@
         { "english": "Sister", "hebrew": "אחות" },
         { "english": "Grandfather", "hebrew": "סבא" },
         { "english": "Grandmother", "hebrew": "סבתא" },
+        { "english": "Grandma", "hebrew": "סבתא" },
+        { "english": "Grandpa", "hebrew": "סבא" },
+        { "english": "Mom", "hebrew": "אמא" },
+        { "english": "Dad", "hebrew": "אבא" },
+        { "english": "Baby", "hebrew": "תינוק" },
         { "english": "Grandson", "hebrew": "נכד" },
         { "english": "Granddaughter", "hebrew": "נכדה" },
         { "english": "Uncle", "hebrew": "דוד" },
@@ -189,6 +212,7 @@
         { "english": "Goose", "hebrew": "אווז" },
         { "english": "Cat", "hebrew": "חתול" },
         { "english": "Dog", "hebrew": "כלב" },
+        { "english": "Duck", "hebrew": "ברווז" },
         { "english": "bat", "hebrew": "עטלף" },
         { "english": "Bird", "hebrew": "ציפור" },
         { "english": "Fish", "hebrew": "דג" },
@@ -315,7 +339,9 @@
         { "english": "Wear", "hebrew": "לובש" },
         { "english": "Wearing", "hebrew": "לובש" },
         { "english": "Has", "hebrew": "יש לו/לה" },
-        { "english": "Have", "hebrew": "יש ל" }
+        { "english": "Have", "hebrew": "יש ל" },
+        { "english": "Open", "hebrew": "פתוח" },
+        { "english": "Close", "hebrew": "סגור" }
       ]
     },
     {
@@ -349,7 +375,11 @@
         { "english": "I need to buy a new phone", "hebrew": "אני צריך לקנות טלפון חדש" },
         { "english": "The weather is warm and sunny", "hebrew": "מזג האוויר חם ושמשי" },
         { "english": "My mother is cooking dinner", "hebrew": "אמא שלי מבשלת ארוחת ערב" },
-        { "english": "Good idea", "hebrew": "רעיון טוב" }
+        { "english": "Good idea", "hebrew": "רעיון טוב" },
+        { "english": "I don't like", "hebrew": "אני לא אוהב" },
+        { "english": "I have", "hebrew": "יש לי" },
+        { "english": "I am", "hebrew": "אני" },
+        { "english": "How are you", "hebrew": "מה שלומך" }
       ]
     },
     {
@@ -366,7 +396,13 @@
         { "english": "Eight", "hebrew": "שמונה" },
         { "english": "Fan", "hebrew": "מאוורר" },
         { "english": "Gift", "hebrew": "מתנה" },
-        { "english": "Guitar", "hebrew": "גיטרה" }
+        { "english": "Guitar", "hebrew": "גיטרה" },
+        { "english": "Door", "hebrew": "דלת" },
+        { "english": "Desk", "hebrew": "שולחן כתיבה" },
+        { "english": "Box", "hebrew": "קופסה" },
+        { "english": "Bag", "hebrew": "תיק" },
+        { "english": "Notebook", "hebrew": "מחברת" },
+        { "english": "House", "hebrew": "בית" }
       ]
     },
     {
@@ -596,7 +632,51 @@
         { "english": "Gloves", "hebrew": "כפפות" },
         { "english": "Goose", "hebrew": "אווז" },
         { "english": "Grape", "hebrew": "ענב" },
-        { "english": "Guitar", "hebrew": "גיטרה" }
+        { "english": "Guitar", "hebrew": "גיטרה" },
+        { "english": "Mom", "hebrew": "אמא" },
+        { "english": "Dad", "hebrew": "אבא" },
+        { "english": "Grandma", "hebrew": "סבתא" },
+        { "english": "Grandpa", "hebrew": "סבא" },
+        { "english": "Baby", "hebrew": "תינוק" },
+        { "english": "Sister", "hebrew": "אחות" },
+        { "english": "Brother", "hebrew": "אח" },
+        { "english": "Zero", "hebrew": "אפס" },
+        { "english": "One", "hebrew": "אחת" },
+        { "english": "Two", "hebrew": "שתיים" },
+        { "english": "Three", "hebrew": "שלוש" },
+        { "english": "Four", "hebrew": "ארבע" },
+        { "english": "Five", "hebrew": "חמש" },
+        { "english": "Six", "hebrew": "שש" },
+        { "english": "Seven", "hebrew": "שבע" },
+        { "english": "Nine", "hebrew": "תשע" },
+        { "english": "Ten", "hebrew": "עשר" },
+        { "english": "Eleven", "hebrew": "אחת עשרה" },
+        { "english": "Twelve", "hebrew": "שתים עשרה" },
+        { "english": "White", "hebrew": "לבן" },
+        { "english": "Black", "hebrew": "שחור" },
+        { "english": "Red", "hebrew": "אדום" },
+        { "english": "Blue", "hebrew": "כחול" },
+        { "english": "Green", "hebrew": "ירוק" },
+        { "english": "Gray", "hebrew": "אפור" },
+        { "english": "Yellow", "hebrew": "צהוב" },
+        { "english": "Orange", "hebrew": "כתום" },
+        { "english": "Nose", "hebrew": "אף" },
+        { "english": "Mouth", "hebrew": "פה" },
+        { "english": "Big", "hebrew": "גדול" },
+        { "english": "Small", "hebrew": "קטן" },
+        { "english": "Door", "hebrew": "דלת" },
+        { "english": "Desk", "hebrew": "שולחן כתיבה" },
+        { "english": "Box", "hebrew": "קופסה" },
+        { "english": "Bag", "hebrew": "תיק" },
+        { "english": "Notebook", "hebrew": "מחברת" },
+        { "english": "Computer", "hebrew": "מחשב" },
+        { "english": "House", "hebrew": "בית" },
+        { "english": "Open", "hebrew": "פתוח" },
+        { "english": "Close", "hebrew": "סגור" },
+        { "english": "I don't like", "hebrew": "אני לא אוהב" },
+        { "english": "I have", "hebrew": "יש לי" },
+        { "english": "I am", "hebrew": "אני" },
+        { "english": "How are you", "hebrew": "מה שלומך" }
       ]
     }
   ]
