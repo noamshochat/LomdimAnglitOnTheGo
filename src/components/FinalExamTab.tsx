@@ -1125,7 +1125,7 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
       
       const percentage = Math.round((score / allQuestions.length) * 100);
       const examType = challengeLength === 25 ? 'Mini' : challengeLength === 50 ? 'Quick' : challengeLength === 365 ? 'Complete' : challengeLength === 'thirdGrade' ? 'Third Grade' : challengeLength === 'fifthGrade' ? 'Fifth Grade' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb' : challengeLength === 'hasHave' ? 'Has/Have' : challengeLength === 'byCategory' ? selectedCategory : 'Final';
-      let shareText = `I just completed the ${examType} Final Challenge with a score of ${percentage}%! 🎓📚\n\n`;
+      let shareText = `I just completed the ${examType} with a score of ${percentage}%! 🎓📚\n\n`;
       
       if (incorrectAnswers.length > 0) {
         shareText += `Words to Review (${incorrectAnswers.length}):\n`;
@@ -1372,7 +1372,7 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
   return (
     <ChallengeContainer>
       <ReactCanvasConfetti onInit={onInit} />
-      <Title>Final Challenge - {challengeLength === 25 ? 'Mini' : challengeLength === 50 ? 'Quick' : challengeLength === 365 ? 'Complete' : challengeLength === 'thirdGrade' ? 'Third Grade' : challengeLength === 'fifthGrade' ? 'Fifth Grade' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb' : challengeLength === 'hasHave' ? 'Has/Have' : challengeLength === 'byCategory' ? selectedCategory : 'Unknown'} ({allQuestions.length} Questions)</Title>
+      <Title>{challengeLength === 25 ? 'Mini' : challengeLength === 50 ? 'Quick' : challengeLength === 365 ? 'Complete' : challengeLength === 'thirdGrade' ? 'Third Grade' : challengeLength === 'fifthGrade' ? 'Fifth Grade' : challengeLength === 'auxiliaryVerbs' ? 'Auxiliary Verb' : challengeLength === 'hasHave' ? 'Has/Have' : challengeLength === 'byCategory' ? selectedCategory : 'Unknown'} ({allQuestions.length} Questions)</Title>
       {(challengeLength !== 'auxiliaryVerbs' && challengeLength !== 'hasHave') && (
         <ToggleContainer>
           <ToggleButton 
