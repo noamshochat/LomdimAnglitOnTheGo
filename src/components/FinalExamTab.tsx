@@ -703,7 +703,7 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
     if (challengeLength === 'auxiliaryVerbs') {
       // Get auxiliary verb questions
       sourceWords = auxiliaryVerbs.map(item => ({
-        question: `Complete the sentence: "${item.sentence}"`,
+        question: `"${item.sentence}"`,
         correctAnswer: item.correctAnswer,
         options: item.options,
         category: "Auxiliary Verbs",
@@ -712,7 +712,7 @@ const FinalChallengeTab: React.FC<FinalChallengeTabProps> = ({ initialChallengeT
     } else if (challengeLength === 'hasHave') {
       // Get has/have exercise questions
       sourceWords = hasHaveExercisesData.map(item => ({
-        question: `Complete the sentence: "${item.sentence}"`,
+        question: `"${item.sentence}"`,
         correctAnswer: item.correctAnswer,
         options: item.options,
         category: "Has/Have Exercises",
